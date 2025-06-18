@@ -1,35 +1,58 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const svgNames = [
+    "Personal Card",
+    "Type=Type2",
+    "Type=Type3",
+    "Type=Type4",
+    "Type=Type5",
+    "Type=Type6",
+  ];
 
+  const handlePrev = () => {
+    setCurrentSvgIndex((prevIndex) =>
+      prevIndex === 0 ? svgNames.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentSvgIndex((prevIndex) =>
+      prevIndex === svgNames.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+  // bg-black/40 backdrop-blur-md
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="min-h-screen background bg-[url('/background.svg')] bg-cover w-full">
+        {/* Navbar */}
+        <div className="navbar h-14 w-full bg-black/20 backdrop-blur-xl"></div>
+
+        {/* Main Content */}
+        <div className="flex flex-row w-full">
+          {/* Left Panel */}
+          <div className="w-14 bg-black/20 backdrop-blur-xl "></div>
+
+          {/* Center Panel */}
+         <div className="flex-1 bg-black/20 backdrop-blur-xl w-[80%]  h-[80%] rounded-4xl m-4  flex flex-col gap-4">
+       <div className="top py-5 w-full flex gap-10 px-5 justify-between">
+       <div className="trapezoid w-[30%] h-8 bg-white ml-28 "></div>
+       <div className="trapezoid w-[30%] h-8 bg-white "></div>
+       <div className="trapezoid w-[30%] h-8 bg-white mr-28"></div>
+  </div>
+  <div className="left bg-white/10">
+  
+  
+  </div>
+  <div className="right bg-white/10"></div>
+</div>
+
+          <div className="w-14 bg-black/20 backdrop-blur-xl "></div>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
