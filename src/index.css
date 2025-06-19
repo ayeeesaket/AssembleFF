@@ -2,5 +2,5 @@
 
 .trapezoid {
   /* clip-path: polygon(5% 0%, 100% 95%, 100% 0%, 0% 100%); */
-     clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+  clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
 }
