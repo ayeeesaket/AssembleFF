@@ -298,19 +298,21 @@ function App() {
 
                 {/* Optional: SVG Navigation */}
                 <div className="flex justify-between items-center text-white mt-6">
-                  {selectedGames.map((gameId) => {
-                    const game = dropdownGameOptions.find(
-                      (g) => g.id === gameId
-                    );
-                    return (
-                      <img
-                        key={gameId}
-                        src={game?.image}
-                        alt={game?.name}
-                        className="h-32 object-contain"
-                      />
-                    );
-                  })}
+                  {selectedGames.map((gameId, index) => {
+    const game = dropdownGameOptions.find((g) => g.id === gameId);
+    return (
+      <img
+        key={gameId}
+        src={game?.image}
+        alt={game?.name}
+        className="game-image"
+        style={{
+          animationDelay: `${index * 150}ms`,
+          height: '150px',
+        }}
+      />
+    );
+  })}
                 </div>
               </div>
             )}
