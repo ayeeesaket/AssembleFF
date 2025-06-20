@@ -56,7 +56,7 @@ function App() {
             : gamingInfo
             ? "bg-[url('/GamingInfoBG.svg')]"
             : ""
-        } bg-cover h-screen w-screen`}
+        } bg-cover bg-no-repeat bg-center h-screen w-screen overflow-hidden`}
       >
         {/* Navbar */}
         <div className="lg:h-14 lg:w-full bg-black/20 backdrop-blur-xl"></div>
@@ -111,23 +111,106 @@ function App() {
             <div
               className={`px-5  gap-4 ${
                 !gamingInfo ? "flex justify-between" : ""
-              } lg:h-full lg:w-full text-white bg-white/10`}
+              } lg:h-full lg:w-full text-white -mt-5 `}
             >
               {/* Left Content */}
               {personalInfo && (
                 <>
-                  <div className=" lg:h-full lg:w-[40%] rounded-xl  p-3">
+                  <div className="lg:h-full lg:w-[40%] rounded-xl px-3 pb-2 ">
                     <div className="left-head">Personal Information</div>
+
                     <div className="left-head-text">
                       To create a personalized profile, include details such as
                       your name, age, location, interests, and any relevant
                       experiences. This will help others understand who you are
                       and what you enjoy!
                     </div>
-                    
+
+                    {/* New black background div */}
+                    <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl lg:h-auto lg:w-[90%]  text-white">
+                      {/* Carousel */}
+                      <div className="corousal lg:h-40 bg-white rounded-md"></div>
+
+                      {/* Content */}
+                      <div className="flex flex-col text-sm p-4 space-y-2">
+                        <div className="text-base font-semibold tracking-wide">
+                          USERNAME
+                        </div>
+
+                        {/* Name, Age, Gender */}
+                        <div className="flex justify-between ">
+                          <div>
+                            <div className="text-xs text-gray-300">Name</div>
+                            <div className="font-medium">Vivek Shukla</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-300">Age</div>
+                            <div className="font-medium">0</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-300">Gender</div>
+                            <div className="font-medium">none</div>
+                          </div>
+                        </div>
+
+                        {/* Tagline, Phone */}
+                        <div className="flex justify-between gap-4">
+                          <div className="w-1/2">
+                            <div className="text-xs text-gray-300">Tagline</div>
+                            <div className="font-medium">
+                              BMGC Finalist Player
+                            </div>
+                          </div>
+                          <div className="">
+                            <div className="text-xs text-gray-300">
+                              Phone Number
+                            </div>
+                            <div className="font-medium">76857485696</div>
+                          </div>
+                        </div>
+
+                        {/* Country, State, Pincode */}
+                        <div className="flex justify-between gap-4">
+                          <div>
+                            <div className="text-xs text-gray-300">Country</div>
+                            <div className="font-medium">None</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-300">State</div>
+                            <div className="font-medium">None</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-300">Pincode</div>
+                            <div className="font-medium">324154</div>
+                          </div>
+                        </div>
+
+                        {/* Address */}
+                        <div>
+                          <div className="text-xs text-gray-300">Address</div>
+                          <div className="font-medium">
+                            Sector - 14, Vigyan Nagar, Kota
+                          </div>
+                        </div>
+
+                        {/* Bio */}
+                        <div>
+                          <div className="text-xs text-gray-300">
+                            {" "}
+                            <span className="font-medium">Bio : </span>
+                            Zephyr Mosaic Quasar Ember Nimbus Ponder
+                            Kaleidoscope Bristle Saffron Labyrinth Whimsical
+                            Driftwood Marigold Cipher Eloquent Tapestry Gossamer
+                            Meridian Fathom Serendipity
+                          </div>
+                          <div className=""></div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+
                   {/* Right Content */}
-                  <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
+                  <div className="lg:h-full rounded-xl lg:w-[55%] p-5 pb-2 text-black flex flex-col gap-y-5">
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Full Name"
