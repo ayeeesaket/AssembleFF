@@ -51,12 +51,12 @@ function App() {
       {/* Navbar */}
       <div className="lg:h-14 lg:w-full bg-black/20 backdrop-blur-xl" />
 
-      <div className="flex flex-row w-full">
+      <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
         <div className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
 
         {/* Main Panel */}
-        <div className="flex-1 bg-black/20 backdrop-blur-xl h-full rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
+        <div className="flex-1 bg-black/20 backdrop-blur-xl lg:h-[700px] rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
           {/* Tabs */}
           <div className="py-5 w-full flex gap-10 px-5 justify-between text-center">
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
