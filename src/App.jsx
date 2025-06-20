@@ -17,27 +17,24 @@ function App() {
   ];
 
   const handleDropdownGameSelect = (gameId) => {
+    if (!gameId) return; // ⬅️ This prevents "" from clearing everything
+
     setPersonalInfo(false);
     setEducationalInfo(false);
     setGamingInfo(true);
 
-    setSelectedGames(
-      (prevSelected) =>
-        prevSelected.includes(gameId)
-          ? prevSelected.filter((id) => id !== gameId) // Remove if already selected
-          : [...prevSelected, gameId] // Add new
+    setSelectedGames((prevSelected) =>
+      prevSelected.includes(gameId)
+        ? prevSelected.filter((id) => id !== gameId)
+        : [...prevSelected, gameId]
     );
   };
-
-  
 
   const handleTabClick = (tab) => {
     setPersonalInfo(tab === "PERSONAL");
     setEducationalInfo(tab === "EDUCATIONAL");
     setGamingInfo(tab === "GAMING");
   };
-
-  
 
   return (
     <div
@@ -59,7 +56,7 @@ function App() {
         <div className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
 
         {/* Main Panel */}
-        <div className="flex-1  backdrop-blur-xl h-full rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
+        <div className="flex-1 bg-black/20 backdrop-blur-xl h-full rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
           {/* Tabs */}
           <div className="py-5 w-full flex gap-10 px-5 justify-between text-center">
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
@@ -88,7 +85,7 @@ function App() {
           <div
             className={`px-5 gap-4 ${
               !gamingInfo ? "flex justify-between" : ""
-            } lg:h-full lg:w-full text-white `}
+            } lg:h-full lg:w-full text-white  -mt-5`}
           >
             {/* Personal Info Panel */}
             {personalInfo && (
@@ -96,9 +93,86 @@ function App() {
                 <div className="lg:h-full lg:w-[40%] rounded-xl p-3">
                   <div className="left-head">Personal Information</div>
                   <div className="left-head-text">
-                    To create a personalized profile, include details...
+                    To create a personalized profile, include details such as
+                    your name, age, location, interests, and any relevant
+                    experiences. This will help others understand who you are
+                    and what you enjoy!
+                  </div>
+                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl lg:h-auto lg:w-[90%] p-4 space-y-3 text-white">
+                    {/* Carousel */}
+                    <div className="corousal lg:h-40 bg-white rounded-md"></div>
+
+                    {/* Content */}
+                    <div className="flex flex-col text-sm space-y-3">
+                      <div className="text-base font-semibold tracking-wide">
+                        USERNAME
+                      </div>
+
+                      {/* Name, Age, Gender */}
+                      <div className="flex justify-between gap-4">
+                        <div>
+                          <div className="text-xs text-gray-300">Name</div>
+                          <div className="font-medium">Vivek Shukla</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-gray-300">Age</div>
+                          <div className="font-medium">0</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-gray-300">Gender</div>
+                          <div className="font-medium">none</div>
+                        </div>
+                      </div>
+
+                      {/* Tagline, Phone */}
+                      <div className="flex justify-between gap-4">
+                        <div className="w-1/2">
+                          <div className="text-xs text-gray-300">Tagline</div>
+                          <div className="font-medium">
+                            BMGC Finalist Player
+                          </div>
+                        </div>
+                        <div className="w-1/2">
+                          <div className="text-xs text-gray-300">
+                            Phone Number
+                          </div>
+                          <div className="font-medium">76857485696</div>
+                        </div>
+                      </div>
+
+                      {/* Country, State, Pincode */}
+                      <div className="flex justify-between gap-4">
+                        <div>
+                          <div className="text-xs text-gray-300">Country</div>
+                          <div className="font-medium">None</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-gray-300">State</div>
+                          <div className="font-medium">None</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-gray-300">Pincode</div>
+                          <div className="font-medium">324154</div>
+                        </div>
+                      </div>
+
+                      {/* Address */}
+                      <div>
+                        <div className="text-xs text-gray-300">Address</div>
+                        <div className="font-medium">
+                          Sector - 14, Vigyan Nagar, Kota
+                        </div>
+                      </div>
+
+                      {/* Bio */}
+                      <div>
+                        <div className="text-xs text-gray-300">BIO</div>
+                        <div className="font-medium leading-relaxed"></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+
                 <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
@@ -211,11 +285,17 @@ function App() {
             {/* Gaming Info Panel */}
             {gamingInfo && (
               <div className="lg:flex lg:flex-col lg:gap-6 lg:w-full text-black">
-                <div className="left-head">Gaming Information</div>
-                <div className="left-head-text">
-                  Mention your favorite games, platforms, achievements...
+                <div>
+                  <div className="left-head text-white">Gaming Information</div>
+                  <div className="left-head-text text-white">
+                    When you're talking about your favorite games, make sure to
+                    drop the title, what platform you’re playing on, and the
+                    genre. Don’t forget to mention when it was released and any
+                    cool stuff like high scores or tournament wins. Also, share
+                    your own experiences and strategies—those really show how
+                    much you love gaming!
+                  </div>
                 </div>
-
                 <div className="flex flex-col gap-4">
                   <div className="flex lg:flex-row gap-x-6">
                     <select
@@ -297,8 +377,8 @@ function App() {
                 </div>
 
                 {/* Optional: SVG Navigation */}
-                <div className="flex justify-between items-center text-white mt-6">
-                  {selectedGames.map((gameId) => {
+                <div className="flex flex-wrap justify-between items-center text-white mt-6 gap-4">
+                  {selectedGames.map((gameId, index) => {
                     const game = dropdownGameOptions.find(
                       (g) => g.id === gameId
                     );
@@ -307,7 +387,11 @@ function App() {
                         key={gameId}
                         src={game?.image}
                         alt={game?.name}
-                        className="h-32 object-contain"
+                        className="game-image"
+                        style={{
+                          animationDelay: `${index * 150}ms`,
+                          height: "150px",
+                        }}
                       />
                     );
                   })}
