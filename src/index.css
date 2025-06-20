@@ -4,3 +4,11 @@
   /* clip-path: polygon(5% 0%, 100% 95%, 100% 0%, 0% 100%); */
   clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
 }
+select {
+  color: #9ca3af; /* Tailwind's text-gray-400 to match inputs with placeholder */
+}
+
+select:focus,
+select:valid {
+  color: #000000; /* Black text on selection/focus */
+}
