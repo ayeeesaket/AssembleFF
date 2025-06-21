@@ -74,6 +74,18 @@ function App() {
     setGamingInfo(tab === "GAMING");
   };
 
+  // usestates for all divs
+const [fullName, setFullName] = useState("");
+const [gender, setGender] = useState("");
+const [age, setAge] = useState(""); // keep as string for consistent input behavior
+const [phoneNumber, setPhoneNumber] = useState("");
+const [country, setCountry] = useState("");
+const [state, setState] = useState("");
+const [pinCode, setPinCode] = useState("");
+const [address, setAddress] = useState("");
+const [tagline, setTagline] = useState("");
+const [bio, setBio] = useState("");
+
   return (
     <div
       className={`${
@@ -130,19 +142,19 @@ function App() {
               <>
                 <div className="lg:h-full lg:w-[40%] rounded-xl p-3">
                   <div className="left-head">Personal Information</div>
-                  <div className="left-head-text">
+                  <div className="left-head-text mb-8">
                     To create a personalized profile, include details such as
                     your name, age, location, interests, and any relevant
                     experiences. This will help others understand who you are
                     and what you enjoy!
                   </div>
-                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl lg:h-auto lg:w-[90%]  space-y-3 text-white">
+                  <div className="bg-black/70 2xl:pb-2 backdrop-blur-xl rounded-xl lg:w-[90%] space-y-3 text-white 2xl:h-[60vh]">
                     {/* Carousel */}
 
                     <button
                       onClick={handlePrev}
                       type="button"
-                     className="absolute bg-black/50 w-5  top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                      className="absolute md:top-17 bg-black/50 w-5  top-25 -translate-y-1/2 text-2xl z-10 text-white"
                     >
                       &#x276E;
                     </button>
@@ -151,20 +163,20 @@ function App() {
                     <img
                       src={`/${svgNames[currentSvgIndex]}.png`}
                       alt={`SVG ${currentSvgIndex + 1}`}
-                      className="-mt-4  rounded-t-xl  object-contain"
+                      className="-mt-4 rounded-t-xl object-cover lg:max-h-34 lg:w-full"
                     />
 
                     {/* Right Arrow */}
                     <button
                       onClick={handleNext}
                       type="button"
-                      className="absolute bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                      className="absolute md:top-17 bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
                     >
                       &#x276F;
                     </button>
                     {/* Content */}
-                    <div className="flex flex-col p-4 text-sm space-y-3">
-                      <div className="text-base font-semibold tracking-wide">
+                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2  lg:h-[38vh] justify-between">
+                      <div className="text-base font-semibold tracking-wide text-center">
                         USERNAME
                       </div>
 
@@ -172,31 +184,29 @@ function App() {
                       <div className="flex justify-between gap-4">
                         <div>
                           <div className="text-xs text-gray-300">Name</div>
-                          <div className="font-medium">Vivek Shukla</div>
+                          <div className="font-medium">{fullName}</div>
                         </div>
                         <div>
                           <div className="text-xs text-gray-300">Age</div>
-                          <div className="font-medium">0</div>
+                          <div className="font-medium">{age}</div>
                         </div>
                         <div>
                           <div className="text-xs text-gray-300">Gender</div>
-                          <div className="font-medium">none</div>
+                          <div className="font-medium">{gender}</div>
                         </div>
                       </div>
 
                       {/* Tagline, Phone */}
-                      <div className="flex justify-between gap-4">
-                        <div className="w-1/2">
+                      <div className="flex justify-between gap-4 ">
+                        <div className="">
                           <div className="text-xs text-gray-300">Tagline</div>
-                          <div className="font-medium">
-                            BMGC Finalist Player
-                          </div>
+                          <div className="font-medium">{tagline}</div>
                         </div>
-                        <div className="w-1/2">
-                          <div className="text-xs text-gray-300">
+                        <div className="text-right">
+                          <div className="text-xs text-gray-300 ">
                             Phone Number
                           </div>
-                          <div className="font-medium">76857485696</div>
+                          <div className="font-medium"> {phoneNumber}</div>
                         </div>
                       </div>
 
@@ -204,82 +214,100 @@ function App() {
                       <div className="flex justify-between gap-4">
                         <div>
                           <div className="text-xs text-gray-300">Country</div>
-                          <div className="font-medium">None</div>
+                          <div className="font-medium">{country}</div>
                         </div>
                         <div>
                           <div className="text-xs text-gray-300">State</div>
-                          <div className="font-medium">None</div>
+                          <div className="font-medium">{state}</div>
                         </div>
                         <div>
                           <div className="text-xs text-gray-300">Pincode</div>
-                          <div className="font-medium">324154</div>
+                          <div className="font-medium">{pinCode}</div>
                         </div>
                       </div>
 
                       {/* Address */}
                       <div>
                         <div className="text-xs text-gray-300">Address</div>
-                        <div className="font-medium">
-                          Sector - 14, Vigyan Nagar, Kota
-                        </div>
+                        <div className="font-medium">{address}</div>
                       </div>
 
                       {/* Bio */}
                       <div>
-                        <div className="text-xs text-gray-300">BIO</div>
-                        <div className="font-medium leading-relaxed"></div>
+                        <div className="text-xs text-gray-300">BIO :</div>
+                        <div className="font-medium">{bio}</div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-7">
+                <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Full Name"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                   />
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Gender"
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
                     />
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Age"
                       type="number"
+                      value={age}
+                      onChange={(e) => setAge(e.target.value)}
                     />
                   </div>
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Phone Number"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Country"
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
                     />
                   </div>
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="State"
+                      value={state}
+                      onChange={(e) => setState(e.target.value)}
                     />
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Pin Code"
+                      value={pinCode}
+                      onChange={(e) => setPinCode(e.target.value)}
                     />
                   </div>
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
                   />
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Tagline"
+                    value={tagline}
+                    onChange={(e) => setTagline(e.target.value)}
                   />
                   <textarea
                     className="bg-white lg:w-full lg:h-20 rounded-2xl pl-5 pt-2"
                     placeholder="Bio"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
                   />
                   <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white">
                     Save Your Personal Information
@@ -337,7 +365,7 @@ function App() {
                           <div className="text-xs text-gray-300">Course</div>
                           <div className="font-medium">None</div>
                         </div>
-                        <div>
+                        <div className="text-right">
                           <div className="text-xs text-gray-300">
                             Ending Year
                           </div>
@@ -349,7 +377,7 @@ function App() {
                           <div className="text-xs text-gray-300">State</div>
                           <div className="font-medium">None</div>
                         </div>
-                        <div>
+                        <div className="text-right">
                           <div className="text-xs text-gray-300">Pincode</div>
                           <div className="font-medium">384756</div>
                         </div>
