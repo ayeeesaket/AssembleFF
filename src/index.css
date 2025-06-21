@@ -35,7 +35,7 @@ select:valid {
   height: 100px;
   object-fit: contain;
   border-radius: 10px;
-  animation: slideIn 0.5s ease forwards;
+ 
 }
 .LeftSidebar{
    clip-path: polygon(100% 0, 85% 100%, 0% 100%, 0 0);

@@ -56,7 +56,7 @@ function App() {
         <div className="w-14 LeftSidebar bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
 
         {/* Main Panel */}
-        <div className="flex-1 bg-black/20 backdrop-blur-xl lg:h-[700px] rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
+        <div className="flex-1 bg-black/20 backdrop-blur-xl lg:h-[88vh] rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
           {/* Tabs */}
           <div className="py-5 w-full flex gap-10 px-5 justify-between text-center">
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
@@ -234,7 +234,69 @@ function App() {
                 <div className="lg:h-full lg:w-[40%] rounded-xl p-3">
                   <div className="left-head">Educational Information</div>
                   <div className="left-head-text">
-                    Don’t forget to include your educational details!
+                    Don't forget to include your educational details! Whether
+                    it's your 10th grade, 12th grade, or bachelor's degree, make
+                    sure to highlight any relevant studies that showcase your
+                    skills and dedication to the esports field.
+                  </div>
+                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl lg:h-auto lg:w-[90%] p-4 space-y-3 text-white">
+                    {/* Carousel */}
+                    <div className="corousal lg:h-40 bg-white rounded-md"></div>
+
+                    {/* Content */}
+                    <div className="flex flex-col text-sm space-y-3">
+                      <div className="text-base font-semibold tracking-wide">
+                        USERNAME
+                      </div>
+
+                      {/* Name, Age, Gender */}
+                      <div className="flex justify-between gap-4">
+                        <div>
+                          <div className="text-xs text-gray-300">
+                            Highest Education
+                          </div>
+                          <div className="font-medium">NOne</div>
+                        </div>
+                      </div>
+
+                      {/* Tagline, Phone */}
+                      <div className="flex justify-between gap-4">
+                        <div className="">
+                          <div className="text-xs text-gray-300">
+                            Institute name
+                          </div>
+                          <div className="font-medium">
+                            Jaypee University of engineering and technology
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Country, State, Pincode */}
+                      <div className="flex justify-between gap-4">
+                        <div>
+                          <div className="text-xs text-gray-300">Course</div>
+                          <div className="font-medium">None</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-gray-300">
+                            Ending Year
+                          </div>
+                          <div className="font-medium">None</div>
+                        </div>
+                      </div>
+                      <div className="flex justify-between gap-4">
+                        <div>
+                          <div className="text-xs text-gray-300">State</div>
+                          <div className="font-medium">None</div>
+                        </div>
+                        <div>
+                          <div className="text-xs text-gray-300">
+                            Pincode
+                          </div>
+                          <div className="font-medium">384756</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
@@ -284,7 +346,7 @@ function App() {
 
             {/* Gaming Info Panel */}
             {gamingInfo && (
-              <div className="lg:flex lg:flex-col lg:gap-6 lg:w-full text-black">
+              <div className="lg:flex lg:flex-col lg:gap-4 lg:w-full text-black">
                 <div>
                   <div className="left-head text-white">Gaming Information</div>
                   <div className="left-head-text text-white">
@@ -375,9 +437,19 @@ function App() {
                     </button>
                   </div>
                 </div>
-
+                <div>
+                  <div className="left-head text-white">Gaming Information</div>
+                  <div className="left-head-text text-white">
+                    When you're talking about your favorite games, make sure to
+                    drop the title, what platform you’re playing on, and the
+                    genre. Don’t forget to mention when it was released and any
+                    cool stuff like high scores or tournament wins. Also, share
+                    your own experiences and strategies—those really show how
+                    much you love gaming!
+                  </div>
+                </div>
                 {/* Optional: SVG Navigation */}
-                <div className="flex flex-wrap justify-between items-center text-white mt-6 gap-4">
+                <div className="flex flex-wrap justify-between items-center text-white  gap-4">
                   {selectedGames.map((gameId, index) => {
                     const game = dropdownGameOptions.find(
                       (g) => g.id === gameId
