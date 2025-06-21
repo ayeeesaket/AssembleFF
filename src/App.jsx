@@ -4,6 +4,21 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 function App() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
+  const images = ["/images/image1.jpg", "/images/image2.jpg", "/images/image3.jpg"];
+
+  const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
+  const [personalInfo, setPersonalInfo] = useState(true);
+  const [educationalInfo, setEducationalInfo] = useState(false);
+  const [gamingInfo, setGamingInfo] = useState(false);
+  const [selectedGames, setSelectedGames] = useState([]);
+  const [selectedSocials, setSelectedSocials] = useState([]); // ✅ move this up
+
+  const socialOptions = [
+    { id: "youtube", name: "YouTube" },
+    { id: "discord", name: "Discord" },
+    { id: "twitch", name: "Twitch" },
+    { id: "other", name: "Other" },
+  ];
 
   const handlePrev = () => {
     setCurrentSvgIndex((prevIndex) =>
@@ -16,36 +31,13 @@ function App() {
       prevIndex === svgNames.length - 1 ? 0 : prevIndex + 1
     );
   };
-  const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
-  const [personalInfo, setPersonalInfo] = useState(true);
-  const [educationalInfo, setEducationalInfo] = useState(false);
-  const [gamingInfo, setGamingInfo] = useState(false);
-  const [selectedGames, setSelectedGames] = useState([]);
 
-  const images = [
-    "/images/image1.jpg",
-    "/images/image2.jpg",
-    "/images/image3.jpg",
-  ]; // replace with your own paths
-
-  <Slider
-    dots={true}
-    infinite={true}
-    speed={500}
-    slidesToShow={1}
-    slidesToScroll={1}
-    className="rounded-md"
-  >
-    {images.map((src, index) => (
-      <div key={index}>
-        <img
-          src={src}
-          alt={`Slide ${index + 1}`}
-          className="w-full h-40 object-cover rounded-md"
-        />
-      </div>
-    ))}
-  </Slider>;
+  const handleSocialSelect = (e) => {
+    const value = e.target.value;
+    if (!value || selectedSocials.includes(value)) return;
+    setSelectedSocials((prev) => [...prev, value]);
+    e.target.value = ""; // ✅ correctly inside the function
+  };
 
   const dropdownGameOptions = [
     { id: "bgmi", name: "Battleground Mobile India", image: "/BGMI.png" },
@@ -55,8 +47,7 @@ function App() {
   ];
 
   const handleDropdownGameSelect = (gameId) => {
-    if (!gameId) return; // ⬅️ This prevents "" from clearing everything
-
+    if (!gameId) return;
     setPersonalInfo(false);
     setEducationalInfo(false);
     setGamingInfo(true);
@@ -74,17 +65,17 @@ function App() {
     setGamingInfo(tab === "GAMING");
   };
 
-  // usestates for all divs
-const [fullName, setFullName] = useState("");
-const [gender, setGender] = useState("");
-const [age, setAge] = useState(""); // keep as string for consistent input behavior
-const [phoneNumber, setPhoneNumber] = useState("");
-const [country, setCountry] = useState("");
-const [state, setState] = useState("");
-const [pinCode, setPinCode] = useState("");
-const [address, setAddress] = useState("");
-const [tagline, setTagline] = useState("");
-const [bio, setBio] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [gender, setGender] = useState("");
+  const [age, setAge] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [pinCode, setPinCode] = useState("");
+  const [address, setAddress] = useState("");
+  const [tagline, setTagline] = useState("");
+  const [bio, setBio] = useState("");
+
 
   return (
     <div
@@ -486,31 +477,39 @@ const [bio, setBio] = useState("");
                     </select>
                   </div>
 
-                  <div className="flex lg:flex-row gap-x-6">
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Add Social Links"
-                    />
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="YouTube URL"
-                    />
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Discord URL"
-                    />
-                  </div>
+                 {/* Social Platform Dropdown */}
 
-                  <div className="flex lg:flex-row gap-x-6">
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Twitch URL"
-                    />
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Other Social URL"
-                    />
-                  </div>
+{/* Social Platform Dropdown */}
+<div className="w-full mt-4">
+  <div className="flex">
+  {/* Dropdown for selecting social platform */}
+  <select
+    className="bg-white w-52 h-12 rounded-2xl pl-5"
+    onChange={handleSocialSelect}
+    defaultValue=""
+  >
+    <option value="">Add Social Link</option>
+    {socialOptions.map((opt) => (
+      <option key={opt.id} value={opt.id}>
+        {opt.name}
+      </option>
+    ))}
+  </select>
+
+  {/* Display input fields for selected platforms using flex */}
+  {selectedSocials.length > 0 && (
+    <div className="flex flex-wrap gap-4 ml-4">
+      {selectedSocials.map((platform) => (
+        <input
+          key={platform}
+          className="bg-white h-12 rounded-2xl pl-5 w-52"
+          placeholder={`${platform.charAt(0).toUpperCase() + platform.slice(1)} URL`}
+        />
+      ))}
+    </div>
+  )}
+</div>
+</div>
 
                   <div className="flex lg:flex-row gap-x-6">
                     <select
@@ -556,10 +555,10 @@ const [bio, setBio] = useState("");
                         key={gameId}
                         src={game?.image}
                         alt={game?.name}
-                        className="game-image"
+                        className="game-image 2xl:h-[150px]"
                         style={{
                        
-                          height: "120px",
+                          height: "120px ",
                         }}
                       />
                     );
