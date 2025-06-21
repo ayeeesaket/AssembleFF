@@ -111,7 +111,13 @@ const [bio, setBio] = useState("");
 />
 
         {/* Main Panel */}
-        <div className="flex-1 bg-black/20 backdrop-blur-xl lg:h-[88vh] rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
+   <div
+  className={`${
+    gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
+  } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4`}
+>
+
+
           {/* Tabs */}
           <div className="py-5 w-full flex gap-10 px-5 justify-between text-center">
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
@@ -529,8 +535,8 @@ const [bio, setBio] = useState("");
                   </div>
                 </div>
                 <div>
-                  <div className="left-head text-white">Gaming Information</div>
-                  <div className="left-head-text text-white">
+                  <div className="left-head text-lg text-white">Gaming Information</div>
+                  <div className="left-head-text text-sm text-white ">
                     When you're talking about your favorite games, make sure to
                     drop the title, what platform you’re playing on, and the
                     genre. Don’t forget to mention when it was released and any
@@ -552,8 +558,8 @@ const [bio, setBio] = useState("");
                         alt={game?.name}
                         className="game-image"
                         style={{
-                          animationDelay: `${index * 150}ms`,
-                          height: "150px",
+                       
+                          height: "120px",
                         }}
                       />
                     );
