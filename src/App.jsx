@@ -74,17 +74,26 @@ function App() {
     setGamingInfo(tab === "GAMING");
   };
 
-  // usestates for all divs
-const [fullName, setFullName] = useState("");
-const [gender, setGender] = useState("");
-const [age, setAge] = useState(""); // keep as string for consistent input behavior
-const [phoneNumber, setPhoneNumber] = useState("");
-const [country, setCountry] = useState("");
-const [state, setState] = useState("");
-const [pinCode, setPinCode] = useState("");
-const [address, setAddress] = useState("");
-const [tagline, setTagline] = useState("");
-const [bio, setBio] = useState("");
+  // usestates for all divs in personal info
+  const [fullName, setFullName] = useState("");
+  const [gender, setGender] = useState("");
+  const [age, setAge] = useState(""); // keep as string for consistent input behavior
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
+  const [pinCode, setPinCode] = useState("");
+  const [address, setAddress] = useState("");
+  const [tagline, setTagline] = useState("");
+  const [bio, setBio] = useState("");
+
+  // usestate for all divs in educational information
+  const [highestEducation, setHighestEducation] = useState("");
+  const [institutionName, setInstitutionName] = useState("");
+  const [eduState, setEduState] = useState("");
+  const [eduPinCode, setEduPinCode] = useState("");
+  const [course, setCourse] = useState("");
+  const [startingYear, setStartingYear] = useState("");
+  const [endingYear, setEndingYear] = useState("");
 
   return (
     <div
@@ -103,12 +112,12 @@ const [bio, setBio] = useState("");
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
-    <div
-  className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28"
-  style={{
-     clipPath: "polygon(0% 0%, 1000% 50%, 1000% 50%, 0% 100%)"
-  }}
-/>
+        <div
+          className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28"
+          style={{
+            clipPath: "polygon(0% 0%, 1000% 50%, 1000% 50%, 0% 100%)",
+          }}
+        />
 
         {/* Main Panel */}
         <div className="flex-1 bg-black/20 backdrop-blur-xl lg:h-[88vh] rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
@@ -180,7 +189,7 @@ const [bio, setBio] = useState("");
                       &#x276F;
                     </button>
                     {/* Content */}
-                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2  2xl:h-[38vh] justify-between">
+                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2  2xl:h-[38vh] justify-between overflow-hidden">
                       <div className="text-base font-semibold tracking-wide text-center">
                         USERNAME
                       </div>
@@ -240,7 +249,9 @@ const [bio, setBio] = useState("");
                       {/* Bio */}
                       <div>
                         <div className="text-xs text-gray-300">BIO :</div>
-                        <div className="font-medium">{bio}</div>
+                        <div className="font-medium break-words whitespace-pre-line">
+                          {bio}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -332,13 +343,13 @@ const [bio, setBio] = useState("");
                     sure to highlight any relevant studies that showcase your
                     skills and dedication to the esports field.
                   </div>
-                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl lg:h-auto lg:w-[90%] p-4 space-y-3 text-white">
+                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] lg:w-[90%]  space-y-3 text-white">
                     {/* Carousel */}
                     <div className="corousal lg:h-40 bg-white rounded-md"></div>
 
                     {/* Content */}
-                    <div className="flex flex-col text-sm space-y-3">
-                      <div className="text-base font-semibold tracking-wide">
+                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2  2xl:h-[30vh] justify-between overflow-hidden">
+                      <div className="text-base font-semibold tracking-wide text-center">
                         USERNAME
                       </div>
 
@@ -348,7 +359,7 @@ const [bio, setBio] = useState("");
                           <div className="text-xs text-gray-300">
                             Highest Education
                           </div>
-                          <div className="font-medium">NOne</div>
+                          <div className="font-medium">{highestEducation}</div>
                         </div>
                       </div>
 
@@ -358,9 +369,7 @@ const [bio, setBio] = useState("");
                           <div className="text-xs text-gray-300">
                             Institute name
                           </div>
-                          <div className="font-medium">
-                            Jaypee University of engineering and technology
-                          </div>
+                          <div className="font-medium">{institutionName}</div>
                         </div>
                       </div>
 
@@ -368,23 +377,23 @@ const [bio, setBio] = useState("");
                       <div className="flex justify-between gap-4">
                         <div>
                           <div className="text-xs text-gray-300">Course</div>
-                          <div className="font-medium">None</div>
+                          <div className="font-medium">{course}</div>
                         </div>
                         <div className="text-right">
                           <div className="text-xs text-gray-300">
                             Ending Year
                           </div>
-                          <div className="font-medium">None</div>
+                          <div className="font-medium">{endingYear}</div>
                         </div>
                       </div>
                       <div className="flex justify-between gap-4">
                         <div>
                           <div className="text-xs text-gray-300">State</div>
-                          <div className="font-medium">None</div>
+                          <div className="font-medium">{eduState}</div>
                         </div>
                         <div className="text-right">
                           <div className="text-xs text-gray-300">Pincode</div>
-                          <div className="font-medium">384756</div>
+                          <div className="font-medium">{eduPinCode}</div>
                         </div>
                       </div>
                     </div>
@@ -394,33 +403,47 @@ const [bio, setBio] = useState("");
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Highest Education"
+                    value={highestEducation}
+                    onChange={(e) => setHighestEducation(e.target.value)}
                   />
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Institution Name"
+                    value={institutionName}
+                    onChange={(e) => setInstitutionName(e.target.value)}
                   />
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="State"
+                      value={eduState}
+                      onChange={(e) => setEduState(e.target.value)}
                     />
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Pin Code"
+                      value={eduPinCode}
+                      onChange={(e) => setEduPinCode(e.target.value)}
                     />
                   </div>
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Course"
+                    value={course}
+                    onChange={(e) => setCourse(e.target.value)}
                   />
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Starting Year"
+                      value={startingYear}
+                      onChange={(e) => setStartingYear(e.target.value)}
                     />
                     <input
                       className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Ending Year"
+                      value={endingYear}
+                      onChange={(e) => setEndingYear(e.target.value)}
                     />
                   </div>
                   <div className="flex lg:flex-row lg:gap-x-10">
@@ -565,12 +588,12 @@ const [bio, setBio] = useState("");
         </div>
 
         {/* Right Sidebar */}
-        <div className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" 
-        style={{
-    clipPath: "polygon(100% 0%, -900% 50%, -900% 50%, 100% 100%)"
-
-
-  }}/>
+        <div
+          className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28"
+          style={{
+            clipPath: "polygon(100% 0%, -900% 50%, -900% 50%, 100% 100%)",
+          }}
+        />
       </div>
     </div>
   );
