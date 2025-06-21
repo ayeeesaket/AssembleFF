@@ -91,7 +91,12 @@ function App() {
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
-        <div className="w-14 LeftSidebar bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
+    <div
+  className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28"
+  style={{
+     clipPath: "polygon(0% 0%, 1000% 50%, 1000% 50%, 0% 100%)"
+  }}
+/>
 
         {/* Main Panel */}
         <div className="flex-1 bg-black/20 backdrop-blur-xl lg:h-[88vh] rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
@@ -136,13 +141,13 @@ function App() {
                     experiences. This will help others understand who you are
                     and what you enjoy!
                   </div>
-                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl lg:h-auto lg:w-[90%]  space-y-3 text-white">
+                  <div className="bg-black/70 backdrop-blur-xl mt-4 2xl:pb-2 rounded-xl lg:h-auto lg:w-[90%]  space-y-3 text-white">
                     {/* Carousel */}
 
                     <button
                       onClick={handlePrev}
                       type="button"
-                     className="absolute bg-black/50 w-5  top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                     className="absolute md:top-17 bg-black/50 w-5  top-25 -translate-y-1/2 text-2xl z-10 text-white"
                     >
                       &#x276E;
                     </button>
@@ -151,19 +156,19 @@ function App() {
                     <img
                       src={`/${svgNames[currentSvgIndex]}.png`}
                       alt={`SVG ${currentSvgIndex + 1}`}
-                      className="-mt-4  rounded-t-xl  object-contain"
+                     className="-mt-4  rounded-t-xl object-cover lg:max-h-34 lg:w-full"
                     />
 
                     {/* Right Arrow */}
                     <button
                       onClick={handleNext}
                       type="button"
-                      className="absolute bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                      className="absolute md:top-17 bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
                     >
                       &#x276F;
                     </button>
                     {/* Content */}
-                    <div className="flex flex-col p-4 text-sm space-y-3">
+                    <div className="flex flex-col p-4 pt-0 text-sm md:space-y-2  space-y-3 lg:max-h-[38vh] ">
                       <div className="text-base font-semibold tracking-wide">
                         USERNAME
                       </div>
@@ -226,14 +231,17 @@ function App() {
 
                       {/* Bio */}
                       <div>
-                        <div className="text-xs text-gray-300">BIO</div>
-                        <div className="font-medium leading-relaxed"></div>
+                        <div className="text-xs text-gray-300">
+                          <span className="font-bold">BIO : </span> Taurus, A Gaming
+                          freak, Valorant Player, Finding anonymous games to
+                          play and conquer them, Hard Level Player of GOD OF WAR{" "}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-7">
+                <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Full Name"
@@ -532,7 +540,12 @@ function App() {
         </div>
 
         {/* Right Sidebar */}
-        <div className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
+        <div className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" 
+        style={{
+    clipPath: "polygon(100% 0%, -900% 50%, -900% 50%, 100% 100%)"
+
+
+  }}/>
       </div>
     </div>
   );
