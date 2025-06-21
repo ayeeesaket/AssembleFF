@@ -103,7 +103,12 @@ const [bio, setBio] = useState("");
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
-        <div className="w-14 LeftSidebar bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
+    <div
+  className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28"
+  style={{
+     clipPath: "polygon(0% 0%, 1000% 50%, 1000% 50%, 0% 100%)"
+  }}
+/>
 
         {/* Main Panel */}
         <div className="flex-1 bg-black/20 backdrop-blur-xl lg:h-[88vh] rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
@@ -175,7 +180,7 @@ const [bio, setBio] = useState("");
                       &#x276F;
                     </button>
                     {/* Content */}
-                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2  lg:h-[38vh] justify-between">
+                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2  2xl:h-[38vh] justify-between">
                       <div className="text-base font-semibold tracking-wide text-center">
                         USERNAME
                       </div>
@@ -560,7 +565,12 @@ const [bio, setBio] = useState("");
         </div>
 
         {/* Right Sidebar */}
-        <div className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
+        <div className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" 
+        style={{
+    clipPath: "polygon(100% 0%, -900% 50%, -900% 50%, 100% 100%)"
+
+
+  }}/>
       </div>
     </div>
   );
