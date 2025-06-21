@@ -1,13 +1,51 @@
 import { useState } from "react";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 function App() {
-  const svgNames = [];
+  const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
 
+  const handlePrev = () => {
+    setCurrentSvgIndex((prevIndex) =>
+      prevIndex === 0 ? svgNames.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentSvgIndex((prevIndex) =>
+      prevIndex === svgNames.length - 1 ? 0 : prevIndex + 1
+    );
+  };
   const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
   const [personalInfo, setPersonalInfo] = useState(true);
   const [educationalInfo, setEducationalInfo] = useState(false);
   const [gamingInfo, setGamingInfo] = useState(false);
   const [selectedGames, setSelectedGames] = useState([]);
+
+  const images = [
+    "/images/image1.jpg",
+    "/images/image2.jpg",
+    "/images/image3.jpg",
+  ]; // replace with your own paths
+
+  <Slider
+    dots={true}
+    infinite={true}
+    speed={500}
+    slidesToShow={1}
+    slidesToScroll={1}
+    className="rounded-md"
+  >
+    {images.map((src, index) => (
+      <div key={index}>
+        <img
+          src={src}
+          alt={`Slide ${index + 1}`}
+          className="w-full h-40 object-cover rounded-md"
+        />
+      </div>
+    ))}
+  </Slider>;
 
   const dropdownGameOptions = [
     { id: "bgmi", name: "Battleground Mobile India", image: "/BGMI.png" },
@@ -53,7 +91,7 @@ function App() {
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
-        <div className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
+        <div className="w-14 LeftSidebar bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28" />
 
         {/* Main Panel */}
         <div className="flex-1 bg-black/20 backdrop-blur-xl lg:h-[88vh] rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4">
@@ -98,12 +136,34 @@ function App() {
                     experiences. This will help others understand who you are
                     and what you enjoy!
                   </div>
-                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl lg:h-auto lg:w-[90%] p-4 space-y-3 text-white">
+                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl lg:h-auto lg:w-[90%]  space-y-3 text-white">
                     {/* Carousel */}
-                    <div className="corousal lg:h-40 bg-white rounded-md"></div>
 
+                    <button
+                      onClick={handlePrev}
+                      type="button"
+                     className="absolute bg-black/50 w-5  top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                    >
+                      &#x276E;
+                    </button>
+
+                    {/* Image */}
+                    <img
+                      src={`/${svgNames[currentSvgIndex]}.png`}
+                      alt={`SVG ${currentSvgIndex + 1}`}
+                      className="-mt-4  rounded-t-xl  object-contain"
+                    />
+
+                    {/* Right Arrow */}
+                    <button
+                      onClick={handleNext}
+                      type="button"
+                      className="absolute bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                    >
+                      &#x276F;
+                    </button>
                     {/* Content */}
-                    <div className="flex flex-col text-sm space-y-3">
+                    <div className="flex flex-col p-4 text-sm space-y-3">
                       <div className="text-base font-semibold tracking-wide">
                         USERNAME
                       </div>
@@ -173,7 +233,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
+                <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-7">
                   <input
                     className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Full Name"
@@ -290,9 +350,7 @@ function App() {
                           <div className="font-medium">None</div>
                         </div>
                         <div>
-                          <div className="text-xs text-gray-300">
-                            Pincode
-                          </div>
+                          <div className="text-xs text-gray-300">Pincode</div>
                           <div className="font-medium">384756</div>
                         </div>
                       </div>
