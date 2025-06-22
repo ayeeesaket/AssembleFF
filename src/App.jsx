@@ -4,6 +4,21 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 function App() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
+  const images = ["/images/image1.jpg", "/images/image2.jpg", "/images/image3.jpg"];
+
+  const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
+  const [personalInfo, setPersonalInfo] = useState(true);
+  const [educationalInfo, setEducationalInfo] = useState(false);
+  const [gamingInfo, setGamingInfo] = useState(false);
+  const [selectedGames, setSelectedGames] = useState([]);
+  const [selectedSocials, setSelectedSocials] = useState([]); // ✅ move this up
+
+  const socialOptions = [
+    { id: "youtube", name: "YouTube" },
+    { id: "discord", name: "Discord" },
+    { id: "twitch", name: "Twitch" },
+    { id: "other", name: "Other" },
+  ];
 
   const handlePrev = () => {
     setCurrentSvgIndex((prevIndex) =>
@@ -16,36 +31,13 @@ function App() {
       prevIndex === svgNames.length - 1 ? 0 : prevIndex + 1
     );
   };
-  const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
-  const [personalInfo, setPersonalInfo] = useState(true);
-  const [educationalInfo, setEducationalInfo] = useState(false);
-  const [gamingInfo, setGamingInfo] = useState(false);
-  const [selectedGames, setSelectedGames] = useState([]);
 
-  const images = [
-    "/images/image1.jpg",
-    "/images/image2.jpg",
-    "/images/image3.jpg",
-  ]; // replace with your own paths
-
-  <Slider
-    dots={true}
-    infinite={true}
-    speed={500}
-    slidesToShow={1}
-    slidesToScroll={1}
-    className="rounded-md"
-  >
-    {images.map((src, index) => (
-      <div key={index}>
-        <img
-          src={src}
-          alt={`Slide ${index + 1}`}
-          className="w-full h-40 object-cover rounded-md"
-        />
-      </div>
-    ))}
-  </Slider>;
+  const handleSocialSelect = (e) => {
+    const value = e.target.value;
+    if (!value || selectedSocials.includes(value)) return;
+    setSelectedSocials((prev) => [...prev, value]);
+    e.target.value = ""; // ✅ correctly inside the function
+  };
 
   const dropdownGameOptions = [
     { id: "bgmi", name: "Battleground Mobile India", image: "/BGMI.png" },
@@ -55,8 +47,7 @@ function App() {
   ];
 
   const handleDropdownGameSelect = (gameId) => {
-    if (!gameId) return; // ⬅️ This prevents "" from clearing everything
-
+    if (!gameId) return;
     setPersonalInfo(false);
     setEducationalInfo(false);
     setGamingInfo(true);
@@ -195,7 +186,7 @@ function App() {
                       &#x276F;
                     </button>
                     {/* Content */}
-                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2  2xl:h-[38vh] justify-between overflow-hidden">
+                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[36vh]  2xl:h-[38vh] justify-between overflow-hidden">
                       <div className="text-base font-semibold tracking-wide text-center">
                         USERNAME
                       </div>
@@ -341,8 +332,8 @@ function App() {
             {/* Educational Info Panel */}
             {educationalInfo && (
               <>
-                <div className="lg:h-full lg:w-[40%] rounded-xl p-3">
-                  <div className="left-head">Educational Information</div>
+                <div className="lg:h-full lg:w-[40%]  rounded-xl p-3">
+                  <div className="left-head ">Educational Information</div>
                   <div className="left-head-text">
                     Don't forget to include your educational details! Whether
                     it's your 10th grade, 12th grade, or bachelor's degree, make
@@ -351,11 +342,11 @@ function App() {
                   </div>
                   <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] lg:w-[90%]  space-y-3 text-white">
                     {/* Carousel */}
-                    <div className="corousal lg:h-40 bg-white rounded-md"></div>
-
+                    <div className="corousal lg:h-40 rounded-md"><img src="/cyberman.png" alt="" srcset="" className="lg:h-40 lg:w-full rounded-t-2xl"/></div>
+                       
                     {/* Content */}
-                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2  2xl:h-[30vh] justify-between overflow-hidden">
-                      <div className="text-base font-semibold tracking-wide text-center">
+                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[32vh]  2xl:h-[30vh] justify-between overflow-hidden">
+                      <div className="text-base font-semibold  tracking-wide text-center">
                         USERNAME
                       </div>
 
@@ -509,31 +500,39 @@ function App() {
                     </select>
                   </div>
 
-                  <div className="flex lg:flex-row gap-x-6">
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Add Social Links"
-                    />
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="YouTube URL"
-                    />
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Discord URL"
-                    />
-                  </div>
+                 {/* Social Platform Dropdown */}
 
-                  <div className="flex lg:flex-row gap-x-6">
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Twitch URL"
-                    />
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Other Social URL"
-                    />
-                  </div>
+{/* Social Platform Dropdown */}
+<div className="w-full mt-1">
+  <div className="flex">
+  {/* Dropdown for selecting social platform */}
+  <select
+    className="bg-white w-52 h-12 rounded-2xl pl-5"
+    onChange={handleSocialSelect}
+    defaultValue=""
+  >
+    <option value="">Add Social Link</option>
+    {socialOptions.map((opt) => (
+      <option key={opt.id} value={opt.id}>
+        {opt.name}
+      </option>
+    ))}
+  </select>
+
+  {/* Display input fields for selected platforms using flex */}
+  {selectedSocials.length > 0 && (
+    <div className="flex flex-wrap gap-4 ml-4">
+      {selectedSocials.map((platform) => (
+        <input
+          key={platform}
+          className="bg-white h-12 rounded-2xl pl-5 w-52"
+          placeholder={`${platform.charAt(0).toUpperCase() + platform.slice(1)} URL`}
+        />
+      ))}
+    </div>
+  )}
+</div>
+</div>
 
                   <div className="flex lg:flex-row gap-x-6">
                     <select
@@ -579,10 +578,10 @@ function App() {
                         key={gameId}
                         src={game?.image}
                         alt={game?.name}
-                        className="game-image"
+                        className="game-image 2xl:h-[150px]"
                         style={{
                        
-                          height: "120px",
+                          height: "150px ",
                         }}
                       />
                     );
