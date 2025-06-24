@@ -5,6 +5,7 @@ import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { ImCheckboxChecked } from "react-icons/im";
 
 import Slider from "react-slick";
+import MultiSelect from "./component/Multiselect";
 import CustomGameDropdown from "./component/CustomDropdown";
 function App() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
@@ -152,187 +153,193 @@ function App() {
 
           {/* Panels */}
           <div
-            className={`px-5 gap-4 ${
+            className={`px-5  ${
               !gamingInfo ? "flex justify-between" : ""
-            } lg:h-full lg:w-full text-white  -mt-5`}
+            } lg:h-full lg:w-full text-white -mt-5`}
           >
             {/* Personal Info Panel */}
             {personalInfo && (
               <>
-                <div className="lg:h-full lg:w-[40%] rounded-xl p-3">
-                  <div className="left-head">Personal Information</div>
-                  <div className="left-head-text mb-8">
-                    To create a personalized profile, include details such as
-                    your name, age, location, interests, and any relevant
-                    experiences. This will help others understand who you are
-                    and what you enjoy!
-                  </div>
-                  <div className="bg-black/70 2xl:pb-2 backdrop-blur-xl rounded-xl lg:w-[90%] space-y-3 text-white 2xl:h-[60vh]">
-                    {/* Carousel */}
+                <div className="flex   px-4">
+                  <div className="lg:h-full lg:w-[45%] rounded-xl  pt-8 ">
+                    <div className="bg-black/70 2xl:pb-2 backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white 2xl:h-[72vh]">
+                      {/* Carousel */}
 
-                    <button
-                      onClick={handlePrev}
-                      type="button"
-                      className="absolute md:top-17 bg-black/50 w-5  top-25 -translate-y-1/2 text-2xl z-10 text-white"
-                    >
-                      &#x276E;
-                    </button>
+                      <button
+                        onClick={handlePrev}
+                        type="button"
+                        className="absolute md:top-17 2xl:top-25 bg-black/50 w-5   -translate-y-1/2 text-2xl z-10 text-white"
+                      >
+                        &#x276E;
+                      </button>
 
-                    {/* Image */}
-                    <img
-                      src={`/${svgNames[currentSvgIndex]}.png`}
-                      alt={`SVG ${currentSvgIndex + 1}`}
-                      className="-mt-4 rounded-t-xl object-cover lg:max-h-34 lg:w-full"
-                    />
+                      {/* Image */}
+                      <img
+                        src={`/${svgNames[currentSvgIndex]}.png`}
+                        alt={`SVG ${currentSvgIndex + 1}`}
+                        className="-mt-4 rounded-t-xl object-cover lg:max-h-50 lg:w-full"
+                      />
 
-                    {/* Right Arrow */}
-                    <button
-                      onClick={handleNext}
-                      type="button"
-                      className="absolute md:top-17 bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
-                    >
-                      &#x276F;
-                    </button>
-                    {/* Content */}
-                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[36vh]  2xl:h-[38vh] justify-between overflow-hidden">
-                      <div className="text-base font-semibold tracking-wide text-center">
-                        USERNAME
-                      </div>
-
-                      {/* Name, Age, Gender */}
-                      <div className="flex justify-between gap-4">
-                        <div>
-                          <div className="text-xs text-gray-300">Name</div>
-                          <div className="font-medium">{fullName}</div>
+                      {/* Right Arrow */}
+                      <button
+                        onClick={handleNext}
+                        type="button"
+                        className="absolute md:top-17 2xl:top-25 bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                      >
+                        &#x276F;
+                      </button>
+                      {/* Content */}
+                      <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[36vh]  2xl:h-[38vh] justify-between overflow-hidden">
+                        <div className="text-base font-semibold tracking-wide text-center">
+                          USERNAME
                         </div>
-                        <div>
-                          <div className="text-xs text-gray-300">Age</div>
-                          <div className="font-medium">{age}</div>
-                        </div>
-                        <div>
-                          <div className="text-xs text-gray-300">Gender</div>
-                          <div className="font-medium">{gender}</div>
-                        </div>
-                      </div>
 
-                      {/* Tagline, Phone */}
-                      <div className="flex justify-between gap-4 ">
-                        <div className="">
-                          <div className="text-xs text-gray-300">Tagline</div>
-                          <div className="font-medium">{tagline}</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="text-xs text-gray-300 ">
-                            Phone Number
+                        <div className="flex justify-between gap-4">
+                          <div>
+                            <div className="text-sm text-gray-300">Name</div>{" "}
+                            <div className="text-base font-medium">
+                              {fullName}
+                            </div>{" "}
                           </div>
-                          <div className="font-medium"> {phoneNumber}</div>
+                          <div>
+                            <div className="text-xs text-gray-300">Age</div>
+                            <div className="text-base font-medium">{age}</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-xs text-gray-300 ">Gender</div>
+                            <div className=" text-base font-medium">
+                              {gender}
+                            </div>
+                          </div>
                         </div>
-                      </div>
 
-                      {/* Country, State, Pincode */}
-                      <div className="flex justify-between gap-4">
-                        <div>
-                          <div className="text-xs text-gray-300">Country</div>
-                          <div className="font-medium">{country}</div>
+                        {/* Tagline, Phone */}
+                        <div className="flex justify-between gap-4 ">
+                          <div className="">
+                            <div className="text-xs text-gray-300">Tagline</div>
+                            <div className="font-medium text-base">
+                              {tagline}
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-xs text-gray-300 ">
+                              Phone Number
+                            </div>
+                            <div className="font-medium text-base">
+                              {" "}
+                              {phoneNumber}
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <div className="text-xs text-gray-300">State</div>
-                          <div className="font-medium">{state}</div>
-                        </div>
-                        <div>
-                          <div className="text-xs text-gray-300">Pincode</div>
-                          <div className="font-medium">{pinCode}</div>
-                        </div>
-                      </div>
 
-                      {/* Address */}
-                      <div>
-                        <div className="text-xs text-gray-300">Address</div>
-                        <div className="font-medium">{address}</div>
-                      </div>
-
-                      {/* Bio */}
-                      <div>
-                        <div className="text-xs text-gray-300">BIO :</div>
-                        <div className="font-medium break-words whitespace-pre-line">
-                          {bio}
+                        {/* Country, State, Pincode */}
+                        <div className="flex justify-between gap-4">
+                          <div>
+                            <div className="text-xs text-gray-300">Country</div>
+                            <div className="font-medium text-base">
+                              {country}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-300">State</div>
+                            <div className="font-medium text-base">{state}</div>
+                          </div>
+                          <div>
+                            <div className="text-xs text-gray-300">Pincode</div>
+                            <div className="font-medium text-base">
+                              {pinCode}
+                            </div>
+                          </div>
                         </div>
+
+                        {/* Address */}
+                        <div>
+                          <div className="text-xs text-gray-300">Address</div>
+                          <div className="font-medium text-base">{address}</div>
+                        </div>
+
+                        {/* Bio */}
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
-                  <input
-                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                    placeholder="Full Name"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                  <div className="flex lg:flex-row lg:gap-x-10">
+                  <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-4">
+                    <div className="text-white">
+                      <div className="left-head ">Personal Information</div>
+                      <div className="left-head-text">
+                        To create a personalized profile, include details such
+                        as your name, age, location, interests, and any relevant
+                        experiences. This will help others understand who you
+                        are and what you enjoy!
+                      </div>
+                    </div>
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Gender"
-                      value={gender}
-                      onChange={(e) => setGender(e.target.value)}
+                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      placeholder="Full Name"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                    />
+                    <div className="flex lg:flex-row lg:gap-x-10">
+                      <MultiSelect
+                        options={["Male", "Female", "Prefer not to say"]}
+                        placeholder="Gender"
+                        multiSelect={false}
+                        onChange={(value) => setGender(value)}
+                      />
+
+                      <input
+                        className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                        placeholder="Age"
+                        type="number"
+                        value={age}
+                        onChange={(e) => setAge(e.target.value)}
+                      />
+                    </div>
+                    <div className="flex lg:flex-row lg:gap-x-10">
+                      <input
+                        className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                        placeholder="Phone Number"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                      <input
+                        className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                        placeholder="Country"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                      />
+                    </div>
+                    <div className="flex lg:flex-row lg:gap-x-10">
+                      <input
+                        className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                        placeholder="State"
+                        value={state}
+                        onChange={(e) => setState(e.target.value)}
+                      />
+                      <input
+                        className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                        placeholder="Pin Code"
+                        value={pinCode}
+                        onChange={(e) => setPinCode(e.target.value)}
+                      />
+                    </div>
+                    <input
+                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      placeholder="Address"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
                     />
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Age"
-                      type="number"
-                      value={age}
-                      onChange={(e) => setAge(e.target.value)}
+                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      placeholder="Tagline"
+                      value={tagline}
+                      onChange={(e) => setTagline(e.target.value)}
                     />
+
+                    <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white">
+                      Save Your Personal Information
+                    </button>
                   </div>
-                  <div className="flex lg:flex-row lg:gap-x-10">
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Phone Number"
-                      value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
-                    />
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Country"
-                      value={country}
-                      onChange={(e) => setCountry(e.target.value)}
-                    />
-                  </div>
-                  <div className="flex lg:flex-row lg:gap-x-10">
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="State"
-                      value={state}
-                      onChange={(e) => setState(e.target.value)}
-                    />
-                    <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      placeholder="Pin Code"
-                      value={pinCode}
-                      onChange={(e) => setPinCode(e.target.value)}
-                    />
-                  </div>
-                  <input
-                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                    placeholder="Address"
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                  <input
-                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                    placeholder="Tagline"
-                    value={tagline}
-                    onChange={(e) => setTagline(e.target.value)}
-                  />
-                  <textarea
-                    className="bg-white lg:w-full lg:h-20 rounded-2xl pl-5 pt-2"
-                    placeholder="Bio"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                  />
-                  <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white">
-                    Save Your Personal Information
-                  </button>
                 </div>
               </>
             )}
@@ -464,7 +471,7 @@ function App() {
                     <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white text-white">
                       Skip for Now
                     </button>
-                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white bg-black text-white">
+                    <button className="lg:w-full lg:h-12 rounded-xl  bg-black text-white">
                       Save Your Educational Information
                     </button>
                   </div>
@@ -488,57 +495,56 @@ function App() {
                 </div>
                 <div className="flex flex-col gap-4">
                   <div className="flex lg:flex-row gap-x-6">
-                    <select
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      defaultValue=""
-                      
-                    >
-                      <option value="" type="checkbox">Select Level</option>
-                      <option value="newbie">Newbie</option>
-                      <option value="beginner">Beginner</option>
-                      <option value="intermediate">Intermediate</option>
-                      <option value="pro">Pro</option>
-                    </select>
-                    <select
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      defaultValue=""
-                    >
-                      <option value="">Gaming Platform</option>
-                      <option value="mobile">Mobile</option>
-                      <option value="pc">PC or Desktop</option>
-                      <option value="both">Both</option>
-                    </select>
-                    <select
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
-                      defaultValue=""
-                    >
-                      <option value="">Gaming Server</option>
-                      <option value="asia">Asia</option>
-                      <option value="europe">Europe</option>
-                    </select>
+                    <MultiSelect
+                      options={["Newbie", "Beginner", "Intermediate", "Pro"]}
+                      placeholder="Select Level"
+                      multiSelect={false}
+                      onChange={(selectedLevel) => {
+                        console.log("Selected Level:", selectedLevel);
+                      }}
+                    />
+
+                    <MultiSelect
+                      options={["Mobile", "PC or Desktop", "Both"]}
+                      placeholder="Gaming Platform"
+                      multiSelect={false}
+                      onChange={(selected) => {
+                        console.log("Selected Gaming Platform:", selected);
+                      }}
+                    />
+                    <MultiSelect
+                      options={["Asia", "Europe"]}
+                      placeholder="Gaming Server"
+                      multiSelect={false}
+                      onChange={(selected) => {
+                        console.log("Selected Gaming Server:", selected);
+                      }}
+                    />
                   </div>
 
                   <div className="w-full mt-1">
                     <div className="flex">
-                      <select
-                        className="bg-white w-52 h-12 rounded-2xl pl-5"
-                        onChange={handleSocialSelect}
-                        defaultValue=""
-                      >
-                        <option value="">Add Social Link</option>
-                        {socialOptions.map((opt) => (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.name}
-                          </option>
-                        ))}
-                      </select>
+                      {/* Custom dropdown without external array */}
+                      <div className="w-52">
+                        <MultiSelect
+                          options={[
+                            "Facebook",
+                            "Twitter",
+                            "Instagram",
+                            "LinkedIn",
+                          ]}
+                          placeholder="Add Social Link"
+                          onChange={(selected) => setSelectedSocials(selected)}
+                        />
+                      </div>
 
+                      {/* Show input fields for selected socials */}
                       {selectedSocials.length > 0 && (
                         <div className="flex flex-wrap gap-4 ml-4">
                           {selectedSocials.map((platform) => (
                             <input
                               key={platform}
-                              className="bg-white h-12 rounded-2xl pl-5 w-52"
+                              className="bg-white h-12 rounded-xl pl-5 md:w-52"
                               placeholder={`${
                                 platform.charAt(0).toUpperCase() +
                                 platform.slice(1)
@@ -550,15 +556,16 @@ function App() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col lg:flex-row gap-x-6">
+                  <div className="flex lg:flex-row gap-x-6">
                     <CustomGameDropdown
                       selectedGames={selectedGames}
                       setSelectedGames={setSelectedGames}
                     />
-                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white text-white">
+
+                    <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white">
                       Skip for Now
                     </button>
-                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white bg-black text-white">
+                    <button className="lg:w-full lg:h-12 rounded-xl  bg-black text-white">
                       Add Gaming Details Of Each Game
                     </button>
                   </div>
@@ -578,7 +585,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap md:gap-20 items-center text-white gap-4">
+                <div className="flex flex-wrap  md:gap-16 items-center text-white gap-4">
                   {selectedGames.map((gameId) => {
                     const game = dropdownGameOptions.find(
                       (g) => g.id === gameId
@@ -586,7 +593,7 @@ function App() {
                     return (
                       <div
                         key={gameId}
-                        className=" text-black rounded-xl  flex flex-col items-center"
+                        className=" text-black rounded-xl p-4 w-[220px] flex flex-col items-center "
                       >
                         <img
                           src={game?.image}
@@ -597,6 +604,7 @@ function App() {
                           className="w-full h-32 object-contain rounded-xl mb-2"
                         />
                        
+                        
                       </div>
                     );
                   })}
