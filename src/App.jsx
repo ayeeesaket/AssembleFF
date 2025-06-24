@@ -70,10 +70,15 @@ function App() {
   };
 
   const handleTabClick = (tab) => {
-    setPersonalInfo(tab === "PERSONAL");
-    setEducationalInfo(tab === "EDUCATIONAL");
-    setGamingInfo(tab === "GAMING");
+    setPersonalInfo(false);
+    setEducationalInfo(false);
+    setGamingInfo(false);
+
+    if (tab === "PERSONAL") setPersonalInfo(true);
+    if (tab === "EDUCATIONAL") setEducationalInfo(true);
+    if (tab === "GAMING") setGamingInfo(true);
   };
+  
 
   // usestates for all divs in personal info
   const [fullName, setFullName] = useState("");
