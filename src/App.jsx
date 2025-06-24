@@ -128,7 +128,7 @@ function App() {
           } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4`}
         >
           {/* Tabs */}
-          <div className="py-5 w-full flex gap-10 px-5 justify-between text-center">
+          <div className="py-5 w-full flex  px-10 justify-between text-center">
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
               const isActive =
                 (label === "PERSONAL" && personalInfo) ||
@@ -138,7 +138,7 @@ function App() {
               return (
                 <div
                   key={label}
-                  className={`trapezoid w-[30%] h-8 ml-28 cursor-pointer ${
+                  className={`trapezoid w-[30%] h-8  cursor-pointer ${
                     isActive
                       ? "bg-white text-black border-b-4 border-b-black"
                       : "bg-black text-white border-b-4 border-b-white"
@@ -162,13 +162,13 @@ function App() {
               <>
                 <div className="flex   px-4">
                   <div className="lg:h-full lg:w-[45%] rounded-xl  pt-8 ">
-                    <div className="bg-black/70 2xl:pb-2 backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white 2xl:h-[72vh]">
+                    <div className="bg-black/70 2xl:pb-2  backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white md:h-[74vh]  2xl:h-[72vh]">
                       {/* Carousel */}
 
                       <button
                         onClick={handlePrev}
                         type="button"
-                        className="absolute md:top-17 2xl:top-25 bg-black/50 w-5   -translate-y-1/2 text-2xl z-10 text-white"
+                        className="absolute md:top-25  2xl:top-25 bg-black/50 w-5   -translate-y-1/2 text-2xl z-10 text-white"
                       >
                         &#x276E;
                       </button>
@@ -184,7 +184,7 @@ function App() {
                       <button
                         onClick={handleNext}
                         type="button"
-                        className="absolute md:top-17 2xl:top-25 bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                        className="absolute md:top-25 2xl:top-25 bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
                       >
                         &#x276F;
                       </button>
