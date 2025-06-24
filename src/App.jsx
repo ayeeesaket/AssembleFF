@@ -2,6 +2,7 @@ import { useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import MultiSelect from "./component/Multiselect";
 function App() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
   const images = [
@@ -163,8 +164,8 @@ function App() {
             {/* Personal Info Panel */}
             {personalInfo && (
               <>
-                <div className="flex justify-center  px-4">
-                  <div className="lg:h-full lg:w-[50%] rounded-xl  pt-8 ">
+                <div className="flex   px-4">
+                  <div className="lg:h-full lg:w-[45%] rounded-xl  pt-8 ">
                     <div className="bg-black/70 2xl:pb-2 backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white 2xl:h-[72vh]">
                       {/* Carousel */}
 
@@ -283,16 +284,13 @@ function App() {
                       onChange={(e) => setFullName(e.target.value)}
                     />
                     <div className="flex lg:flex-row lg:gap-x-10">
-                      <select
-                        className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
-                        defaultValue=""
-                        onChange={(e) => setGender(e.target.value)}
-                      >
-                        <option>Select Level</option>
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Prefer not to say</option>
-                      </select>
+                      <MultiSelect
+                        options={["Male", "Female", "Prefer not to say"]}
+                        placeholder="Gender"
+                        multiSelect={false}
+                        onChange={(value) => setGender(value)}
+                      />
+
                       <input
                         className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                         placeholder="Age"
@@ -505,33 +503,31 @@ function App() {
                 </div>
                 <div className="flex flex-col gap-4">
                   <div className="flex lg:flex-row gap-x-6">
-                    <select
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
-                      defaultValue=""
-                    >
-                      <option value="">Select Level</option>
-                      <option value="newbie">Newbie</option>
-                      <option value="beginner">Beginner</option>
-                      <option value="intermediate">Intermediate</option>
-                      <option value="pro">Pro</option>
-                    </select>
-                    <select
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
-                      defaultValue=""
-                    >
-                      <option value="">Gaming Platform</option>
-                      <option value="mobile">Mobile</option>
-                      <option value="pc">PC or Desktop</option>
-                      <option value="both">Both</option>
-                    </select>
-                    <select
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
-                      defaultValue=""
-                    >
-                      <option value="">Gaming Server</option>
-                      <option value="asia">Asia</option>
-                      <option value="europe">Europe</option>
-                    </select>
+                    <MultiSelect
+                      options={["Newbie", "Beginner", "Intermediate", "Pro"]}
+                      placeholder="Select Level"
+                      multiSelect={false}
+                      onChange={(selectedLevel) => {
+                        console.log("Selected Level:", selectedLevel);
+                      }}
+                    />
+
+                    <MultiSelect
+                      options={["Mobile", "PC or Desktop", "Both"]}
+                      placeholder="Gaming Platform"
+                      multiSelect={false}
+                      onChange={(selected) => {
+                        console.log("Selected Gaming Platform:", selected);
+                      }}
+                    />
+                    <MultiSelect
+                      options={["Asia", "Europe"]}
+                      placeholder="Gaming Server"
+                      multiSelect={false}
+                      onChange={(selected) => {
+                        console.log("Selected Gaming Server:", selected);
+                      }}
+                    />
                   </div>
 
                   {/* Social Platform Dropdown */}
@@ -539,27 +535,27 @@ function App() {
                   {/* Social Platform Dropdown */}
                   <div className="w-full mt-1">
                     <div className="flex">
-                      {/* Dropdown for selecting social platform */}
-                      <select
-                        className="bg-white w-52 h-12 rounded-xl pl-5"
-                        onChange={handleSocialSelect}
-                        defaultValue=""
-                      >
-                        <option value="">Add Social Link</option>
-                        {socialOptions.map((opt) => (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.name}
-                          </option>
-                        ))}
-                      </select>
+                      {/* Custom dropdown without external array */}
+                      <div className="w-52">
+                        <MultiSelect
+                          options={[
+                            "Facebook",
+                            "Twitter",
+                            "Instagram",
+                            "LinkedIn",
+                          ]}
+                          placeholder="Add Social Link"
+                          onChange={(selected) => setSelectedSocials(selected)}
+                        />
+                      </div>
 
-                      {/* Display input fields for selected platforms using flex */}
+                      {/* Show input fields for selected socials */}
                       {selectedSocials.length > 0 && (
                         <div className="flex flex-wrap md:gap-4 2xl:gap-6 ml-4">
                           {selectedSocials.map((platform) => (
                             <input
                               key={platform}
-                              className="bg-white h-12 rounded-xl pl-5 md:w-52  "
+                              className="bg-white h-12 rounded-xl pl-5 md:w-52"
                               placeholder={`${
                                 platform.charAt(0).toUpperCase() +
                                 platform.slice(1)
@@ -575,16 +571,18 @@ function App() {
                     <select
                       className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                       onChange={(e) => handleDropdownGameSelect(e.target.value)}
+                      value={selectedGames.length === 1 ? selectedGames[0] : ""}
                     >
                       <option value="">Select Game</option>
                       {dropdownGameOptions.map((game) => (
                         <option key={game.id} value={game.id}>
                           {selectedGames.includes(game.id)
-                            ? `tick ${game.name}`
+                            ? `✔ ${game.name}`
                             : game.name}
                         </option>
                       ))}
                     </select>
+
                     <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white">
                       Skip for Now
                     </button>
