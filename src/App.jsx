@@ -39,7 +39,7 @@ function App() {
   const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
   const [personalInfo, setPersonalInfo] = useState(true);
   const [educationalInfo, setEducationalInfo] = useState(false);
-  const [gamingInfo, setGamingInfo] = useState(true);
+  const [gamingInfo, setGamingInfo] = useState(false);
   const [selectedGames, setSelectedGames] = useState([]);
   const [selectedSocials, setSelectedSocials] = useState([]); // ✅ move this up
 
@@ -70,10 +70,15 @@ function App() {
   };
 
   const handleTabClick = (tab) => {
-    setPersonalInfo(tab === "PERSONAL");
-    setEducationalInfo(tab === "EDUCATIONAL");
-    setGamingInfo(tab === "GAMING");
+    setPersonalInfo(false);
+    setEducationalInfo(false);
+    setGamingInfo(false);
+
+    if (tab === "PERSONAL") setPersonalInfo(true);
+    if (tab === "EDUCATIONAL") setEducationalInfo(true);
+    if (tab === "GAMING") setGamingInfo(true);
   };
+  
 
   // usestates for all divs in personal info
   const [fullName, setFullName] = useState("");

@@ -59,10 +59,10 @@ const CustomGameDropdown = ({ selectedGames = [], setSelectedGames }) => {
   return (
     <div className="relative w-full" ref={dropdownRef}>
       <div
-        className="bg-white rounded-2xl p-4 shadow-md cursor-pointer"
+        className="bg-white rounded-xl px-5 py-3 shadow-md cursor-pointer"
         onClick={() => setOpen(!open)}
       >
-        <div className="font-medium text-black">{latestGameName}</div>
+        <div className=" text-black">{latestGameName}</div>
       </div>
 
       {open && (
