@@ -39,7 +39,7 @@ function App() {
   const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
   const [personalInfo, setPersonalInfo] = useState(true);
   const [educationalInfo, setEducationalInfo] = useState(false);
-  const [gamingInfo, setGamingInfo] = useState(true);
+  const [gamingInfo, setGamingInfo] = useState(false);
   const [selectedGames, setSelectedGames] = useState([]);
   const [selectedSocials, setSelectedSocials] = useState([]); // ✅ move this up
 
