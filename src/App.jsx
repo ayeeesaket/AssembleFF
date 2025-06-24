@@ -1,19 +1,44 @@
 import { useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
+import { ImCheckboxChecked } from "react-icons/im";
+
 import Slider from "react-slick";
+import CustomGameDropdown from "./component/CustomDropdown";
 function App() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
-  const images = [
-    "/images/image1.jpg",
-    "/images/image2.jpg",
-    "/images/image3.jpg",
+  const dropdownGameOptions = [
+    {
+      id: "bgmi",
+      name: "Battleground Mobile India",
+      image: "/images/BGMI.png",
+      description: "Multiplayer battle royale game.",
+    },
+    {
+      id: "freefire",
+      name: "Freefire Max",
+      image: "/images/FREEFIRE.png",
+      description: "Fast-paced shooter game.",
+    },
+    {
+      id: "codm",
+      name: "Call of Duty Mobile",
+      image: "/images/CODM.png",
+      description: "Mobile version of the iconic FPS.",
+    },
+    {
+      id: "valorant",
+      name: "Valorant",
+      image: "/images/Valorant.png",
+      description: "Tactical team-based shooter.",
+    },
   ];
 
   const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
   const [personalInfo, setPersonalInfo] = useState(true);
   const [educationalInfo, setEducationalInfo] = useState(false);
-  const [gamingInfo, setGamingInfo] = useState(false);
+  const [gamingInfo, setGamingInfo] = useState(true);
   const [selectedGames, setSelectedGames] = useState([]);
   const [selectedSocials, setSelectedSocials] = useState([]); // ✅ move this up
 
@@ -43,26 +68,6 @@ function App() {
     e.target.value = ""; // ✅ correctly inside the function
   };
 
-  const dropdownGameOptions = [
-    { id: "bgmi", name: "Battleground Mobile India", image: "/BGMI.png" },
-    { id: "freefire", name: "Freefire Max", image: "/FREEFIRE.png" },
-    { id: "codm", name: "Call of Duty Mobile", image: "/CODM.png" },
-    { id: "valorant", name: "Valorant", image: "/Valorant.png" },
-  ];
-
-  const handleDropdownGameSelect = (gameId) => {
-    if (!gameId) return;
-    setPersonalInfo(false);
-    setEducationalInfo(false);
-    setGamingInfo(true);
-
-    setSelectedGames((prevSelected) =>
-      prevSelected.includes(gameId)
-        ? prevSelected.filter((id) => id !== gameId)
-        : [...prevSelected, gameId]
-    );
-  };
-
   const handleTabClick = (tab) => {
     setPersonalInfo(tab === "PERSONAL");
     setEducationalInfo(tab === "EDUCATIONAL");
@@ -89,6 +94,7 @@ function App() {
   const [course, setCourse] = useState("");
   const [startingYear, setStartingYear] = useState("");
   const [endingYear, setEndingYear] = useState("");
+  console.log(selectedGames);
 
   return (
     <div
@@ -100,20 +106,10 @@ function App() {
           : gamingInfo
           ? "bg-[url('/GamingInfoBG.svg')]"
           : ""
-      } bg-cover h-screen w-screen `}
+      } bg-cover h-screen w-screen`}
     >
       {/* Navbar */}
-      <div className="lg:h-14 lg:w-full bg-black/20 backdrop-blur-xl text-white flex justify-between item-center p-3">
-        <span className="text-2xl font-bold tracking-widest">ASSEMBLE</span>
-        <div className="flex items-center gap-2">
-          <span className="text-lg cursor-pointer">&#x276E;</span>
-          <div className="flex flex-col items-center">
-            <span className="text-sm font-medium">Naxna.Gamer</span>
-            <span className="text-xs text-gray-300">STRING VALUE</span>
-          </div>
-          <div className="w-8 h-8 rounded-full bg-white/20"></div>
-        </div>
-      </div>
+      <div className="lg:h-14 lg:w-full bg-black/20 backdrop-blur-xl" />
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
@@ -128,10 +124,10 @@ function App() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:mx-23 flex flex-col gap-4`}
+          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4`}
         >
           {/* Tabs */}
-          <div className="py-5 w-full flex  px-10 justify-between text-center">
+          <div className="py-5 w-full flex gap-10 px-5 justify-between text-center">
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
               const isActive =
                 (label === "PERSONAL" && personalInfo) ||
@@ -141,7 +137,7 @@ function App() {
               return (
                 <div
                   key={label}
-                  className={`trapezoid w-[30%] h-8 cursor-pointer ${
+                  className={`trapezoid w-[30%] h-8 ml-28 cursor-pointer ${
                     isActive
                       ? "bg-white text-black border-b-4 border-b-black"
                       : "bg-black text-white border-b-4 border-b-white"
@@ -171,7 +167,7 @@ function App() {
                     experiences. This will help others understand who you are
                     and what you enjoy!
                   </div>
-                  <div className="bg-black/70 2xl:pb-2 backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white 2xl:h-[60vh]">
+                  <div className="bg-black/70 2xl:pb-2 backdrop-blur-xl rounded-xl lg:w-[90%] space-y-3 text-white 2xl:h-[60vh]">
                     {/* Carousel */}
 
                     <button
@@ -186,7 +182,7 @@ function App() {
                     <img
                       src={`/${svgNames[currentSvgIndex]}.png`}
                       alt={`SVG ${currentSvgIndex + 1}`}
-                      className="-mt-4 rounded-t-xl object-cover lg:max-h-40 lg:w-full"
+                      className="-mt-4 rounded-t-xl object-cover lg:max-h-34 lg:w-full"
                     />
 
                     {/* Right Arrow */}
@@ -213,8 +209,8 @@ function App() {
                           <div className="text-xs text-gray-300">Age</div>
                           <div className="font-medium">{age}</div>
                         </div>
-                        <div className="text-right">
-                          <div className="text-xs text-gray-300 ">Gender</div>
+                        <div>
+                          <div className="text-xs text-gray-300">Gender</div>
                           <div className="font-medium">{gender}</div>
                         </div>
                       </div>
@@ -256,30 +252,32 @@ function App() {
                       </div>
 
                       {/* Bio */}
+                      <div>
+                        <div className="text-xs text-gray-300">BIO :</div>
+                        <div className="font-medium break-words whitespace-pre-line">
+                          {bio}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Full Name"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                   />
                   <div className="flex lg:flex-row lg:gap-x-10">
-                    <select
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
-                      defaultValue=""
-                      onChange={(e) => setGender(e.target.value)}
-                    >
-                      <option>Select Level</option>
-                      <option >M</option>
-                      <option >F</option>
-                      <option>Other</option>
-                    </select>
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
+                      placeholder="Gender"
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                    />
+                    <input
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Age"
                       type="number"
                       value={age}
@@ -288,13 +286,13 @@ function App() {
                   </div>
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Phone Number"
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Country"
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
@@ -302,37 +300,37 @@ function App() {
                   </div>
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="State"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
                     />
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Pin Code"
                       value={pinCode}
                       onChange={(e) => setPinCode(e.target.value)}
                     />
                   </div>
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Address"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                   />
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Tagline"
                     value={tagline}
                     onChange={(e) => setTagline(e.target.value)}
                   />
                   <textarea
-                    className="bg-white lg:w-full lg:h-20 rounded-xl pl-5 pt-2"
+                    className="bg-white lg:w-full lg:h-20 rounded-2xl pl-5 pt-2"
                     placeholder="Bio"
                     value={bio}
                     onChange={(e) => setBio(e.target.value)}
                   />
-                  <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white">
+                  <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white">
                     Save Your Personal Information
                   </button>
                 </div>
@@ -343,14 +341,16 @@ function App() {
             {educationalInfo && (
               <>
                 <div className="lg:h-full lg:w-[40%]  rounded-xl p-3">
-                  <div className="left-head ">Educational Information</div>
+                  <div className="left-head md:px-9">
+                    Educational Information
+                  </div>
                   <div className="left-head-text">
                     Don't forget to include your educational details! Whether
                     it's your 10th grade, 12th grade, or bachelor's degree, make
                     sure to highlight any relevant studies that showcase your
                     skills and dedication to the esports field.
                   </div>
-                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] lg:w-[78%]  space-y-3 text-white">
+                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] lg:w-[90%]  space-y-3 text-white">
                     {/* Carousel */}
                     <div className="corousal lg:h-40 rounded-md">
                       <img
@@ -393,12 +393,6 @@ function App() {
                           <div className="text-xs text-gray-300">Course</div>
                           <div className="font-medium">{course}</div>
                         </div>
-                        <div className="text-center">
-                          <div className="text-xs text-gray-300">
-                            Starting Year
-                          </div>
-                          <div className="font-medium">{startingYear}</div>
-                        </div>
                         <div className="text-right">
                           <div className="text-xs text-gray-300">
                             Ending Year
@@ -421,56 +415,56 @@ function App() {
                 </div>
                 <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Highest Education"
                     value={highestEducation}
                     onChange={(e) => setHighestEducation(e.target.value)}
                   />
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Institution Name"
                     value={institutionName}
                     onChange={(e) => setInstitutionName(e.target.value)}
                   />
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="State"
                       value={eduState}
                       onChange={(e) => setEduState(e.target.value)}
                     />
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Pin Code"
                       value={eduPinCode}
                       onChange={(e) => setEduPinCode(e.target.value)}
                     />
                   </div>
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                     placeholder="Course"
                     value={course}
                     onChange={(e) => setCourse(e.target.value)}
                   />
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Starting Year"
                       value={startingYear}
                       onChange={(e) => setStartingYear(e.target.value)}
                     />
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       placeholder="Ending Year"
                       value={endingYear}
                       onChange={(e) => setEndingYear(e.target.value)}
                     />
                   </div>
                   <div className="flex lg:flex-row lg:gap-x-10">
-                    <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white">
+                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white text-white">
                       Skip for Now
                     </button>
-                    <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white bg-black text-white">
+                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white bg-black text-white">
                       Save Your Educational Information
                     </button>
                   </div>
@@ -495,17 +489,18 @@ function App() {
                 <div className="flex flex-col gap-4">
                   <div className="flex lg:flex-row gap-x-6">
                     <select
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       defaultValue=""
+                      
                     >
-                      <option value="">Select Level</option>
+                      <option value="" type="checkbox">Select Level</option>
                       <option value="newbie">Newbie</option>
                       <option value="beginner">Beginner</option>
                       <option value="intermediate">Intermediate</option>
                       <option value="pro">Pro</option>
                     </select>
                     <select
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       defaultValue=""
                     >
                       <option value="">Gaming Platform</option>
@@ -514,7 +509,7 @@ function App() {
                       <option value="both">Both</option>
                     </select>
                     <select
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
                       defaultValue=""
                     >
                       <option value="">Gaming Server</option>
@@ -523,14 +518,10 @@ function App() {
                     </select>
                   </div>
 
-                  {/* Social Platform Dropdown */}
-
-                  {/* Social Platform Dropdown */}
                   <div className="w-full mt-1">
                     <div className="flex">
-                      {/* Dropdown for selecting social platform */}
                       <select
-                        className="bg-white w-52 h-12 rounded-xl pl-5"
+                        className="bg-white w-52 h-12 rounded-2xl pl-5"
                         onChange={handleSocialSelect}
                         defaultValue=""
                       >
@@ -542,13 +533,12 @@ function App() {
                         ))}
                       </select>
 
-                      {/* Display input fields for selected platforms using flex */}
                       {selectedSocials.length > 0 && (
-                        <div className="flex flex-wrap md:gap-4 2xl:gap-6 ml-4">
+                        <div className="flex flex-wrap gap-4 ml-4">
                           {selectedSocials.map((platform) => (
                             <input
                               key={platform}
-                              className="bg-white h-12 rounded-xl pl-5 md:w-52  "
+                              className="bg-white h-12 rounded-2xl pl-5 w-52"
                               placeholder={`${
                                 platform.charAt(0).toUpperCase() +
                                 platform.slice(1)
@@ -560,58 +550,54 @@ function App() {
                     </div>
                   </div>
 
-                  <div className="flex lg:flex-row gap-x-6">
-                    <select
-                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
-                      onChange={(e) => handleDropdownGameSelect(e.target.value)}
-                    >
-                      <option value="">Select Game</option>
-                      {dropdownGameOptions.map((game) => (
-                        <option key={game.id} value={game.id}>
-                          {selectedGames.includes(game.id)
-                            ? `✔ ${game.name}`
-                            : game.name}
-                        </option>
-                      ))}
-                    </select>
-                    <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white">
+                  <div className="flex flex-col lg:flex-row gap-x-6">
+                    <CustomGameDropdown
+                      selectedGames={selectedGames}
+                      setSelectedGames={setSelectedGames}
+                    />
+                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white text-white">
                       Skip for Now
                     </button>
-                    <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white bg-black text-white">
+                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white bg-black text-white">
                       Add Gaming Details Of Each Game
                     </button>
                   </div>
                 </div>
+
                 <div>
-                  <div className="left-head text-lg text-white">
-                    Selected Games
+                  <div className="left-head  text-lg text-white">
+                    Gaming Information
                   </div>
-                  <div className="left-head-text text-sm text-white ">
-                    When you pick a game from the list above, its card will pop
-                    up right below, giving you a quick overview of its features,
-                    ratings, and more! You’ll see all the exciting upcoming
-                    gaming series, tournaments, and matches it offers, like
-                    gameplay mechanics and graphics. Plus, see what other
-                    players are saying about it! It’s super easy to get all the
-                    info you need before diving in!
+                  <div className="left-head-text text-sm text-white">
+                    When you're talking about your favorite games, make sure to
+                    drop the title, what platform you’re playing on, and the
+                    genre. Don’t forget to mention when it was released and any
+                    cool stuff like high scores or tournament wins. Also, share
+                    your own experiences and strategies—those really show how
+                    much you love gaming!
                   </div>
                 </div>
-                {/* Optional: SVG Navigation */}
-                <div className="flex flex-wrap 2xl:gap-20 items-center text-white  gap-4">
-                  {selectedGames.map((gameId, index) => {
+
+                <div className="flex flex-wrap md:gap-20 items-center text-white gap-4">
+                  {selectedGames.map((gameId) => {
                     const game = dropdownGameOptions.find(
                       (g) => g.id === gameId
                     );
                     return (
-                      <img
+                      <div
                         key={gameId}
-                        src={game?.image}
-                        alt={game?.name}
-                        className="game-image 2xl:h-[150px]"
-                        style={{
-                          height: "150px ",
-                        }}
-                      />
+                        className=" text-black rounded-xl  flex flex-col items-center"
+                      >
+                        <img
+                          src={game?.image}
+                          alt={game?.name}
+                          onError={(e) => {
+                            e.target.src = "https://via.placeholder.com/150";
+                          }}
+                          className="w-full h-32 object-contain rounded-xl mb-2"
+                        />
+                       
+                      </div>
                     );
                   })}
                 </div>
