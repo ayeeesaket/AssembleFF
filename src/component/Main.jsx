@@ -97,6 +97,7 @@ function Main() {
     setDetailsClicked(true);
   };
   console.log(detailsClicked);
+  console.log(activeGameId);
   return (
     <div
       className={`${
@@ -483,7 +484,7 @@ function Main() {
 
             {/* Gaming Info Panel */}
             {gamingInfo && !detailsClicked && (
-              <div className="lg:flex lg:flex-col lg:gap-4 lg:w-full text-black">
+              <div className="lg:flex lg:flex-col lg:gap-4 lg:w-full text-black ">
                 <div>
                   <div className="left-head text-white">Gaming Information</div>
                   <div className="left-head-text text-white">
@@ -598,7 +599,7 @@ function Main() {
                     return (
                       <div
                         key={gameId}
-                        className=" text-black rounded-xl p-4 w-[250px] flex flex-col items-center "
+                        className=" text-black rounded-xl p-4 w-[250px] flex flex-col items-center  "
                       >
                         <img
                           src={game?.image}
@@ -606,7 +607,7 @@ function Main() {
                           onError={(e) => {
                             e.target.src = "https://via.placeholder.com/150";
                           }}
-                          className="w-full h-60 object-contain rounded-xl mb-2"
+                          className="w-full h-45  object-contain rounded-xl mb-2"
                         />
                       </div>
                     );
@@ -616,8 +617,9 @@ function Main() {
             )}
             {gamingInfo && detailsClicked && (
               <>
-                <div className="overflow-x-hidden  lg:h-full lg:w-full -mt-16  rounded-xl p-3">
-                  <div className="flex flex-wrap  md:gap-16 items-center text-white gap-4">
+                <div className="flex flex-col">
+                  {/* Game Selection */}
+                  <div className="up flex 2xl:gap-20">
                     {selectedGames.map((gameId) => {
                       const game = dropdownGameOptions.find(
                         (g) => g.id === gameId
@@ -625,7 +627,7 @@ function Main() {
                       return (
                         <div
                           key={gameId}
-                          className=" text-black  rounded-xl p-4 w-[250px] flex flex-col items-center "
+                          className="text-black rounded-xl p-4 w-[250px]"
                         >
                           <img
                             src={game?.image}
@@ -633,105 +635,142 @@ function Main() {
                             onError={(e) => {
                               e.target.src = "https://via.placeholder.com/150";
                             }}
-                            className="w-full h-52 object-contain rounded-xl mb-2 transform transition-transform duration-300 hover:scale-105"
-                            onClick={() => setActiveGameId(gameId)}
+                            className="w-full h-44 object-contain rounded-xl transform -mt-10 transition-transform duration-300 hover:scale-105"
+                            onClick={() => setActiveGameId(gameId)} // ✅ Set active game on click
                           />
                         </div>
                       );
                     })}
-                    <div className="down w-full flex   -mt-32 ml-4 ">
-                      {activeGameId && (
-                        <div className="bg-black/70 backdrop-blur-xl  lg:w-[35%]  rounded-xl p-3">
-                          <div className="left-head text-xs ">
-                            Educational Information
-                          </div>
-                          <div className="text-sm left-head-text">
-                            Don't forget to include your educational details!
-                            Whether it's your 10th grade, 12th grade, or
-                            bachelor's degree, make sure to highlight any
-                            relevant studies that showcase your skills and
-                            dedication to the esports field.
-                          </div>
-                          <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] h-[35vh`] lg:w-[100%]  space-y-3 text-white">
+                  </div>
+
+                  {/* Down section: Show only after click */}
+                  {activeGameId && (
+                    <div className="down -mt-12 flex justify-between">
+                      <div className=" lg:w-[35%]">
+                        <div className="lg:h-full lg:w-full rounded-xl p-3">
+                          <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[56vh] lg:w-[85%] space-y-3 text-white p-3">
+                            <div className="left-head text-sm">
+                              Add {activeGameId.toUpperCase()} Account info’s
+                            </div>
+                            <div className="left-head-text text-xs">
+                              Please provide your account information to
+                              establish connections with your friends. You can
+                              only include one BGMI IDs to proceed with BGMI.
+                            </div>
+
                             {/* Carousel */}
-                            <div className="corousal lg:h-40 rounded-md">
+                            <div className="corousal lg:h-36 rounded-md">
                               <img
-                                src="/cyberman.png"
-                                alt=""
-                                srcset=""
-                                className="lg:h-40 lg:w-full rounded-t-2xl"
+                                src={
+                                  dropdownGameOptions.find(
+                                    (g) => g.id === activeGameId
+                                  )?.image
+                                }
+                                alt={activeGameId}
+                                className="w-full h-36 object-cover rounded-lg mb-4"
                               />
                             </div>
 
                             {/* Content */}
-                            <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[32vh]  2xl:h-[30vh] justify-between overflow-hidden">
-                              <div className="text-base font-semibold  tracking-wide text-center">
+                            <div className="flex flex-col p-4 pt-0 text-sm md:space-y-5 md:h-[22vh] 2xl:h-[18vh] justify-between overflow-hidden">
+                              <div className="text-base font-semibold tracking-wide text-center">
                                 USERNAME
                               </div>
 
-                              {/* Name, Age, Gender */}
+                              {/* Education */}
                               <div className="flex justify-between gap-4">
                                 <div>
                                   <div className="text-xs text-gray-300">
-                                    Highest Education
+                                    {activeGameId.toUpperCase()} UID
                                   </div>
-                                  <div className="font-medium">
-                                    {highestEducation}
-                                  </div>
+                                  <div className="font-medium"></div>
                                 </div>
                               </div>
 
-                              {/* Tagline, Phone */}
-                              <div className="flex justify-between gap-4">
-                                <div className="">
-                                  <div className="text-xs text-gray-300">
-                                    Institute name
-                                  </div>
-                                  <div className="font-medium">
-                                    {institutionName}
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Country, State, Pincode */}
+                              {/* Course and Ending Year */}
                               <div className="flex justify-between gap-4">
                                 <div>
                                   <div className="text-xs text-gray-300">
-                                    Course
+                                    Overall Rank
                                   </div>
-                                  <div className="font-medium">{course}</div>
+                                  <div className="font-medium"></div>
                                 </div>
                                 <div className="text-right">
                                   <div className="text-xs text-gray-300">
-                                    Ending Year
+                                    Level
                                   </div>
-                                  <div className="font-medium">
-                                    {endingYear}
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="flex justify-between gap-4">
-                                <div>
-                                  <div className="text-xs text-gray-300">
-                                    State
-                                  </div>
-                                  <div className="font-medium">{eduState}</div>
-                                </div>
-                                <div className="text-right">
-                                  <div className="text-xs text-gray-300">
-                                    Pincode
-                                  </div>
-                                  <div className="font-medium">
-                                    {eduPinCode}
-                                  </div>
+                                  <div className="font-medium"></div>
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      )}
+                      </div>
+                      <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-5 pt-5">
+                        <div className="text-white">
+                          <div className="flex justify-between">
+                            <div className="left-head text-lg ">
+                              {activeGameId.toUpperCase()}
+                            </div>
+                            <button className="bg-red-600 rounded-xl text-white px-2 text-xs">
+                              delete game
+                            </button>
+                          </div>
+                          <div className="left-head-text text-sm">
+                            BGMI, or Battlegrounds Mobile India, is a fun mobile
+                            battle royale game that dropped in 2021. To join a
+                            tournament, just fill in your BGMI user ID—it's like
+                            giving your gaming passport for a quick 2-5 minute
+                            registration! So, grab your squad or go solo, and
+                            let’s get this assembly rolling!
+                          </div>
+                        </div>
+                        <div className="flex justify-between text-sm text-white">
+                          <button className="bg-black text-white px-2 py-1  ">
+                            Primary Account Info
+                          </button>
+                          <div className="left-head  ">
+                            How To fill game data?
+                          </div>
+                        </div>
+                        <div className="flex lg:flex-row lg:gap-x-10">
+                          <input
+                            placeholder="Level"
+                            className="bg-white lg:w-full lg:h-12 rounded-xl pl-5 text-black"
+                            type="Number"
+                          />
+                          <MultiSelect
+                            options={["Platinum", "Gold", "Diamond", "Ace"]}
+                            placeholder="Gaming Server"
+                            multiSelect={false}
+                            onChange={(selected) => {
+                              console.log("Selected Gaming Server:", selected);
+                            }}
+                          />
+                        </div>
+                        <div className="flex lg:flex-row lg:gap-x-10">
+                          <input
+                            className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                            placeholder={`${activeGameId.toUpperCase()} ID`}
+                          />
+                        </div>
+                        <div className="flex lg:flex-row lg:gap-x-10">
+                          <input
+                            className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                            placeholder="In Game Username"
+                          />
+                        </div>
+                        <div className="flex lg:gap-x-10">
+                          <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white">
+                            Back To Selection
+                          </button>
+                          <button className="lg:w-full lg:h-12 rounded-xl  bg-black text-white">
+                            Submit Account Info
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </>
             )}
