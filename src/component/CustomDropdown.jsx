@@ -81,7 +81,8 @@ const CustomGameDropdown = ({ selectedGames = [], setSelectedGames }) => {
               >
                 {/* Custom checkbox square */}
                 <span
-                  className={` w-5 h-5 border-2 rounded-sm flex items-center justify-center ${
+                  className={`
+                     w-5 h-5 border-2 rounded-sm flex items-center justify-center ${
                     isSelected ? "bg-black border-black" : "bg-white border-black"
                   }`}
                 >
