@@ -92,6 +92,12 @@ function Main() {
   const [startingYear, setStartingYear] = useState("");
   const [endingYear, setEndingYear] = useState("");
   const [detailsClicked, setDetailsClicked] = useState(false);
+  // gamedetails :
+  const [gameId, setGameId] = useState("");
+  const [gameRank, setGameRank] = useState("");
+  const [gameLevel, setGameLevel] = useState("");
+  const [CSRank, setCSRank] = useState("");
+  const [gameUsername, setGameUsername] = useState("");
   console.log(selectedGames);
   const handleAddDetails = () => {
     setDetailsClicked(true);
@@ -128,7 +134,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4`}
+          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-10 lg:mr-10 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div className="py-5 w-full flex  px-10 justify-between text-center">
@@ -146,7 +152,6 @@ function Main() {
                       ? "bg-white text-black border-b-4 border-b-black"
                       : "bg-black text-white border-b-4 border-b-white"
                   }`}
-                  onClick={() => handleTabClick(label)}
                 >
                   {label} INFORMATION
                 </div>
@@ -339,7 +344,10 @@ function Main() {
                       onChange={(e) => setTagline(e.target.value)}
                     />
 
-                    <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white">
+                    <button
+                      className="lg:w-full lg:h-12 rounded-xl border-2 border-white"
+                      onClick={() => handleTabClick("EDUCATIONAL")}
+                    >
                       Save Your Personal Information
                     </button>
                   </div>
@@ -351,9 +359,7 @@ function Main() {
             {educationalInfo && (
               <>
                 <div className="lg:h-full lg:w-[40%]  rounded-xl p-3">
-                  <div className="left-head md:px-9">
-                    Educational Information
-                  </div>
+                  <div className="left-head ">Educational Information</div>
                   <div className="left-head-text">
                     Don't forget to include your educational details! Whether
                     it's your 10th grade, 12th grade, or bachelor's degree, make
@@ -471,10 +477,16 @@ function Main() {
                     />
                   </div>
                   <div className="flex lg:flex-row lg:gap-x-10">
-                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white text-white">
+                    <button
+                      className="lg:w-full lg:h-12 rounded-2xl border-2 border-white text-white"
+                      onClick={() => handleTabClick("GAMING")}
+                    >
                       Skip for Now
                     </button>
-                    <button className="lg:w-full lg:h-12 rounded-xl  bg-black text-white">
+                    <button
+                      className="lg:w-full lg:h-12 rounded-xl  bg-black text-white"
+                      onClick={() => handleTabClick("GAMING")}
+                    >
                       Save Your Educational Information
                     </button>
                   </div>
@@ -645,7 +657,7 @@ function Main() {
 
                   {/* Down section: Show only after click */}
                   {activeGameId && (
-                    <div className="down -mt-12 flex justify-between">
+                    <div className="down -mt-12 flex justify-center">
                       <div className=" lg:w-[35%]">
                         <div className="lg:h-full lg:w-full rounded-xl p-3">
                           <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[56vh] lg:w-[85%] space-y-3 text-white p-3">
@@ -683,7 +695,7 @@ function Main() {
                                   <div className="text-xs text-gray-300">
                                     {activeGameId.toUpperCase()} UID
                                   </div>
-                                  <div className="font-medium"></div>
+                                  <div className="font-medium">{gameId}</div>
                                 </div>
                               </div>
 
@@ -693,14 +705,27 @@ function Main() {
                                   <div className="text-xs text-gray-300">
                                     Overall Rank
                                   </div>
-                                  <div className="font-medium"></div>
+                                  <div className="font-medium">{gameRank}</div>
                                 </div>
-                                <div className="text-right">
+                                <div className="text-center">
                                   <div className="text-xs text-gray-300">
                                     Level
                                   </div>
-                                  <div className="font-medium"></div>
+                                  <div className="font-medium">{gameLevel}</div>
                                 </div>
+                                {activeGameId === "freefire" && (
+                                  <>
+                                    {" "}
+                                    <div className="text-right">
+                                      <div className="text-xs text-gray-300">
+                                        Cs Rank
+                                      </div>
+                                      <div className="font-medium">
+                                        {CSRank}
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -713,20 +738,22 @@ function Main() {
                               {activeGameId.toUpperCase()}
                             </div>
                             <button className="bg-red-600 rounded-xl text-white px-2 text-xs">
-                              delete game
+                              Delete game
                             </button>
                           </div>
                           <div className="left-head-text text-sm">
-                            BGMI, or Battlegrounds Mobile India, is a fun mobile
-                            battle royale game that dropped in 2021. To join a
-                            tournament, just fill in your BGMI user ID—it's like
-                            giving your gaming passport for a quick 2-5 minute
-                            registration! So, grab your squad or go solo, and
-                            let’s get this assembly rolling!
+                            {activeGameId === "bgmi" &&
+                              "BGMI, or Battlegrounds Mobile India, is a fun mobile battle royale game that dropped in 2021. To join a tournament, just fill in your BGMI user ID—it's like giving your gaming passport for a quick 2-5 minute registration! So, grab your squad or go solo, and let’s get this assembly rolling!"}
+                            {activeGameId === "freefire" &&
+                              "Free Fire Max India is a thrilling battle royale game for your phone! Log in with your user ID to jump into the action, unlock cool skins, and track your wins. Want to join a tournament? Just enter your user ID—it's quick and easy. Get ready for epic battles!"}
+                            {activeGameId === "valorant" &&
+                              "Valorant is an exciting tactical shooter that keeps you engaged! To join tournaments quickly, just enter your Valorant user ID. It’s simple! Type it in, and you’re ready to showcase your skills and win prizes. Let’s gear up for some epic matches!"}
+                            {activeGameId === "codm" &&
+                              "Call of Duty Mobile is your go-to shooter for epic action! Just pop in your CODM user ID and account details, and boom—you’re ready to roll! It’s like assembling your squad for a tournament in under 5 minutes. Let’s get those details in so you can dive into the fun!"}
                           </div>
                         </div>
                         <div className="flex justify-between text-sm text-white">
-                          <button className="bg-black text-white px-2 py-1  ">
+                          <button className="bg-black text-white px-2 py-1 rounded-xl ">
                             Primary Account Info
                           </button>
                           <div className="left-head  ">
@@ -737,14 +764,31 @@ function Main() {
                           <input
                             placeholder="Level"
                             className="bg-white lg:w-full lg:h-12 rounded-xl pl-5 text-black"
-                            type="Number"
+                            type="number"
+                            value={gameLevel}
+                            onChange={(e) => {
+                              setGameLevel(e.target.value);
+                            }}
                           />
+
+                          {activeGameId === "freefire" && (
+                            <>
+                              <input
+                                placeholder="CS Rank"
+                                className="bg-white lg:w-full lg:h-12 rounded-xl pl-5 text-black"
+                                value={CSRank}
+                                onChange={(e) => {
+                                  setCSRank(e.target.value);
+                                }}
+                              />
+                            </>
+                          )}
                           <MultiSelect
                             options={["Platinum", "Gold", "Diamond", "Ace"]}
-                            placeholder="Gaming Server"
+                            placeholder="Rank"
                             multiSelect={false}
-                            onChange={(selected) => {
-                              console.log("Selected Gaming Server:", selected);
+                            onChange={(selectedValue) => {
+                              setGameRank(selectedValue);
                             }}
                           />
                         </div>
@@ -752,16 +796,30 @@ function Main() {
                           <input
                             className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                             placeholder={`${activeGameId.toUpperCase()} ID`}
+                            value={gameId}
+                            onChange={(e) => {
+                              setGameId(e.target.value);
+                            }}
                           />
                         </div>
                         <div className="flex lg:flex-row lg:gap-x-10">
                           <input
                             className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                             placeholder="In Game Username"
+                            value={gameUsername}
+                            onChange={(e) => {
+                              setGameUsername(e.target.value);
+                            }}
                           />
                         </div>
                         <div className="flex lg:gap-x-10">
-                          <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white">
+                          <button
+                            className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white"
+                            onClick={() => {
+                              handleTabClick("GAMING");
+                              handleAddDetails();
+                            }}
+                          >
                             Back To Selection
                           </button>
                           <button className="lg:w-full lg:h-12 rounded-xl  bg-black text-white">
