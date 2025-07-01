@@ -92,11 +92,18 @@ function Main() {
   const [startingYear, setStartingYear] = useState("");
   const [endingYear, setEndingYear] = useState("");
   const [detailsClicked, setDetailsClicked] = useState(false);
+  // gamedetails :
+  const [gameId, setGameId] = useState("");
+  const [gameRank, setGameRank] = useState("");
+  const [gameLevel, setGameLevel] = useState("");
+  const [CSRank, setCSRank] = useState("");
+  const [gameUsername, setGameUsername] = useState("");
   console.log(selectedGames);
   const handleAddDetails = () => {
     setDetailsClicked(true);
   };
   console.log(detailsClicked);
+  console.log(activeGameId);
   return (
     <div
       className={`${
@@ -127,7 +134,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 ml-10 mr-10 flex flex-col gap-4`}
+          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-10 lg:mr-10 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div className="py-5 w-full flex  px-10 justify-between text-center">
@@ -145,7 +152,6 @@ function Main() {
                       ? "bg-white text-black border-b-4 border-b-black"
                       : "bg-black text-white border-b-4 border-b-white"
                   }`}
-                  onClick={() => handleTabClick(label)}
                 >
                   {label} INFORMATION
                 </div>
@@ -338,7 +344,10 @@ function Main() {
                       onChange={(e) => setTagline(e.target.value)}
                     />
 
-                    <button className="lg:w-full lg:h-12 rounded-xl border-2 border-white">
+                    <button
+                      className="lg:w-full lg:h-12 rounded-xl border-2 border-white"
+                      onClick={() => handleTabClick("EDUCATIONAL")}
+                    >
                       Save Your Personal Information
                     </button>
                   </div>
@@ -350,9 +359,7 @@ function Main() {
             {educationalInfo && (
               <>
                 <div className="lg:h-full lg:w-[40%]  rounded-xl p-3">
-                  <div className="left-head md:px-9">
-                    Educational Information
-                  </div>
+                  <div className="left-head ">Educational Information</div>
                   <div className="left-head-text">
                     Don't forget to include your educational details! Whether
                     it's your 10th grade, 12th grade, or bachelor's degree, make
@@ -470,10 +477,16 @@ function Main() {
                     />
                   </div>
                   <div className="flex lg:flex-row lg:gap-x-10">
-                    <button className="lg:w-full lg:h-12 rounded-2xl border-2 border-white text-white">
+                    <button
+                      className="lg:w-full lg:h-12 rounded-2xl border-2 border-white text-white"
+                      onClick={() => handleTabClick("GAMING")}
+                    >
                       Skip for Now
                     </button>
-                    <button className="lg:w-full lg:h-12 rounded-xl  bg-black text-white">
+                    <button
+                      className="lg:w-full lg:h-12 rounded-xl  bg-black text-white"
+                      onClick={() => handleTabClick("GAMING")}
+                    >
                       Save Your Educational Information
                     </button>
                   </div>
@@ -483,7 +496,7 @@ function Main() {
 
             {/* Gaming Info Panel */}
             {gamingInfo && !detailsClicked && (
-              <div className="lg:flex lg:flex-col lg:gap-4 lg:w-full text-black">
+              <div className="lg:flex lg:flex-col lg:gap-4 lg:w-full text-black ">
                 <div>
                   <div className="left-head text-white">Gaming Information</div>
                   <div className="left-head-text text-white">
@@ -598,7 +611,7 @@ function Main() {
                     return (
                       <div
                         key={gameId}
-                        className=" text-black rounded-xl p-4 w-[250px] flex flex-col items-center "
+                        className=" text-black rounded-xl p-4 w-[250px] flex flex-col items-center  "
                       >
                         <img
                           src={game?.image}
@@ -606,7 +619,7 @@ function Main() {
                           onError={(e) => {
                             e.target.src = "https://via.placeholder.com/150";
                           }}
-                          className="w-full h-60 object-contain rounded-xl mb-2"
+                          className="w-full h-45  object-contain rounded-xl mb-2"
                         />
                       </div>
                     );
@@ -617,8 +630,9 @@ function Main() {
             
             {gamingInfo && detailsClicked && (
               <>
-                <div className="overflow-x-hidden  lg:h-full lg:w-full -mt-16  rounded-xl p-3">
-                  <div className="flex flex-wrap  md:gap-16 items-center text-white gap-4">
+                <div className="flex flex-col">
+                  {/* Game Selection */}
+                  <div className="up flex 2xl:gap-20">
                     {selectedGames.map((gameId) => {
                       const game = dropdownGameOptions.find(
                         (g) => g.id === gameId
@@ -626,7 +640,7 @@ function Main() {
                       return (
                         <div
                           key={gameId}
-                          className=" text-black  rounded-xl p-4 w-[250px] flex flex-col items-center "
+                          className="text-black rounded-xl p-4 w-[250px]"
                         >
                           <img
                             src={game?.image}
@@ -634,105 +648,188 @@ function Main() {
                             onError={(e) => {
                               e.target.src = "https://via.placeholder.com/150";
                             }}
-                            className="w-full h-52 object-contain rounded-xl mb-2 transform transition-transform duration-300 hover:scale-105"
-                            onClick={() => setActiveGameId(gameId)}
+                            className="w-full h-44 object-contain rounded-xl transform -mt-10 transition-transform duration-300 hover:scale-105"
+                            onClick={() => setActiveGameId(gameId)} // ✅ Set active game on click
                           />
                         </div>
                       );
                     })}
-                    <div className="down w-full flex   -mt-32 ml-4 ">
-                      {activeGameId && (
-                        <div className="bg-black/70 backdrop-blur-xl  lg:w-[35%]  rounded-xl p-3">
-                          <div className="left-head text-xs ">
-                            Educational Information
-                          </div>
-                          <div className="text-sm left-head-text">
-                            Don't forget to include your educational details!
-                            Whether it's your 10th grade, 12th grade, or
-                            bachelor's degree, make sure to highlight any
-                            relevant studies that showcase your skills and
-                            dedication to the esports field.
-                          </div>
-                          <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] h-[35vh`] lg:w-[100%]  space-y-3 text-white">
+                  </div>
+
+                  {/* Down section: Show only after click */}
+                  {activeGameId && (
+                    <div className="down -mt-12 flex justify-center">
+                      <div className=" lg:w-[35%]">
+                        <div className="lg:h-full lg:w-full rounded-xl p-3">
+                          <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[56vh] lg:w-[85%] space-y-3 text-white p-3">
+                            <div className="left-head text-sm">
+                              Add {activeGameId.toUpperCase()} Account info’s
+                            </div>
+                            <div className="left-head-text text-xs">
+                              Please provide your account information to
+                              establish connections with your friends. You can
+                              only include one BGMI IDs to proceed with BGMI.
+                            </div>
+
                             {/* Carousel */}
-                            <div className="corousal lg:h-40 rounded-md">
+                            <div className="corousal lg:h-36 rounded-md">
                               <img
-                                src="/cyberman.png"
-                                alt=""
-                                srcset=""
-                                className="lg:h-40 lg:w-full rounded-t-2xl"
+                                src={
+                                  dropdownGameOptions.find(
+                                    (g) => g.id === activeGameId
+                                  )?.image
+                                }
+                                alt={activeGameId}
+                                className="w-full h-36 object-cover rounded-lg mb-4"
                               />
                             </div>
 
                             {/* Content */}
-                            <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[32vh]  2xl:h-[30vh] justify-between overflow-hidden">
-                              <div className="text-base font-semibold  tracking-wide text-center">
+                            <div className="flex flex-col p-4 pt-0 text-sm md:space-y-5 md:h-[22vh] 2xl:h-[18vh] justify-between overflow-hidden">
+                              <div className="text-base font-semibold tracking-wide text-center">
                                 USERNAME
                               </div>
 
-                              {/* Name, Age, Gender */}
+                              {/* Education */}
                               <div className="flex justify-between gap-4">
                                 <div>
                                   <div className="text-xs text-gray-300">
-                                    Highest Education
+                                    {activeGameId.toUpperCase()} UID
                                   </div>
-                                  <div className="font-medium">
-                                    {highestEducation}
-                                  </div>
+                                  <div className="font-medium">{gameId}</div>
                                 </div>
                               </div>
 
-                              {/* Tagline, Phone */}
-                              <div className="flex justify-between gap-4">
-                                <div className="">
-                                  <div className="text-xs text-gray-300">
-                                    Institute name
-                                  </div>
-                                  <div className="font-medium">
-                                    {institutionName}
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Country, State, Pincode */}
+                              {/* Course and Ending Year */}
                               <div className="flex justify-between gap-4">
                                 <div>
                                   <div className="text-xs text-gray-300">
-                                    Course
+                                    Overall Rank
                                   </div>
-                                  <div className="font-medium">{course}</div>
+                                  <div className="font-medium">{gameRank}</div>
                                 </div>
-                                <div className="text-right">
+                                <div className="text-center">
                                   <div className="text-xs text-gray-300">
-                                    Ending Year
+                                    Level
                                   </div>
-                                  <div className="font-medium">
-                                    {endingYear}
-                                  </div>
+                                  <div className="font-medium">{gameLevel}</div>
                                 </div>
-                              </div>
-                              <div className="flex justify-between gap-4">
-                                <div>
-                                  <div className="text-xs text-gray-300">
-                                    State
-                                  </div>
-                                  <div className="font-medium">{eduState}</div>
-                                </div>
-                                <div className="text-right">
-                                  <div className="text-xs text-gray-300">
-                                    Pincode
-                                  </div>
-                                  <div className="font-medium">
-                                    {eduPinCode}
-                                  </div>
-                                </div>
+                                {activeGameId === "freefire" && (
+                                  <>
+                                    {" "}
+                                    <div className="text-right">
+                                      <div className="text-xs text-gray-300">
+                                        Cs Rank
+                                      </div>
+                                      <div className="font-medium">
+                                        {CSRank}
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
                               </div>
                             </div>
                           </div>
                         </div>
-                      )}
+                      </div>
+                      <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-5 pt-5">
+                        <div className="text-white">
+                          <div className="flex justify-between">
+                            <div className="left-head text-lg ">
+                              {activeGameId.toUpperCase()}
+                            </div>
+                            <button className="bg-red-600 rounded-xl text-white px-2 text-xs">
+                              Delete game
+                            </button>
+                          </div>
+                          <div className="left-head-text text-sm">
+                            {activeGameId === "bgmi" &&
+                              "BGMI, or Battlegrounds Mobile India, is a fun mobile battle royale game that dropped in 2021. To join a tournament, just fill in your BGMI user ID—it's like giving your gaming passport for a quick 2-5 minute registration! So, grab your squad or go solo, and let’s get this assembly rolling!"}
+                            {activeGameId === "freefire" &&
+                              "Free Fire Max India is a thrilling battle royale game for your phone! Log in with your user ID to jump into the action, unlock cool skins, and track your wins. Want to join a tournament? Just enter your user ID—it's quick and easy. Get ready for epic battles!"}
+                            {activeGameId === "valorant" &&
+                              "Valorant is an exciting tactical shooter that keeps you engaged! To join tournaments quickly, just enter your Valorant user ID. It’s simple! Type it in, and you’re ready to showcase your skills and win prizes. Let’s gear up for some epic matches!"}
+                            {activeGameId === "codm" &&
+                              "Call of Duty Mobile is your go-to shooter for epic action! Just pop in your CODM user ID and account details, and boom—you’re ready to roll! It’s like assembling your squad for a tournament in under 5 minutes. Let’s get those details in so you can dive into the fun!"}
+                          </div>
+                        </div>
+                        <div className="flex justify-between text-sm text-white">
+                          <button className="bg-black text-white px-2 py-1 rounded-xl ">
+                            Primary Account Info
+                          </button>
+                          <div className="left-head  ">
+                            How To fill game data?
+                          </div>
+                        </div>
+                        <div className="flex lg:flex-row lg:gap-x-10">
+                          <input
+                            placeholder="Level"
+                            className="bg-white lg:w-full lg:h-12 rounded-xl pl-5 text-black"
+                            type="number"
+                            value={gameLevel}
+                            onChange={(e) => {
+                              setGameLevel(e.target.value);
+                            }}
+                          />
+
+                          {activeGameId === "freefire" && (
+                            <>
+                              <input
+                                placeholder="CS Rank"
+                                className="bg-white lg:w-full lg:h-12 rounded-xl pl-5 text-black"
+                                value={CSRank}
+                                onChange={(e) => {
+                                  setCSRank(e.target.value);
+                                }}
+                              />
+                            </>
+                          )}
+                          <MultiSelect
+                            options={["Platinum", "Gold", "Diamond", "Ace"]}
+                            placeholder="Rank"
+                            multiSelect={false}
+                            onChange={(selectedValue) => {
+                              setGameRank(selectedValue);
+                            }}
+                          />
+                        </div>
+                        <div className="flex lg:flex-row lg:gap-x-10">
+                          <input
+                            className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                            placeholder={`${activeGameId.toUpperCase()} ID`}
+                            value={gameId}
+                            onChange={(e) => {
+                              setGameId(e.target.value);
+                            }}
+                          />
+                        </div>
+                        <div className="flex lg:flex-row lg:gap-x-10">
+                          <input
+                            className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
+                            placeholder="In Game Username"
+                            value={gameUsername}
+                            onChange={(e) => {
+                              setGameUsername(e.target.value);
+                            }}
+                          />
+                        </div>
+                        <div className="flex lg:gap-x-10">
+                          <button
+                            className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white"
+                            onClick={() => {
+                              handleTabClick("GAMING");
+                              handleAddDetails();
+                            }}
+                          >
+                            Back To Selection
+                          </button>
+                          <button className="lg:w-full lg:h-12 rounded-xl  bg-black text-white">
+                            Submit Account Info
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </>
             )}
