@@ -614,6 +614,7 @@ function Main() {
                 </div>
               </div>
             )}
+            
             {gamingInfo && detailsClicked && (
               <>
                 <div className="overflow-x-hidden  lg:h-full lg:w-full -mt-16  rounded-xl p-3">
