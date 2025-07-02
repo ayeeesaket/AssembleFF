@@ -134,7 +134,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-10 lg:mr-10 flex flex-col gap-4`}
+          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div className="py-5 w-full flex  px-10 justify-between text-center">
@@ -170,7 +170,7 @@ function Main() {
               <>
                 <div className="flex   px-4">
                   <div className="lg:h-full lg:w-[45%] rounded-xl  pt-8 ">
-                    <div className="bg-black/70 2xl:pb-2  backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white md:h-[74vh]  2xl:h-[72vh]">
+                    <div className="bg-black/70 2xl:pb-2  backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white md:h-[70vh]  2xl:h-[72vh]">
                       {/* Carousel */}
 
                       <button
@@ -197,7 +197,7 @@ function Main() {
                         &#x276F;
                       </button>
                       {/* Content */}
-                      <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[36vh]  2xl:h-[38vh] justify-between overflow-hidden">
+                      <div className="flex flex-col p-4 pt-0   text-sm md:space-y-2 md:h-[36vh]  2xl:h-[38vh] justify-between overflow-hidden">
                         <div className="text-base font-semibold tracking-wide text-center">
                           USERNAME
                         </div>
@@ -271,7 +271,7 @@ function Main() {
                     </div>
                   </div>
 
-                  <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-4">
+                  <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-2">
                     <div className="text-white">
                       <div className="left-head ">Personal Information</div>
                       <div className="left-head-text">
@@ -366,19 +366,19 @@ function Main() {
                     sure to highlight any relevant studies that showcase your
                     skills and dedication to the esports field.
                   </div>
-                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] lg:w-[90%]  space-y-3 text-white">
+                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] md:h-[50vh] lg:w-[90%]  space-y-3 text-white">
                     {/* Carousel */}
-                    <div className="corousal lg:h-40 rounded-md">
+                    <div className="corousal lg:h-30 rounded-md">
                       <img
                         src="/cyberman.png"
                         alt=""
                         srcset=""
-                        className="lg:h-40 lg:w-full rounded-t-2xl"
+                        className="lg:h-30 lg:w-full rounded-t-2xl"
                       />
                     </div>
 
                     {/* Content */}
-                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[32vh]  2xl:h-[30vh] justify-between overflow-hidden">
+                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[30vh]  2xl:h-[30vh] justify-between overflow-hidden">
                       <div className="text-base font-semibold  tracking-wide text-center">
                         USERNAME
                       </div>
@@ -603,7 +603,7 @@ function Main() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap  md:gap-16 items-center text-white gap-4">
+                <div className="flex flex-wrap  md:gap-10 items-center text-white gap-4">
                   {selectedGames.map((gameId) => {
                     const game = dropdownGameOptions.find(
                       (g) => g.id === gameId
@@ -611,7 +611,7 @@ function Main() {
                     return (
                       <div
                         key={gameId}
-                        className=" text-black rounded-xl p-4 w-[250px] flex flex-col items-center  "
+                        className=" text-black rounded-xl p-4 md:p-2 md:-mt-13 md:w-[200px] w-[250px] flex flex-col items-center  "
                       >
                         <img
                           src={game?.image}
@@ -619,7 +619,7 @@ function Main() {
                           onError={(e) => {
                             e.target.src = "https://via.placeholder.com/150";
                           }}
-                          className="w-full h-45  object-contain rounded-xl mb-2"
+                          className="w-full h-45  object-contain rounded-xl md:mb-0 mb-2"
                         />
                       </div>
                     );
