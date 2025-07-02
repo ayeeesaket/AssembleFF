@@ -7,6 +7,16 @@ import MultiSelect from "./Multiselect";
 import CustomGameDropdown from "./CustomDropdown";
 function Main() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClose = () => {
+    setShowPopup(false);
+  };
+
   const dropdownGameOptions = [
     {
       id: "bgmi",
@@ -30,6 +40,32 @@ function Main() {
       id: "valorant",
       name: "Valorant",
       image: "/images/Valorant.png",
+      description: "Tactical team-based shooter.",
+    },
+  ];
+   const dropdownGameOptions1 = [
+    {
+      id: "bgmi",
+      name: "Battleground Mobile India",
+      image: "/Frame18.svg",
+      description: "Multiplayer battle royale game.",
+    },
+    {
+      id: "freefire",
+      name: "Freefire Max",
+      image: "/Frame16.svg",
+      description: "Fast-paced shooter game.",
+    },
+    {
+      id: "codm",
+      name: "Call of Duty Mobile",
+      image: "/Frame15.svg",
+      description: "Mobile version of the iconic FPS.",
+    },
+    {
+      id: "valorant",
+      name: "Valorant",
+      image: "/Frame17.svg",
       description: "Tactical team-based shooter.",
     },
   ];
@@ -134,7 +170,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-10 lg:mr-10 flex flex-col gap-4`}
+          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div className="py-5 w-full flex  px-10 justify-between text-center">
@@ -170,7 +206,7 @@ function Main() {
               <>
                 <div className="flex   px-4">
                   <div className="lg:h-full lg:w-[45%] rounded-xl  pt-8 ">
-                    <div className="bg-black/70 2xl:pb-2  backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white md:h-[74vh]  2xl:h-[72vh]">
+                    <div className="bg-black/70 2xl:pb-2  backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white md:h-[70vh]  2xl:h-[72vh]">
                       {/* Carousel */}
 
                       <button
@@ -197,7 +233,7 @@ function Main() {
                         &#x276F;
                       </button>
                       {/* Content */}
-                      <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[36vh]  2xl:h-[38vh] justify-between overflow-hidden">
+                      <div className="flex flex-col p-4 pt-0   text-sm md:space-y-2 md:h-[36vh]  2xl:h-[38vh] justify-between overflow-hidden">
                         <div className="text-base font-semibold tracking-wide text-center">
                           USERNAME
                         </div>
@@ -271,7 +307,7 @@ function Main() {
                     </div>
                   </div>
 
-                  <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-4">
+                  <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-2">
                     <div className="text-white">
                       <div className="left-head ">Personal Information</div>
                       <div className="left-head-text">
@@ -366,19 +402,19 @@ function Main() {
                     sure to highlight any relevant studies that showcase your
                     skills and dedication to the esports field.
                   </div>
-                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] lg:w-[90%]  space-y-3 text-white">
+                  <div className="bg-black/70 backdrop-blur-xl mt-4 rounded-xl 2xl:h-[55vh] md:h-[50vh] lg:w-[90%]  space-y-3 text-white">
                     {/* Carousel */}
-                    <div className="corousal lg:h-40 rounded-md">
+                    <div className="corousal lg:h-30 rounded-md">
                       <img
                         src="/cyberman.png"
                         alt=""
                         srcset=""
-                        className="lg:h-40 lg:w-full rounded-t-2xl"
+                        className="lg:h-30 lg:w-full rounded-t-2xl"
                       />
                     </div>
 
                     {/* Content */}
-                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[32vh]  2xl:h-[30vh] justify-between overflow-hidden">
+                    <div className="flex flex-col p-4 pt-0  text-sm md:space-y-2 md:h-[30vh]  2xl:h-[30vh] justify-between overflow-hidden">
                       <div className="text-base font-semibold  tracking-wide text-center">
                         USERNAME
                       </div>
@@ -603,7 +639,7 @@ function Main() {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap  md:gap-16 items-center text-white gap-4">
+                <div className="flex flex-wrap  md:gap-10 items-center text-white gap-4">
                   {selectedGames.map((gameId) => {
                     const game = dropdownGameOptions.find(
                       (g) => g.id === gameId
@@ -611,7 +647,7 @@ function Main() {
                     return (
                       <div
                         key={gameId}
-                        className=" text-black rounded-xl p-4 w-[250px] flex flex-col items-center  "
+                        className=" text-black rounded-xl p-4 md:p-2 md:-mt-13 md:w-[200px] w-[250px] flex flex-col items-center  "
                       >
                         <img
                           src={game?.image}
@@ -619,7 +655,7 @@ function Main() {
                           onError={(e) => {
                             e.target.src = "https://via.placeholder.com/150";
                           }}
-                          className="w-full h-45  object-contain rounded-xl mb-2"
+                          className="w-full h-45  object-contain rounded-xl md:mb-0 mb-2"
                         />
                       </div>
                     );
@@ -627,6 +663,7 @@ function Main() {
                 </div>
               </div>
             )}
+
             {gamingInfo && detailsClicked && (
               <>
                 <div className="flex flex-col">
@@ -731,7 +768,7 @@ function Main() {
                           </div>
                         </div>
                       </div>
-                      <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-5 pt-5">
+                      <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-5 md:gap-y-3 pt-5">
                         <div className="text-white">
                           <div className="flex justify-between">
                             <div className="left-head text-lg ">
@@ -771,8 +808,43 @@ function Main() {
                           <button className="bg-black text-white px-2 py-1 rounded-xl ">
                             Primary Account Info
                           </button>
-                          <div className="left-head  ">
-                            How To fill game data?
+                          <div>
+                            {/* Your clickable div */}
+                            <div
+                              className="left-head cursor-pointer  p-3 rounded"
+                              onClick={handleClick}
+                            >
+                              How To fill game data?
+                            </div>
+
+                            {/* Popup */}
+                            {showPopup && (
+                              <div className="fixed inset-0   bg-opacity-50 flex justify-center items-center z-50">
+                                <div className="bg-black flex flex-col  h-96 items-center p-6 rounded-2xl shadow-lg w-96">
+                                  <h2 className="text-sm  font-semibold mb-2">
+                                    How to fill Codm game data ?
+                                  </h2>
+                                  <p className="text-gray-300 text-xs  text-center">
+                                  Please provide all relevant details as illustrated in the accompanying example image. Specifically, include the following information: CODM ID (UID), player level, rank, and in-game username.
+                                <img
+                                src={
+                                  dropdownGameOptions1.find(
+                                    (g) => g.id === activeGameId
+                                  )?.image
+                                }
+                                alt={activeGameId}
+                                className="w-full h-36 mt-5 object-cover rounded-lg"
+                              />
+                                  </p>
+                                  <button
+                                    className="mt-5 w-80 px-4 py-2  bg-white text-black rounded "
+                                    onClick={handleClose}
+                                  >
+                                    Continue Filling your game details
+                                  </button>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="flex lg:flex-row lg:gap-x-10">
