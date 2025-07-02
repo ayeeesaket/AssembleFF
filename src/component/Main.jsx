@@ -738,7 +738,22 @@ function Main() {
                             <div className="left-head text-lg ">
                               {activeGameId.toUpperCase()}
                             </div>
-                            <button className="bg-red-600 rounded-xl text-white px-2 text-xs">
+                            <button
+                              className="bg-red-600 rounded-xl text-white px-2 text-xs"
+                              onClick={() => {
+                                setActiveGameId("");
+                                setSelectedGames((prevGames) =>
+                                  prevGames.filter(
+                                    (game) => game !== activeGameId
+                                  )
+                                );
+                                setGameId("");
+                                setGameRank("");
+                                setGameLevel("");
+                                setGameUsername("");
+                                setCSRank("");
+                              }}
+                            >
                               Delete game
                             </button>
                           </div>
@@ -817,8 +832,7 @@ function Main() {
                           <button
                             className="lg:w-full lg:h-12 rounded-xl border-2 border-white text-white"
                             onClick={() => {
-                              handleTabClick("GAMING");
-                              handleAddDetails();
+                              setDetailsClicked(false);
                             }}
                           >
                             Back To Selection
