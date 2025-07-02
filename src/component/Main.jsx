@@ -7,6 +7,16 @@ import MultiSelect from "./Multiselect";
 import CustomGameDropdown from "./CustomDropdown";
 function Main() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleClick = () => {
+    setShowPopup(true);
+  };
+
+  const handleClose = () => {
+    setShowPopup(false);
+  };
+
   const dropdownGameOptions = [
     {
       id: "bgmi",
@@ -30,6 +40,32 @@ function Main() {
       id: "valorant",
       name: "Valorant",
       image: "/images/Valorant.png",
+      description: "Tactical team-based shooter.",
+    },
+  ];
+   const dropdownGameOptions1 = [
+    {
+      id: "bgmi",
+      name: "Battleground Mobile India",
+      image: "/Frame18.svg",
+      description: "Multiplayer battle royale game.",
+    },
+    {
+      id: "freefire",
+      name: "Freefire Max",
+      image: "/Frame16.svg",
+      description: "Fast-paced shooter game.",
+    },
+    {
+      id: "codm",
+      name: "Call of Duty Mobile",
+      image: "/Frame15.svg",
+      description: "Mobile version of the iconic FPS.",
+    },
+    {
+      id: "valorant",
+      name: "Valorant",
+      image: "/Frame17.svg",
       description: "Tactical team-based shooter.",
     },
   ];
@@ -627,7 +663,7 @@ function Main() {
                 </div>
               </div>
             )}
-            
+
             {gamingInfo && detailsClicked && (
               <>
                 <div className="flex flex-col">
@@ -732,7 +768,7 @@ function Main() {
                           </div>
                         </div>
                       </div>
-                      <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-5 pt-5">
+                      <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-5 md:gap-y-3 pt-5">
                         <div className="text-white">
                           <div className="flex justify-between">
                             <div className="left-head text-lg ">
@@ -772,8 +808,43 @@ function Main() {
                           <button className="bg-black text-white px-2 py-1 rounded-xl ">
                             Primary Account Info
                           </button>
-                          <div className="left-head  ">
-                            How To fill game data?
+                          <div>
+                            {/* Your clickable div */}
+                            <div
+                              className="left-head cursor-pointer  p-3 rounded"
+                              onClick={handleClick}
+                            >
+                              How To fill game data?
+                            </div>
+
+                            {/* Popup */}
+                            {showPopup && (
+                              <div className="fixed inset-0   bg-opacity-50 flex justify-center items-center z-50">
+                                <div className="bg-black flex flex-col  h-96 items-center p-6 rounded-2xl shadow-lg w-96">
+                                  <h2 className="text-sm  font-semibold mb-2">
+                                    How to fill Codm game data ?
+                                  </h2>
+                                  <p className="text-gray-300 text-xs  text-center">
+                                  Please provide all relevant details as illustrated in the accompanying example image. Specifically, include the following information: CODM ID (UID), player level, rank, and in-game username.
+                                <img
+                                src={
+                                  dropdownGameOptions1.find(
+                                    (g) => g.id === activeGameId
+                                  )?.image
+                                }
+                                alt={activeGameId}
+                                className="w-full h-36 mt-5 object-cover rounded-lg"
+                              />
+                                  </p>
+                                  <button
+                                    className="mt-5 w-80 px-4 py-2  bg-white text-black rounded "
+                                    onClick={handleClose}
+                                  >
+                                    Continue Filling your game details
+                                  </button>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="flex lg:flex-row lg:gap-x-10">

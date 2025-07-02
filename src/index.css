@@ -44,3 +44,10 @@ select:valid {
 options:hover{
   color:#000000
 }
+.svg{
+  width:110%;
+  height:200%;
+  background-image: url('../public/Frame15.svg');
+  background-size: cover;
+  background-position: center;
+}
