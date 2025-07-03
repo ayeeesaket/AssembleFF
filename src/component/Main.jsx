@@ -43,7 +43,7 @@ function Main() {
       description: "Tactical team-based shooter.",
     },
   ];
-   const dropdownGameOptions1 = [
+  const dropdownGameOptions1 = [
     {
       id: "bgmi",
       name: "Battleground Mobile India",
@@ -128,18 +128,38 @@ function Main() {
   const [startingYear, setStartingYear] = useState("");
   const [endingYear, setEndingYear] = useState("");
   const [detailsClicked, setDetailsClicked] = useState(false);
-  // gamedetails :
-  const [gameId, setGameId] = useState("");
-  const [gameRank, setGameRank] = useState("");
-  const [gameLevel, setGameLevel] = useState("");
-  const [CSRank, setCSRank] = useState("");
-  const [gameUsername, setGameUsername] = useState("");
+
+  // ************gamedetails *************:
+
+  const [gameData, setGameData] = useState({
+    bgmi: { id: "", username: "", rank: "", level: "" },
+    freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
+    valorant: { id: "", username: "", rank: "", level: "" },
+    codm: { id: "", username: "", rank: "", level: "" },
+  });
+  const handleInputChange = (field, value) => {
+    setGameData((prev) => ({
+      ...prev,
+      [activeGameId]: {
+        ...prev[activeGameId],
+        [field]: value,
+      },
+    }));
+  };
+  const currentGame = gameData[activeGameId];
+  console.log(gameData);
+  // **********************************
+
   console.log(selectedGames);
   const handleAddDetails = () => {
     setDetailsClicked(true);
   };
   console.log(detailsClicked);
   console.log(activeGameId);
+
+  // *********** Submit Game Data*************
+  const [submitGameData, setSubmitGameData] = useState(false);
+
   return (
     <div
       className={`${
@@ -172,6 +192,7 @@ function Main() {
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
           } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
+          
           {/* Tabs */}
           <div className="py-5 w-full flex  px-10 justify-between text-center">
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
@@ -206,7 +227,7 @@ function Main() {
               <>
                 <div className="flex   px-4">
                   <div className="lg:h-full lg:w-[45%] rounded-xl  pt-8 ">
-                    <div className="bg-black/70 2xl:pb-2  backdrop-blur-xl rounded-xl lg:w-[78%] space-y-3 text-white md:h-[70vh]  2xl:h-[72vh]">
+                    <div className="bg-black/70  backdrop-blur-xl rounded-xl 2xl:pb-2  lg:w-[78%] space-y-3 text-white md:h-[70vh]  2xl:h-[72vh]">
                       {/* Carousel */}
 
                       <button
@@ -233,7 +254,12 @@ function Main() {
                         &#x276F;
                       </button>
                       {/* Content */}
-                      <div className="flex flex-col p-4 pt-0   text-sm md:space-y-2 md:h-[36vh]  2xl:h-[38vh] justify-between overflow-hidden">
+                      <div
+                        className="flex flex-col p-4 pt-0 text-sm md:space-y-2 md:h-[36vh] 2xl:h-[38vh] justify-between overflow-hidden  bg-black/20 backdrop-blur-xl"
+                        style={{
+                          backgroundImage: `url(${svgNames[currentSvgIndex]}.png)`,
+                        }}
+                      >
                         <div className="text-base font-semibold tracking-wide text-center">
                           USERNAME
                         </div>
@@ -307,7 +333,7 @@ function Main() {
                     </div>
                   </div>
 
-                  <div className="lg:h-full rounded-xl lg:w-[60%]  pl-0 text-black flex flex-col gap-y-2">
+                  <div className="lg:h-full rounded-xl lg:w-[60%] mt-3 pl-0 text-black flex flex-col 2xl:gap-y-4 gap-y-2">
                     <div className="text-white">
                       <div className="left-head ">Personal Information</div>
                       <div className="left-head-text">
@@ -381,7 +407,7 @@ function Main() {
                     />
 
                     <button
-                      className="lg:w-full lg:h-12 rounded-xl border-2 border-white"
+                      className="lg:w-full lg:h-12 rounded-xl border-2 text-white border-white"
                       onClick={() => handleTabClick("EDUCATIONAL")}
                     >
                       Save Your Personal Information
@@ -394,9 +420,9 @@ function Main() {
             {/* Educational Info Panel */}
             {educationalInfo && (
               <>
-                <div className="lg:h-full lg:w-[40%]  rounded-xl p-3">
+                <div className="lg:h-full lg:w-[40%]  rounded-xl p-3 ">
                   <div className="left-head ">Educational Information</div>
-                  <div className="left-head-text">
+                  <div className="left-head-text lg:w-[90%]">
                     Don't forget to include your educational details! Whether
                     it's your 10th grade, 12th grade, or bachelor's degree, make
                     sure to highlight any relevant studies that showcase your
@@ -465,48 +491,48 @@ function Main() {
                     </div>
                   </div>
                 </div>
-                <div className="lg:h-full rounded-xl lg:w-[55%] p-5 text-black flex flex-col gap-y-4">
+                <div className="lg:h-full rounded-xl lg:w-[60%] p-5 text-black flex flex-col gap-y-4">
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                     placeholder="Highest Education"
                     value={highestEducation}
                     onChange={(e) => setHighestEducation(e.target.value)}
                   />
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                     placeholder="Institution Name"
                     value={institutionName}
                     onChange={(e) => setInstitutionName(e.target.value)}
                   />
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                       placeholder="State"
                       value={eduState}
                       onChange={(e) => setEduState(e.target.value)}
                     />
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                       placeholder="Pin Code"
                       value={eduPinCode}
                       onChange={(e) => setEduPinCode(e.target.value)}
                     />
                   </div>
                   <input
-                    className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
+                    className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                     placeholder="Course"
                     value={course}
                     onChange={(e) => setCourse(e.target.value)}
                   />
                   <div className="flex lg:flex-row lg:gap-x-10">
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                       placeholder="Starting Year"
                       value={startingYear}
                       onChange={(e) => setStartingYear(e.target.value)}
                     />
                     <input
-                      className="bg-white lg:w-full lg:h-12 rounded-2xl pl-5"
+                      className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                       placeholder="Ending Year"
                       value={endingYear}
                       onChange={(e) => setEndingYear(e.target.value)}
@@ -627,15 +653,16 @@ function Main() {
 
                 <div>
                   <div className="left-head  text-lg text-white">
-                    Gaming Information
+                    Selected Games
                   </div>
                   <div className="left-head-text text-sm text-white">
-                    When you're talking about your favorite games, make sure to
-                    drop the title, what platform you’re playing on, and the
-                    genre. Don’t forget to mention when it was released and any
-                    cool stuff like high scores or tournament wins. Also, share
-                    your own experiences and strategies—those really show how
-                    much you love gaming!
+                    When you pick a game from the list above, its card will pop
+                    up right below, giving you a quick overview of its features,
+                    ratings, and more! You’ll see all the exciting upcoming
+                    gaming series, tournaments, and matches it offers, like
+                    gameplay mechanics and graphics. Plus, see what other
+                    players are saying about it! It’s super easy to get all the
+                    info you need before diving in!
                   </div>
                 </div>
 
@@ -647,7 +674,7 @@ function Main() {
                     return (
                       <div
                         key={gameId}
-                        className=" text-black rounded-xl p-4 md:p-2 md:-mt-13 md:w-[200px] w-[250px] flex flex-col items-center  "
+                        className=" text-black rounded-xl p-4 md:p-2 md:-mt-13 md:w-[200px] 2xl:-mt-3 2xl:w-[250px] flex flex-col items-center  "
                       >
                         <img
                           src={game?.image}
@@ -691,7 +718,6 @@ function Main() {
                       );
                     })}
                   </div>
-
                   {/* Down section: Show only after click */}
                   {activeGameId && (
                     <div className="down -mt-12 flex justify-center">
@@ -732,7 +758,9 @@ function Main() {
                                   <div className="text-xs text-gray-300">
                                     {activeGameId.toUpperCase()} UID
                                   </div>
-                                  <div className="font-medium">{gameId}</div>
+                                  <div className="font-medium">
+                                    {currentGame.id}
+                                  </div>
                                 </div>
                               </div>
 
@@ -742,13 +770,17 @@ function Main() {
                                   <div className="text-xs text-gray-300">
                                     Overall Rank
                                   </div>
-                                  <div className="font-medium">{gameRank}</div>
+                                  <div className="font-medium">
+                                    {currentGame.rank}
+                                  </div>
                                 </div>
                                 <div className="text-center">
                                   <div className="text-xs text-gray-300">
                                     Level
                                   </div>
-                                  <div className="font-medium">{gameLevel}</div>
+                                  <div className="font-medium">
+                                    {currentGame.level}
+                                  </div>
                                 </div>
                                 {activeGameId === "freefire" && (
                                   <>
@@ -758,7 +790,7 @@ function Main() {
                                         Cs Rank
                                       </div>
                                       <div className="font-medium">
-                                        {CSRank}
+                                        {currentGame.csRank}
                                       </div>
                                     </div>
                                   </>
@@ -805,7 +837,7 @@ function Main() {
                           </div>
                         </div>
                         <div className="flex justify-between text-sm text-white">
-                          <button className="bg-black text-white px-2 py-1 rounded-xl ">
+                          <button className="bg-black text-white  px-2">
                             Primary Account Info
                           </button>
                           <div>
@@ -819,25 +851,34 @@ function Main() {
 
                             {/* Popup */}
                             {showPopup && (
-                              <div className="fixed inset-0   bg-opacity-50 flex justify-center items-center z-50">
-                                <div className="bg-black flex flex-col  h-96 items-center p-6 rounded-2xl shadow-lg w-96">
-                                  <h2 className="text-sm  font-semibold mb-2">
-                                    How to fill Codm game data ?
+                              <div className="fixed inset-0 bg-black/40 backdrop-blur-xl flex justify-center items-center z-50">
+                                <div className="bg-black flex flex-col h-96 items-center p-6 rounded-2xl shadow-lg w-96">
+                                  <h2 className="text-sm font-semibold mb-2 text-white">
+                                    How to fill {activeGameId.toUpperCase()}{" "}
+                                    game data?
                                   </h2>
-                                  <p className="text-gray-300 text-xs  text-center">
-                                  Please provide all relevant details as illustrated in the accompanying example image. Specifically, include the following information: CODM ID (UID), player level, rank, and in-game username.
-                                <img
-                                src={
-                                  dropdownGameOptions1.find(
-                                    (g) => g.id === activeGameId
-                                  )?.image
-                                }
-                                alt={activeGameId}
-                                className="w-full h-36 mt-5 object-cover rounded-lg"
-                              />
+
+                                  <p className="text-gray-300 text-xs text-center">
+                                    Please provide all relevant details as
+                                    illustrated in the accompanying example
+                                    image. Specifically, include the following
+                                    information: {activeGameId.toUpperCase()} ID
+                                    (UID), player level, rank, and in-game
+                                    username.
                                   </p>
+
+                                  <img
+                                    src={
+                                      dropdownGameOptions1.find(
+                                        (g) => g.id === activeGameId
+                                      )?.image
+                                    }
+                                    alt={activeGameId}
+                                    className="w-full h-36 mt-5 object-cover rounded-lg"
+                                  />
+
                                   <button
-                                    className="mt-5 w-80 px-4 py-2  bg-white text-black rounded "
+                                    className="mt-5 w-80 px-4 py-2 bg-white text-black rounded"
                                     onClick={handleClose}
                                   >
                                     Continue Filling your game details
@@ -852,10 +893,10 @@ function Main() {
                             placeholder="Level"
                             className="bg-white lg:w-full lg:h-12 rounded-xl pl-5 text-black"
                             type="number"
-                            value={gameLevel}
-                            onChange={(e) => {
-                              setGameLevel(e.target.value);
-                            }}
+                            value={gameData[activeGameId]?.level || ""}
+                            onChange={(e) =>
+                              handleInputChange("level", e.target.value)
+                            }
                           />
 
                           {activeGameId === "freefire" && (
@@ -863,10 +904,10 @@ function Main() {
                               <input
                                 placeholder="CS Rank"
                                 className="bg-white lg:w-full lg:h-12 rounded-xl pl-5 text-black"
-                                value={CSRank}
-                                onChange={(e) => {
-                                  setCSRank(e.target.value);
-                                }}
+                                value={gameData.freefire.csRank}
+                                onChange={(e) =>
+                                  handleInputChange("csRank", e.target.value)
+                                }
                               />
                             </>
                           )}
@@ -874,29 +915,29 @@ function Main() {
                             options={["Platinum", "Gold", "Diamond", "Ace"]}
                             placeholder="Rank"
                             multiSelect={false}
-                            onChange={(selectedValue) => {
-                              setGameRank(selectedValue);
-                            }}
+                            onChange={(selectedValue) =>
+                              handleInputChange("rank", selectedValue)
+                            }
                           />
                         </div>
                         <div className="flex lg:flex-row lg:gap-x-10">
                           <input
                             className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                             placeholder={`${activeGameId.toUpperCase()} ID`}
-                            value={gameId}
-                            onChange={(e) => {
-                              setGameId(e.target.value);
-                            }}
+                            value={gameData[activeGameId]?.id || ""}
+                            onChange={(e) =>
+                              handleInputChange("id", e.target.value)
+                            }
                           />
                         </div>
                         <div className="flex lg:flex-row lg:gap-x-10">
                           <input
                             className="bg-white lg:w-full lg:h-12 rounded-xl pl-5"
                             placeholder="In Game Username"
-                            value={gameUsername}
-                            onChange={(e) => {
-                              setGameUsername(e.target.value);
-                            }}
+                            value={gameData[activeGameId]?.username || ""}
+                            onChange={(e) =>
+                              handleInputChange("username", e.target.value)
+                            }
                           />
                         </div>
                         <div className="flex lg:gap-x-10">
@@ -908,7 +949,12 @@ function Main() {
                           >
                             Back To Selection
                           </button>
-                          <button className="lg:w-full lg:h-12 rounded-xl  bg-black text-white">
+                          <button
+                            className="lg:w-full lg:h-12 rounded-xl  bg-black text-white"
+                            onClick={() => {
+                              setSubmitGameData(true);
+                            }}
+                          >
                             Submit Account Info
                           </button>
                         </div>
@@ -918,6 +964,7 @@ function Main() {
                 </div>
               </>
             )}
+            
           </div>
         </div>
 
