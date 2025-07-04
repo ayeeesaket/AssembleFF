@@ -69,7 +69,7 @@ function Main() {
       description: "Tactical team-based shooter.",
     },
   ];
-  const [activeGameId, setActiveGameId] = useState(null);
+  const [activeGameId, setActiveGameId] = useState();
 
   const [currentSvgIndex, setCurrentSvgIndex] = useState(0);
   const [personalInfo, setPersonalInfo] = useState(true);
