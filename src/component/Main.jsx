@@ -8,6 +8,7 @@ import PersonalInfoCard from "./cards/PersonalInfoCard";
 import EducationInfoCard from "./cards/EducationInfoCard";
 import CustomGameDropdown from "./CustomDropdown";
 import GamingInfoCard from "./cards/GamingInfoCard";
+import GameCard from "./cards/GameCard";
 function Main() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
   const [showPopup, setShowPopup] = useState(false);
@@ -78,10 +79,8 @@ function Main() {
   const [personalInfo, setPersonalInfo] = useState(true);
   const [educationalInfo, setEducationalInfo] = useState(false);
   const [gamingInfo, setGamingInfo] = useState(false);
-  const [selectedGames, setSelectedGames] = useState([]);
-  const [selectedSocials, setSelectedSocials] = useState([]); // ✅ move this up
+  // ✅ move this up
 
-  console.log(selectedGames);
   const socialOptions = [
     { id: "youtube", name: "YouTube" },
     { id: "discord", name: "Discord" },
@@ -132,6 +131,12 @@ function Main() {
   const [endingYear, setEndingYear] = useState("");
   const [detailsClicked, setDetailsClicked] = useState(false);
 
+  //*********gaming info usestates */
+  const [selectedGames, setSelectedGames] = useState([]);
+  const [selectedSocials, setSelectedSocials] = useState([]);
+  const [skillLevel, setSkillLevel] = useState("");
+  const [gamingPlatform, setGamingPlatform] = useState("");
+  const [gamingServer, setGamingServer] = useState("");
   // ************gamedetails *************:
 
   const [gameData, setGameData] = useState(
@@ -184,12 +189,12 @@ function Main() {
       } bg-cover font-sa h-screen w-screen`}
     >
       {/* Navbar */}
-      <div className="lg:h-14 lg:w-full bg-black/10 backdrop-blur-xl" />
+      <div className="lg:h-14 lg:w-full bg-white/25 backdrop-blur-xl" />
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
         <div
-          className="w-14 bg-black/10 backdrop-blur-xl lg:h-120 lg:mt-28"
+          className="w-14 bg-white/25 backdrop-blur-xl lg:h-120 lg:mt-28"
           style={{
             clipPath: "polygon(0% 0%, 1000% 50%, 1000% 50%, 0% 100%)",
           }}
@@ -199,7 +204,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/10 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
+          } flex-1 bg-white/25 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div
@@ -588,26 +593,20 @@ function Main() {
                       options={["Newbie", "Beginner", "Intermediate", "Pro"]}
                       placeholder="Select Level"
                       multiSelect={false}
-                      onChange={(selectedLevel) => {
-                        console.log("Selected Level:", selectedLevel);
-                      }}
+                      onChange={(value) => setSkillLevel(value)}
                     />
 
                     <MultiSelect
                       options={["Mobile", "PC or Desktop", "Both"]}
                       placeholder="Gaming Platform"
                       multiSelect={false}
-                      onChange={(selected) => {
-                        console.log("Selected Gaming Platform:", selected);
-                      }}
+                      onChange={(value) => setGamingPlatform(value)}
                     />
                     <MultiSelect
                       options={["Asia", "Europe"]}
                       placeholder="Gaming Server"
                       multiSelect={false}
-                      onChange={(selected) => {
-                        console.log("Selected Gaming Server:", selected);
-                      }}
+                      onChange={(value) => setGamingServer(value)}
                     />
                   </div>
 
@@ -977,29 +976,58 @@ function Main() {
               </>
             )}
             {gamingInfo && detailsClicked && submitGameData && (
-              <div className="main px-5 py-10 ">
-                <PersonalInfoCard
-                  username="Username"
-                  fullname={fullName}
-                  gender={gender}
-                  age={age}
-                  phoneNumber={phoneNumber}
-                  tagline={tagline}
-                  state={state}
-                  country={country}
-                  pincode={pinCode}
-                />
-                <EducationInfoCard
-                  username="Username"
-                  highestEducation={highestEducation}
-                  institutionName={institutionName}
-                  state={eduState}
-                  eduPinCode={eduPinCode}
-                  course={course}
-                  startingYear={startingYear}
-                  endingYear={endingYear}
-                />
-                <GamingInfoCard />
+              <div className="flex flex-col h-[80vh] px-5 mt-10 overflow-y-auto no-scrollbar">
+                <div className="flex-shrink-0">
+                  <PersonalInfoCard
+                    username="Username"
+                    fullname={fullName}
+                    gender={gender}
+                    age={age}
+                    phoneNumber={phoneNumber}
+                    tagline={tagline}
+                    state={state}
+                    country={country}
+                    pincode={pinCode}
+                  />
+                </div>
+
+                <div className="flex-shrink-0 ">
+                  <EducationInfoCard
+                    username="Username"
+                    highestEducation={highestEducation}
+                    institutionName={institutionName}
+                    state={eduState}
+                    eduPinCode={eduPinCode}
+                    course={course}
+                    startingYear={startingYear}
+                    endingYear={endingYear}
+                  />
+                </div>
+
+                <div className="flex-shrink-0 ">
+                  <GamingInfoCard
+                    username="Username"
+                    skillLevel={skillLevel}
+                    gamingPlatform={gamingPlatform}
+                    gamingServer={gamingServer}
+                    favouriteGames=""
+                    socialMedia=""
+                  />
+                </div>
+                <div className="flex-shrink-0 space-y-4">
+                  {selectedGames.map((gameId) => {
+                    const currentGame = gameData[gameId];
+                    return (
+                      <GameCard
+                        key={gameId}
+                        username={currentGame?.username}
+                        id={currentGame?.id}
+                        rank={currentGame?.rank}
+                        level={currentGame?.level}
+                      />
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
@@ -1007,7 +1035,7 @@ function Main() {
 
         {/* Right Sidebar */}
         <div
-          className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28"
+          className="w-14 bg-white/25 backdrop-blur-xl lg:h-120 lg:mt-28"
           style={{
             clipPath: "polygon(100% 0%, -900% 50%, -900% 50%, 100% 100%)",
           }}
