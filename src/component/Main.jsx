@@ -155,12 +155,12 @@ function Main() {
       } bg-cover font-sa h-screen w-screen`}
     >
       {/* Navbar */}
-      <div className="lg:h-14 lg:w-full bg-black/20 backdrop-blur-xl" />
+      <div className="lg:h-14 lg:w-full bg-black/10 backdrop-blur-xl" />
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
         <div
-          className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28"
+          className="w-14 bg-black/10 backdrop-blur-xl lg:h-120 lg:mt-28"
           style={{
             clipPath: "polygon(0% 0%, 1000% 50%, 1000% 50%, 0% 100%)",
           }}
@@ -170,7 +170,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
+          } flex-1 bg-black/10 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div className="py-5 w-full flex  px-10 justify-between text-center">
