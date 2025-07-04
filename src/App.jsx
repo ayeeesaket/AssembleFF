@@ -2,6 +2,8 @@ import React from 'react'
 import Body from './component/Body'
 import PersonalInfoCard from './component/cards/PersonalInfoCard'
 import EducationInfoCard from './component/cards/EducationInfoCard'
+import GamingInfoCard from './component/cards/GamingInfoCard'
+import GameCard from './component/cards/GameCard'
 
 const App = () => {
   return (
@@ -9,6 +11,8 @@ const App = () => {
       <Body />  
       {/* <PersonalInfoCard/> */}
       {/* <EducationInfoCard/> */}
+      {/* <GamingInfoCard/> */}
+      {/* <GameCard/> */}
     </>
   )
 }
