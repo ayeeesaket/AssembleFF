@@ -4,6 +4,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { ImCheckboxChecked } from "react-icons/im";
 import MultiSelect from "./Multiselect";
+import PersonalInfoCard from "./cards/PersonalInfoCard";
+import EducationInfoCard from "./cards/EducationInfoCard";
 import CustomGameDropdown from "./CustomDropdown";
 function Main() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
@@ -136,7 +138,7 @@ function Main() {
     freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
     valorant: { id: "", username: "", rank: "", level: "" },
     codm: { id: "", username: "", rank: "", level: "" },
-  });
+  } || {});
   const handleInputChange = (field, value) => {
     setGameData((prev) => ({
       ...prev,
@@ -159,6 +161,10 @@ function Main() {
 
   // *********** Submit Game Data*************
   const [submitGameData, setSubmitGameData] = useState(false);
+  const handleSubmitGameData = () => {
+    setSubmitGameData(true);
+    console.log("Game data submitted:", gameData);
+  };
 
   return (
     <div
@@ -175,12 +181,12 @@ function Main() {
       } bg-cover font-sa h-screen w-screen`}
     >
       {/* Navbar */}
-      <div className="lg:h-14 lg:w-full bg-black/20 backdrop-blur-xl" />
+      <div className="lg:h-14 lg:w-full bg-black/10 backdrop-blur-xl" />
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
         <div
-          className="w-14 bg-black/20 backdrop-blur-xl lg:h-120 lg:mt-28"
+          className="w-14 bg-black/10 backdrop-blur-xl lg:h-120 lg:mt-28"
           style={{
             clipPath: "polygon(0% 0%, 1000% 50%, 1000% 50%, 0% 100%)",
           }}
@@ -190,11 +196,11 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/20 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
+          } flex-1 bg-black/10 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
           
           {/* Tabs */}
-          <div className="py-5 w-full flex  px-10 justify-between text-center">
+          <div className={`py-5 ${submitGameData ? "hidden" : ""} w-full flex  px-10 justify-between text-center`}>
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
               const isActive =
                 (label === "PERSONAL" && personalInfo) ||
@@ -208,7 +214,9 @@ function Main() {
                     isActive
                       ? "bg-white text-black border-b-4 border-b-black"
                       : "bg-black text-white border-b-4 border-b-white"
-                  }`}
+                  }`
+                
+                }
                 >
                   {label} INFORMATION
                 </div>
@@ -691,7 +699,8 @@ function Main() {
               </div>
             )}
 
-            {gamingInfo && detailsClicked && (
+
+            {gamingInfo && detailsClicked && !submitGameData &&  (
               <>
                 <div className="flex flex-col">
                   {/* Game Selection */}
@@ -759,7 +768,7 @@ function Main() {
                                     {activeGameId.toUpperCase()} UID
                                   </div>
                                   <div className="font-medium">
-                                    {currentGame.id}
+                                    {currentGame?.id}
                                   </div>
                                 </div>
                               </div>
@@ -771,7 +780,7 @@ function Main() {
                                     Overall Rank
                                   </div>
                                   <div className="font-medium">
-                                    {currentGame.rank}
+                                    {currentGame?.rank}
                                   </div>
                                 </div>
                                 <div className="text-center">
@@ -779,7 +788,7 @@ function Main() {
                                     Level
                                   </div>
                                   <div className="font-medium">
-                                    {currentGame.level}
+                                    {currentGame?.level}
                                   </div>
                                 </div>
                                 {activeGameId === "freefire" && (
@@ -790,7 +799,7 @@ function Main() {
                                         Cs Rank
                                       </div>
                                       <div className="font-medium">
-                                        {currentGame.csRank}
+                                        {currentGame?.csRank}
                                       </div>
                                     </div>
                                   </>
@@ -952,7 +961,8 @@ function Main() {
                           <button
                             className="lg:w-full lg:h-12 rounded-xl  bg-black text-white"
                             onClick={() => {
-                              setSubmitGameData(true);
+                              handleSubmitGameData();
+                             
                             }}
                           >
                             Submit Account Info
@@ -964,7 +974,12 @@ function Main() {
                 </div>
               </>
             )}
-            
+            { gamingInfo && detailsClicked && submitGameData && (
+              <div className="main px-5 py-10">
+                <PersonalInfoCard  />
+                <EducationInfoCard/>
+              </div>
+            )}
           </div>
         </div>
 
