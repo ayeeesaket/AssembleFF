@@ -975,7 +975,7 @@ function Main() {
               </>
             )}
             { gamingInfo && detailsClicked && submitGameData && (
-              <div className="main px-5 py-10">
+              <div className="main  px-5 py-10">
                 <PersonalInfoCard  />
                 <EducationInfoCard/>
               </div>
