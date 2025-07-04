@@ -7,6 +7,7 @@ import MultiSelect from "./Multiselect";
 import PersonalInfoCard from "./cards/PersonalInfoCard";
 import EducationInfoCard from "./cards/EducationInfoCard";
 import CustomGameDropdown from "./CustomDropdown";
+import GamingInfoCard from "./cards/GamingInfoCard";
 function Main() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
   const [showPopup, setShowPopup] = useState(false);
@@ -133,12 +134,14 @@ function Main() {
 
   // ************gamedetails *************:
 
-  const [gameData, setGameData] = useState({
-    bgmi: { id: "", username: "", rank: "", level: "" },
-    freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
-    valorant: { id: "", username: "", rank: "", level: "" },
-    codm: { id: "", username: "", rank: "", level: "" },
-  } || {});
+  const [gameData, setGameData] = useState(
+    {
+      bgmi: { id: "", username: "", rank: "", level: "" },
+      freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
+      valorant: { id: "", username: "", rank: "", level: "" },
+      codm: { id: "", username: "", rank: "", level: "" },
+    } || {}
+  );
   const handleInputChange = (field, value) => {
     setGameData((prev) => ({
       ...prev,
@@ -198,9 +201,12 @@ function Main() {
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
           } flex-1 bg-black/10 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
-          
           {/* Tabs */}
-          <div className={`py-5 ${submitGameData ? "hidden" : ""} w-full flex  px-10 justify-between text-center`}>
+          <div
+            className={`py-5 ${
+              submitGameData ? "hidden" : ""
+            } w-full flex  px-10 justify-between text-center`}
+          >
             {["PERSONAL", "EDUCATIONAL", "GAMING"].map((label) => {
               const isActive =
                 (label === "PERSONAL" && personalInfo) ||
@@ -214,9 +220,7 @@ function Main() {
                     isActive
                       ? "bg-white text-black border-b-4 border-b-black"
                       : "bg-black text-white border-b-4 border-b-white"
-                  }`
-                
-                }
+                  }`}
                 >
                   {label} INFORMATION
                 </div>
@@ -699,8 +703,7 @@ function Main() {
               </div>
             )}
 
-
-            {gamingInfo && detailsClicked && !submitGameData &&  (
+            {gamingInfo && detailsClicked && !submitGameData && (
               <>
                 <div className="flex flex-col">
                   {/* Game Selection */}
@@ -962,7 +965,6 @@ function Main() {
                             className="lg:w-full lg:h-12 rounded-xl  bg-black text-white"
                             onClick={() => {
                               handleSubmitGameData();
-                             
                             }}
                           >
                             Submit Account Info
@@ -974,10 +976,30 @@ function Main() {
                 </div>
               </>
             )}
-            { gamingInfo && detailsClicked && submitGameData && (
-              <div className="main px-5 py-10">
-                <PersonalInfoCard  />
-                <EducationInfoCard/>
+            {gamingInfo && detailsClicked && submitGameData && (
+              <div className="main px-5 py-10 ">
+                <PersonalInfoCard
+                  username="Username"
+                  fullname={fullName}
+                  gender={gender}
+                  age={age}
+                  phoneNumber={phoneNumber}
+                  tagline={tagline}
+                  state={state}
+                  country={country}
+                  pincode={pinCode}
+                />
+                <EducationInfoCard
+                  username="Username"
+                  highestEducation={highestEducation}
+                  institutionName={institutionName}
+                  state={eduState}
+                  eduPinCode={eduPinCode}
+                  course={course}
+                  startingYear={startingYear}
+                  endingYear={endingYear}
+                />
+                <GamingInfoCard />
               </div>
             )}
           </div>

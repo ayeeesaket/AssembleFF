@@ -12,7 +12,7 @@ const App = () => {
       {/* <PersonalInfoCard/> */}
       {/* <EducationInfoCard/> */}
       {/* <GamingInfoCard/> */}
-      <GameCard/>
+      {/* <GameCard/> */}
     </>
   )
 }
