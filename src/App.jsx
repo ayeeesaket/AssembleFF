@@ -8,7 +8,7 @@ import GameCard from './component/cards/GameCard'
 const App = () => {
   return (
     <>
-      {/* <Body />   */}
+      <Body />  
       {/* <PersonalInfoCard/> */}
       {/* <EducationInfoCard/> */}
       {/* <GamingInfoCard/> */}
