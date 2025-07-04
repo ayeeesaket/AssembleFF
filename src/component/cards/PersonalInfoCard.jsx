@@ -13,7 +13,8 @@ const PersonalInfoCard = ({
 }) => {
   return (
     <>
-      <div className="main-div h-[30vh] w-full  bg-black/20 backdrop-blur-xl px-10 py-1">
+      <div className="main-div h-[30vh] w-full   bg-gradient-to-br from-black via-black/70 to-black/50
+    backdrop-blur-xlpx-10 py-1">
         <div className="heading flex justify-between items-center">
           <h1 className="text-2xl font-bold">Personal Information</h1>
           <button className="bg-blue-500 text-white px-4 py-2 rounded">

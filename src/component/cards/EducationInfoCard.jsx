@@ -12,7 +12,7 @@ const EducationInfoCard = ({
 ) => {
   return (
     <>
-      <div className="main-div h-[30vh] w-full  bg-black/20 backdrop-blur-xl px-10 py-1 rounded-xl">
+      <div className="main-div h-[30vh] w-full mt-10  bg-black/20 backdrop-blur-xl px-10 py-1 rounded-xl">
         <div className="heading flex justify-between items-center">
           <h1 className="text-2xl font-bold">Educational Information</h1>
           <button className="bg-blue-500 text-white px-4 py-2 rounded">

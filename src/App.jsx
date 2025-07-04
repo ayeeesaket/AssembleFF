@@ -6,9 +6,9 @@ import EducationInfoCard from './component/cards/EducationInfoCard'
 const App = () => {
   return (
     <>
-      {/* <Body />   */}
+      <Body />  
       {/* <PersonalInfoCard/> */}
-      <EducationInfoCard/>
+      {/* <EducationInfoCard/> */}
     </>
   )
 }
