@@ -12,7 +12,7 @@ import GameCard from "./cards/GameCard";
 function Main() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
   const [showPopup, setShowPopup] = useState(false);
-
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
   const handleClick = () => {
     setShowPopup(true);
   };
@@ -27,24 +27,28 @@ function Main() {
       name: "Battleground Mobile India",
       image: "/images/BGMI.png",
       description: "Multiplayer battle royale game.",
+      image2: "/images/BGMI2.svg",
     },
     {
       id: "freefire",
       name: "Freefire Max",
       image: "/images/FREEFIRE.png",
       description: "Fast-paced shooter game.",
+      image2: "/images/FREEFIRE2.svg",
     },
     {
       id: "codm",
       name: "Call of Duty Mobile",
       image: "/images/CODM.png",
       description: "Mobile version of the iconic FPS.",
+      image2: "/images/CODM2.svg",
     },
     {
       id: "valorant",
       name: "Valorant",
       image: "/images/Valorant.png",
       description: "Tactical team-based shooter.",
+      image2: "/images/VALORANT2.svg",
     },
   ];
   const dropdownGameOptions1 = [
@@ -182,7 +186,10 @@ function Main() {
 
   console.log(selectedGames);
   const handleAddDetails = () => {
-    setDetailsClicked(true);
+    if (selectedGames.length > 0) {
+      setActiveGameId(selectedGames[0]); // ✅ Pick first game automatically
+    }
+    setDetailsClicked(true); // ✅ Show the game detail form
   };
   console.log(detailsClicked);
   console.log(activeGameId);
@@ -327,7 +334,7 @@ function Main() {
                       {/* Content */}
 
                       <div
-                        className={`flex flex-col -mt-3 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[38vh] bg-cover rounded-b-xl justify-between overflow-hidden ${
+                        className={`flex flex-col -mt-3 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[45vh] bg-cover rounded-b-xl justify-between overflow-hidden ${
                           isDarkTheme ? "bg-black/20" : "bg-white/20"
                         }`}
                         style={{
@@ -335,7 +342,7 @@ function Main() {
                         }}
                       >
                         <div
-                          className={`flex flex-col p-4 pt-0 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[38vh] justify-between overflow-hidden ${
+                          className={`flex flex-col p-4 pt-0 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[45vh] justify-between overflow-hidden ${
                             isDarkTheme
                               ? "bg-black/50 text-white"
                               : "bg-white/60 text-black"
@@ -817,7 +824,7 @@ function Main() {
                                 src={
                                   dropdownGameOptions.find(
                                     (g) => g.id === activeGameId
-                                  )?.image
+                                  )?.image2
                                 }
                                 alt={activeGameId}
                                 className="w-full h-36 object-cover rounded-lg mb-4"

@@ -17,7 +17,7 @@ const PersonalInfoCard = ({
       {/* Blurred background image */}
       <div
         className="absolute inset-0 bg-cover bg-center filter blur-lg scale-110"
-        style={{ backgroundImage: "url('/NExtpage.png')" }}
+        style={{ backgroundImage: "url('/Nextpage.png')" }}
       />
 
       {/* Glossy overlay */}
