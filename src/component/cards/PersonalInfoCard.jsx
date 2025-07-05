@@ -10,13 +10,14 @@ const PersonalInfoCard = ({
   state,
   country,
   pincode,
+  onEdit,
 }) => {
   return (
     <div className="relative h-[30vh] w-full overflow-hidden rounded-xl ">
       {/* Blurred background image */}
       <div
         className="absolute inset-0 bg-cover bg-center filter blur-lg scale-110"
-        style={{ backgroundImage: "url('/NExtpage.png')" }}
+        style={{ backgroundImage: "url('/Nextpage.png')" }}
       />
 
       {/* Glossy overlay */}
@@ -24,7 +25,8 @@ const PersonalInfoCard = ({
         {/* Heading */}
         <div className="flex justify-between items-center">
           <h3 className="text-xl font-bold">Personal Information</h3>
-          <button className="bg-black text-white px-4 py-1 border-white border-1 rounded-xl">
+          <button className="bg-black text-white px-4 py-1 text-xs border-white border-1 rounded-xl"
+          onClick={() => onEdit()}>
             Edit
           </button>
         </div>

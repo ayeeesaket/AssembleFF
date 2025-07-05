@@ -13,16 +13,22 @@ const EducationInfoCard = ({
   return (
     <div className="relative h-[30vh] w-full mt-5 overflow-hidden rounded-xl">
       {/* Blurred background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center filter blur-lg scale-110"
-        style={{ backgroundImage: "url('/NExtpage.png')" }}
-      />
+      <div className="absolute inset-0 scale-110">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center filter blur-lg"
+          style={{ backgroundImage: "url('cyberman.png')" }}
+        />
+
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
 
       {/* Glass overlay */}
       <div className="relative z-10 h-full w-full bg-black/0 backdrop-blur-xl px-5 py-2  text-white">
         <div className="heading flex justify-between items-center">
           <h1 className="text-2xl font-bold">Educational Information</h1>
-          <button className="bg-black text-white px-4 py-1 border-white border-1 rounded-xl">
+          <button className="bg-black text-white px-4 py-1 border-white border-1 text-xs rounded-xl">
             Edit
           </button>
         </div>

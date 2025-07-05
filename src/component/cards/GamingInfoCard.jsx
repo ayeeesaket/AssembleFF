@@ -9,18 +9,18 @@ const GamingInfoCard = ({
   socialMedia,
 }) => {
   return (
-    <div className="relative h-[28vh] w-full mt-5 overflow-hidden rounded-xl">
+    <div className="relative h-[28vh] w-full mt-5 overflow-hidden rounded-xl" >
       {/* Blurred background image */}
       <div
         className="absolute inset-0 bg-cover bg-center filter blur-lg scale-110"
-        style={{ backgroundImage: "url('/NExtpage.png')" }}
+        style={{ backgroundImage: "url('/Nextpage.png')" }}
       />
 
       {/* Glass overlay with original content */}
       <div className="relative z-10 h-full w-full bg-black/0 backdrop-blur-xl px-5 py-2 text-white">
         <div className="heading flex justify-between items-center">
           <h1 className="text-2xl font-bold">Gaming Information</h1>
-          <button className="bg-black text-white px-4 py-1 border-white border-1 rounded-xl">
+          <button className="bg-black text-white px-4 py-1 border-white border-1 text-xs rounded-xl">
             Edit
           </button>
         </div>
@@ -33,7 +33,7 @@ const GamingInfoCard = ({
           gamers!
         </div>
 
-        <div className="content h-[13vh] gap-10 mt-3">
+        <div className="content h-[11vh] gap-10 mt-3">
           <div className="right w-full h-full flex flex-col justify-between">
             <div className="right-top w-full flex justify-between">
               <div>
