@@ -139,14 +139,12 @@ function Main() {
   const [gamingServer, setGamingServer] = useState("");
   // ************gamedetails *************:
 
-  const [gameData, setGameData] = useState(
-    {
-      bgmi: { id: "", username: "", rank: "", level: "" },
-      freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
-      valorant: { id: "", username: "", rank: "", level: "" },
-      codm: { id: "", username: "", rank: "", level: "" },
-    } || {}
-  );
+  const [gameData, setGameData] = useState({
+    bgmi: { id: "", username: "", rank: "", level: "" },
+    freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
+    valorant: { id: "", username: "", rank: "", level: "" },
+    codm: { id: "", username: "", rank: "", level: "" },
+  } || {});
   const handleInputChange = (field, value) => {
     setGameData((prev) => ({
       ...prev,
@@ -182,7 +180,7 @@ function Main() {
           : personalInfo
           ? "bg-[url('/InfoBackground.svg')]"
           : educationalInfo
-          ? "bg-[url('/EducationInfoBG.svg')]"
+          ? "bg-[url('/EducationalInfoBG.svg')]"
           : gamingInfo
           ? "bg-[url('/GamingInfoBG.svg')]"
           : ""
@@ -204,7 +202,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-white/25 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
+          } flex-1 bg-black/10 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div
@@ -243,14 +241,33 @@ function Main() {
             {personalInfo && (
               <>
                 <div className="flex   px-4">
-                  <div className="lg:h-full lg:w-[45%] rounded-xl  pt-8 ">
-                    <div className="bg-black/70  backdrop-blur-xl rounded-xl 2xl:pb-2  lg:w-[78%] space-y-3 text-white md:h-[70vh]  2xl:h-[72vh]">
+                  <div className="lg:h-full  lg:w-[45%] rounded-xl  pt-8 ">
+                    <div
+                      className={`relative ${
+                        isDarkTheme
+                          ? "bg-black/70 text-white"
+                          : "bg-white text-black"
+                      } bg-black/70  backdrop-blur-xl rounded-xl 2xl:pb-2   lg:w-[78%] space-y-3 text-white md:h-[70vh]  2xl:h-[72vh]`}
+                    >
                       {/* Carousel */}
-
+                      <button
+                        onClick={() => setIsDarkTheme(!isDarkTheme)}
+                        className={`absolute top-2 right-2 ${
+                          isDarkTheme
+                            ? "bg-black/50 text-white"
+                            : "bg-white/50 text-black"
+                        } px-3 py-1 rounded text-xs`}
+                      >
+                        {isDarkTheme ? "Light Theme" : "Dark Theme"}
+                      </button>
                       <button
                         onClick={handlePrev}
                         type="button"
-                        className="absolute md:top-25  2xl:top-25 bg-black/50 w-5   -translate-y-1/2 text-2xl z-10 text-white"
+                        className={`absolute md:top-25 2xl:top-25 ${
+                          isDarkTheme
+                            ? "bg-black/50 text-white"
+                            : "bg-white/50 text-black"
+                        } w-5 -translate-y-1/2 text-2xl z-10`}
                       >
                         &#x276E;
                       </button>
@@ -266,83 +283,100 @@ function Main() {
                       <button
                         onClick={handleNext}
                         type="button"
-                        className="absolute md:top-25 2xl:top-25 bg-black/50 w-5  right-0.5 top-25 -translate-y-1/2 text-2xl z-10 text-white"
+                        className={`absolute md:top-25 2xl:top-25 ${
+                          isDarkTheme
+                            ? "bg-black/50 text-white"
+                            : "bg-white/50 text-black"
+                        } w-5 right-0.5 top-25 -translate-y-1/2 text-2xl z-10`}
                       >
                         &#x276F;
                       </button>
                       {/* Content */}
+
                       <div
-                        className="flex flex-col p-4 pt-0 text-sm md:space-y-2 md:h-[36vh] 2xl:h-[38vh] justify-between overflow-hidden  bg-black/20 backdrop-blur-xl"
+                        className={`flex flex-col -mt-3 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[38vh] bg-cover rounded-b-xl justify-between overflow-hidden ${
+                          isDarkTheme ? "bg-black/20" : "bg-white/20"
+                        }`}
                         style={{
                           backgroundImage: `url(${svgNames[currentSvgIndex]}.png)`,
                         }}
                       >
-                        <div className="text-base font-semibold tracking-wide text-center">
-                          USERNAME
-                        </div>
+                        <div
+                          className={`flex flex-col p-4 pt-0 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[38vh] justify-between overflow-hidden ${
+                            isDarkTheme
+                              ? "bg-black/50 text-white"
+                              : "bg-white/60 text-black"
+                          } backdrop-blur-xl`}
+                        >
+                          <div className="text-base font-semibold tracking-wide text-center">
+                            USERNAME
+                          </div>
 
-                        <div className="flex justify-between gap-4">
-                          <div>
-                            <div className="text-sm text-gray-300">Name</div>{" "}
-                            <div className="text-base font-medium">
-                              {fullName}
-                            </div>{" "}
-                          </div>
-                          <div>
-                            <div className="text-xs text-gray-300">Age</div>
-                            <div className="text-base font-medium">{age}</div>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-xs text-gray-300 ">Gender</div>
-                            <div className=" text-base font-medium">
-                              {gender}
+                          <div className="flex justify-between gap-4">
+                            <div>
+                              <div className="text-sm ">Name</div>{" "}
+                              <div className="text-base font-medium">
+                                {fullName}
+                              </div>{" "}
+                            </div>
+                            <div>
+                              <div className="text-xs ">Age</div>
+                              <div className="text-base font-medium">{age}</div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-xs ">Gender</div>
+                              <div className=" text-base font-medium">
+                                {gender}
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        {/* Tagline, Phone */}
-                        <div className="flex justify-between gap-4 ">
-                          <div className="">
-                            <div className="text-xs text-gray-300">Tagline</div>
-                            <div className="font-medium text-base">
-                              {tagline}
+                          {/* Tagline, Phone */}
+                          <div className="flex justify-between gap-4 ">
+                            <div className="">
+                              <div className="text-xs ">Tagline</div>
+                              <div className="font-medium text-base">
+                                {tagline}
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-xs  ">Phone Number</div>
+                              <div className="font-medium text-base">
+                                {" "}
+                                {phoneNumber}
+                              </div>
                             </div>
                           </div>
-                          <div className="text-right">
-                            <div className="text-xs text-gray-300 ">
-                              Phone Number
-                            </div>
-                            <div className="font-medium text-base">
-                              {" "}
-                              {phoneNumber}
-                            </div>
-                          </div>
-                        </div>
 
-                        {/* Country, State, Pincode */}
-                        <div className="flex justify-between gap-4">
-                          <div>
-                            <div className="text-xs text-gray-300">Country</div>
-                            <div className="font-medium text-base">
-                              {country}
+                          {/* Country, State, Pincode */}
+                          <div className="flex justify-between gap-4">
+                            <div>
+                              <div className="text-xs ">Country</div>
+                              <div className="font-medium text-base">
+                                {country}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-xs ">State</div>
+                              <div className="font-medium text-base">
+                                {state}
+                              </div>
+                            </div>
+                            <div>
+                              <div className="text-xs ">Pincode</div>
+                              <div className="font-medium text-base">
+                                {pinCode}
+                              </div>
                             </div>
                           </div>
-                          <div>
-                            <div className="text-xs text-gray-300">State</div>
-                            <div className="font-medium text-base">{state}</div>
-                          </div>
-                          <div>
-                            <div className="text-xs text-gray-300">Pincode</div>
-                            <div className="font-medium text-base">
-                              {pinCode}
-                            </div>
-                          </div>
-                        </div>
 
-                        {/* Address */}
-                        <div>
-                          <div className="text-xs text-gray-300">Address</div>
-                          <div className="font-medium text-base">{address}</div>
+                          {/* Address */}
+                          <div>
+                            <div className="text-xs ">Address</div>
+                            <div className="font-medium text-base">
+                              {address}
+                            </div>
+                          </div>
                         </div>
 
                         {/* Bio */}
@@ -451,7 +485,7 @@ function Main() {
                       <img
                         src="/cyberman.png"
                         alt=""
-                        srcset=""
+                       
                         className="lg:h-30 lg:w-full rounded-t-2xl"
                       />
                     </div>
