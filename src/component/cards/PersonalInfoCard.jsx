@@ -15,12 +15,12 @@ const PersonalInfoCard = ({
     <div className="relative h-[30vh] w-full overflow-hidden rounded-xl">
       {/* Blurred background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center filter blur-lg  scale-110"
+        className="absolute inset-0 bg-cover bg-center filter blur-lg scale-110"
         style={{ backgroundImage: "url('/NExtpage.png')" }}
       />
 
       {/* Glossy overlay */}
-      <div className="relative z-10 h-full w-full bg-black/0 backdrop-blur-xl px-10 py-4 text-white">
+      <div className="relative z-10 h-full w-full bg-black/70 backdrop-blur-xl px-10 py-4 text-white">
         {/* Heading */}
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Personal Information</h1>
