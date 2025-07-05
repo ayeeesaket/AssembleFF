@@ -1,19 +1,33 @@
 import React from "react";
 
-const GameCard = ({ username, id, rank, level }) => {
+const GameCard = ({
+  username,
+  id,
+  rank,
+  level,
+  image,
+  gameId,
+  onDelete,
+  onEdit,
+}) => {
   return (
     <div className="relative h-[22vh] w-full overflow-hidden rounded-xl mt-5">
       {/* Blurred background image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center filter blur-lg scale-110"
-        style={{ backgroundImage: "url('/NExtpage.png')" }}
-      />
+      <div className="absolute inset-0 scale-110">
+        {/* Background image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center filter blur-lg"
+          style={{ backgroundImage: `url(${image})` }}
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/60" />
+      </div>
 
       {/* Glass overlay with original content */}
       <div className="relative z-10 h-full w-full bg-black/0 backdrop-blur-xl px-2 py-2 text-white flex gap-5 rounded-xl">
         <div
-          className="left w-60 bg-black/30 rounded-lg flex items-center justify-center text-xs bg-cover bg-center"
-          style={{ backgroundImage: "url('BLUE.png')" }}
+          className="left w-60   rounded-lg flex items-center justify-center text-xs bg-cover bg-center"
+          style={{ backgroundImage: `url(${image})` }}
         ></div>
 
         <div className="content w-full flex flex-col justify-between">
@@ -21,10 +35,16 @@ const GameCard = ({ username, id, rank, level }) => {
             <div className="heading w-full flex justify-between items-center">
               <h2 className="text-2xl font-bold">Gaming Information</h2>
               <div>
-                <button className="bg-red-600 rounded-xl mr-7 text-white px-2 py-1 text-xs">
+                <button
+                  className="bg-red-600 rounded-xl mr-7 text-white px-2 py-1 text-xs"
+                  onClick={() => onDelete(gameId)}
+                >
                   Delete game
                 </button>
-                <button className="bg-black text-white px-4 py-1 border-white border-1 rounded-xl">
+                <button
+                  className="bg-black text-white px-4 text-xs py-1 border-white border-1 rounded-xl"
+                  onClick={() => onEdit(gameId)}
+                >
                   Edit
                 </button>
               </div>
@@ -59,7 +79,9 @@ const GameCard = ({ username, id, rank, level }) => {
               <div className="text-xs uppercase text-gray-300">Level</div>
               <div className="text-base font-medium">{level}</div>
             </div>
-            <button className="px-5 rounded-xl py-1 bg-green-500">Verify Now</button>
+            <button className="px-5 rounded-xl py-1 text-black text-xm bg-[#33FF33]">
+              Verify Now
+            </button>
           </div>
         </div>
       </div>

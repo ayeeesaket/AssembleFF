@@ -137,6 +137,7 @@ function Main() {
   const [skillLevel, setSkillLevel] = useState("");
   const [gamingPlatform, setGamingPlatform] = useState("");
   const [gamingServer, setGamingServer] = useState("");
+
   // ************gamedetails *************:
 
   const [gameData, setGameData] = useState(
@@ -158,6 +159,27 @@ function Main() {
   };
   const currentGame = gameData[activeGameId];
   console.log(gameData);
+  // ✅ Delete handler passed to GameCard
+  const handleDeleteGame = (idToDelete) => {
+    setSelectedGames((prevGames) =>
+      prevGames.filter((game) => game !== idToDelete)
+    );
+    if (activeGameId === idToDelete) {
+      setActiveGameId("");
+      setGameId("");
+      setGameRank("");
+      setGameLevel("");
+      setGameUsername("");
+      setCSRank("");
+    }
+  };
+  // editing game dateils from card component
+  const handleEditGame = (gameId) => {
+    setSubmitGameData(false);
+    setActiveGameId(gameId);
+    setDetailsClicked(true);
+  };
+
   // **********************************
 
   console.log(selectedGames);
@@ -170,9 +192,20 @@ function Main() {
   // *********** Submit Game Data*************
   const [submitGameData, setSubmitGameData] = useState(false);
   const handleSubmitGameData = () => {
-    setSubmitGameData(true);
-    console.log("Game data submitted:", gameData);
+    const currentIndex = selectedGames.indexOf(activeGameId);
+    const nextIndex = currentIndex + 1;
+
+    if (nextIndex < selectedGames.length) {
+      // Go to the next game
+      setActiveGameId(selectedGames[nextIndex]);
+      // Return to selection view (optional)
+    } else {
+      // All games completed → move to next page
+      setSubmitGameData(true);
+      console.log("All game data submitted:", gameData);
+    }
   };
+  const handlePersonalInfoEdit = (tab) => {};
 
   return (
     <div
@@ -189,7 +222,7 @@ function Main() {
       } bg-cover font-sa h-screen w-screen`}
     >
       {/* Navbar */}
-      <div className="lg:h-14 lg:w-full bg-white/25 backdrop-blur-xl" />
+      <div className="lg:h-14 lg:w-full  bg-black/50 backdrop-blur-xl" />
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
@@ -204,7 +237,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-white/25 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
+          } flex-1 bg-black/30 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div
@@ -988,6 +1021,7 @@ function Main() {
                     state={state}
                     country={country}
                     pincode={pinCode}
+                    onEdit={handlePersonalInfoEdit("PERSONAL")}
                   />
                 </div>
 
@@ -1014,9 +1048,14 @@ function Main() {
                     socialMedia=""
                   />
                 </div>
+
                 <div className="flex-shrink-0 space-y-4">
                   {selectedGames.map((gameId) => {
                     const currentGame = gameData[gameId];
+                    const gameDetails = dropdownGameOptions.find(
+                      (g) => g.id === gameId
+                    );
+
                     return (
                       <GameCard
                         key={gameId}
@@ -1024,9 +1063,43 @@ function Main() {
                         id={currentGame?.id}
                         rank={currentGame?.rank}
                         level={currentGame?.level}
+                        image={gameDetails?.image}
+                        onDelete={handleDeleteGame}
+                        onEdit={handleEditGame}
+                        gameId={gameId}
                       />
                     );
                   })}
+                </div>
+
+                {/* Checkbox and Continue Button */}
+                <div className="mt-6 px-2 space-y-4">
+                  <label className="flex items-start space-x-3 text-sm text-white">
+                    <input
+                      type="checkbox"
+                      className="mt-1 h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                      required
+                    />
+                    <span>
+                      I have read and agree to the{" "}
+                      <span className="underline cursor-pointer text-blue-400">
+                        Privacy Policy
+                      </span>{" "}
+                      and{" "}
+                      <span className="underline cursor-pointer text-blue-400">
+                        Terms & Conditions
+                      </span>{" "}
+                      regarding the use of my personal, educational, and gaming
+                      data.
+                    </span>
+                  </label>
+
+                  <button
+                    className="w-full text-white py-3 rounded-xl border border-white transition-all duration-400 ease-in-out hover:bg-black hover:border-none   hover:shadow-md hover:scale-[1.01]"
+                    type="submit"
+                  >
+                    Continue
+                  </button>
                 </div>
               </div>
             )}
