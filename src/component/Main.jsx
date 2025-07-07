@@ -144,12 +144,14 @@ function Main() {
 
   // ************gamedetails *************:
 
-  const [gameData, setGameData] = useState({
-    bgmi: { id: "", username: "", rank: "", level: "" },
-    freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
-    valorant: { id: "", username: "", rank: "", level: "" },
-    codm: { id: "", username: "", rank: "", level: "" },
-  } || {});
+  const [gameData, setGameData] = useState(
+    {
+      bgmi: { id: "", username: "", rank: "", level: "" },
+      freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
+      valorant: { id: "", username: "", rank: "", level: "" },
+      codm: { id: "", username: "", rank: "", level: "" },
+    } || {}
+  );
   const handleInputChange = (field, value) => {
     setGameData((prev) => ({
       ...prev,
@@ -210,7 +212,12 @@ function Main() {
       console.log("All game data submitted:", gameData);
     }
   };
-  const handlePersonalInfoEdit = (tab) => {};
+  const handleCardEdit = (tab) => () => {
+    handleTabClick(tab);
+    setDetailsClicked(false);
+    setSubmitGameData(false);
+    
+  };
 
   return (
     <div
@@ -525,7 +532,6 @@ function Main() {
                       <img
                         src="/cyberman.png"
                         alt=""
-                       
                         className="lg:h-30 lg:w-full rounded-t-2xl"
                       />
                     </div>
@@ -1062,7 +1068,7 @@ function Main() {
                     state={state}
                     country={country}
                     pincode={pinCode}
-                    onEdit={handlePersonalInfoEdit("PERSONAL")}
+                    onEdit={handleCardEdit("PERSONAL")}
                   />
                 </div>
 
@@ -1076,6 +1082,7 @@ function Main() {
                     course={course}
                     startingYear={startingYear}
                     endingYear={endingYear}
+                    onEdit={handleCardEdit("EDUCATIONAL")}
                   />
                 </div>
 
@@ -1087,6 +1094,7 @@ function Main() {
                     gamingServer={gamingServer}
                     favouriteGames=""
                     socialMedia=""
+                    onEdit={handleCardEdit("GAMING")}
                   />
                 </div>
 
@@ -1104,7 +1112,7 @@ function Main() {
                         id={currentGame?.id}
                         rank={currentGame?.rank}
                         level={currentGame?.level}
-                        image={gameDetails?.image}
+                        image={gameDetails?.image2}
                         onDelete={handleDeleteGame}
                         onEdit={handleEditGame}
                         gameId={gameId}

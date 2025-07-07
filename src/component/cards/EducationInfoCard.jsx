@@ -9,6 +9,7 @@ const EducationInfoCard = ({
   endingYear,
   state,
   eduPinCode,
+  onEdit,
 }) => {
   return (
     <div className="relative h-[30vh] w-full mt-5 overflow-hidden rounded-xl">
@@ -28,7 +29,9 @@ const EducationInfoCard = ({
       <div className="relative z-10 h-full w-full bg-black/0 backdrop-blur-xl px-5 py-2  text-white">
         <div className="heading flex justify-between items-center">
           <h1 className="text-2xl font-bold">Educational Information</h1>
-          <button className="bg-black text-white px-4 py-1 border-white border-1 text-xs rounded-xl">
+          <button className="bg-black text-white px-4 py-1 border-white border-1 text-xs rounded-xl"
+          onClick={()=> onEdit()}>
+            
             Edit
           </button>
         </div>
