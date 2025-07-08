@@ -12,7 +12,7 @@ import GameCard from "./cards/GameCard";
 function Main() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
   const [showPopup, setShowPopup] = useState(false);
-
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
   const handleClick = () => {
     setShowPopup(true);
   };
@@ -27,24 +27,28 @@ function Main() {
       name: "Battleground Mobile India",
       image: "/images/BGMI.png",
       description: "Multiplayer battle royale game.",
+      image2: "/images/BGMI2.svg",
     },
     {
       id: "freefire",
       name: "Freefire Max",
       image: "/images/FREEFIRE.png",
       description: "Fast-paced shooter game.",
+      image2: "/images/FREEFIRE2.svg",
     },
     {
       id: "codm",
       name: "Call of Duty Mobile",
       image: "/images/CODM.png",
       description: "Mobile version of the iconic FPS.",
+      image2: "/images/CODM2.svg",
     },
     {
       id: "valorant",
       name: "Valorant",
       image: "/images/Valorant.png",
       description: "Tactical team-based shooter.",
+      image2: "/images/VALORANT2.svg",
     },
   ];
   const dropdownGameOptions1 = [
@@ -137,15 +141,18 @@ function Main() {
   const [skillLevel, setSkillLevel] = useState("");
   const [gamingPlatform, setGamingPlatform] = useState("");
   const [gamingServer, setGamingServer] = useState("");
+
   // ************gamedetails *************:
 const [isDarkTheme, setIsDarkTheme] = useState(true);
 
-  const [gameData, setGameData] = useState({
-    bgmi: { id: "", username: "", rank: "", level: "" },
-    freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
-    valorant: { id: "", username: "", rank: "", level: "" },
-    codm: { id: "", username: "", rank: "", level: "" },
-  } || {});
+  const [gameData, setGameData] = useState(
+    {
+      bgmi: { id: "", username: "", rank: "", level: "" },
+      freefire: { id: "", username: "", rank: "", level: "", csRank: "" },
+      valorant: { id: "", username: "", rank: "", level: "" },
+      codm: { id: "", username: "", rank: "", level: "" },
+    } || {}
+  );
   const handleInputChange = (field, value) => {
     setGameData((prev) => ({
       ...prev,
@@ -157,11 +164,35 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
   };
   const currentGame = gameData[activeGameId];
   console.log(gameData);
+  // ✅ Delete handler passed to GameCard
+  const handleDeleteGame = (idToDelete) => {
+    setSelectedGames((prevGames) =>
+      prevGames.filter((game) => game !== idToDelete)
+    );
+    if (activeGameId === idToDelete) {
+      setActiveGameId("");
+      setGameId("");
+      setGameRank("");
+      setGameLevel("");
+      setGameUsername("");
+      setCSRank("");
+    }
+  };
+  // editing game dateils from card component
+  const handleEditGame = (gameId) => {
+    setSubmitGameData(false);
+    setActiveGameId(gameId);
+    setDetailsClicked(true);
+  };
+
   // **********************************
 
   console.log(selectedGames);
   const handleAddDetails = () => {
-    setDetailsClicked(true);
+    if (selectedGames.length > 0) {
+      setActiveGameId(selectedGames[0]); // ✅ Pick first game automatically
+    }
+    setDetailsClicked(true); // ✅ Show the game detail form
   };
   console.log(detailsClicked);
   console.log(activeGameId);
@@ -169,8 +200,24 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
   // *********** Submit Game Data*************
   const [submitGameData, setSubmitGameData] = useState(false);
   const handleSubmitGameData = () => {
-    setSubmitGameData(true);
-    console.log("Game data submitted:", gameData);
+    const currentIndex = selectedGames.indexOf(activeGameId);
+    const nextIndex = currentIndex + 1;
+
+    if (nextIndex < selectedGames.length) {
+      // Go to the next game
+      setActiveGameId(selectedGames[nextIndex]);
+      // Return to selection view (optional)
+    } else {
+      // All games completed → move to next page
+      setSubmitGameData(true);
+      console.log("All game data submitted:", gameData);
+    }
+  };
+  const handleCardEdit = (tab) => () => {
+    handleTabClick(tab);
+    setDetailsClicked(false);
+    setSubmitGameData(false);
+    
   };
 
   return (
@@ -188,7 +235,7 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
       } bg-cover font-sa h-screen w-screen`}
     >
       {/* Navbar */}
-      <div className="lg:h-14 lg:w-full bg-white/25 backdrop-blur-xl" />
+      <div className="lg:h-14 lg:w-full  bg-black/50 backdrop-blur-xl" />
 
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
@@ -295,7 +342,7 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
                       {/* Content */}
 
                       <div
-                        className={`flex flex-col -mt-3 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[38vh] bg-cover rounded-b-xl justify-between overflow-hidden ${
+                        className={`flex flex-col -mt-3 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[45vh] bg-cover rounded-b-xl justify-between overflow-hidden ${
                           isDarkTheme ? "bg-black/20" : "bg-white/20"
                         }`}
                         style={{
@@ -303,7 +350,7 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
                         }}
                       >
                         <div
-                          className={`flex flex-col p-4 pt-0 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[38vh] justify-between overflow-hidden ${
+                          className={`flex flex-col p-4 pt-0 text-sm md:space-y-2 md:h-[42.5vh] 2xl:h-[45vh] justify-between overflow-hidden ${
                             isDarkTheme
                               ? "bg-black/50 text-white"
                               : "bg-white/60 text-black"
@@ -486,7 +533,6 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
                       <img
                         src="/cyberman.png"
                         alt=""
-                       
                         className="lg:h-30 lg:w-full rounded-t-2xl"
                       />
                     </div>
@@ -785,7 +831,7 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
                                 src={
                                   dropdownGameOptions.find(
                                     (g) => g.id === activeGameId
-                                  )?.image
+                                  )?.image2
                                 }
                                 alt={activeGameId}
                                 className="w-full h-36 object-cover rounded-lg mb-4"
@@ -1023,6 +1069,7 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
                     state={state}
                     country={country}
                     pincode={pinCode}
+                    onEdit={handleCardEdit("PERSONAL")}
                   />
                 </div>
 
@@ -1036,6 +1083,7 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
                     course={course}
                     startingYear={startingYear}
                     endingYear={endingYear}
+                    onEdit={handleCardEdit("EDUCATIONAL")}
                   />
                 </div>
 
@@ -1047,11 +1095,17 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
                     gamingServer={gamingServer}
                     favouriteGames=""
                     socialMedia=""
+                    onEdit={handleCardEdit("GAMING")}
                   />
                 </div>
+
                 <div className="flex-shrink-0 space-y-4">
                   {selectedGames.map((gameId) => {
                     const currentGame = gameData[gameId];
+                    const gameDetails = dropdownGameOptions.find(
+                      (g) => g.id === gameId
+                    );
+
                     return (
                       <GameCard
                         key={gameId}
@@ -1059,9 +1113,43 @@ const [isDarkTheme, setIsDarkTheme] = useState(true);
                         id={currentGame?.id}
                         rank={currentGame?.rank}
                         level={currentGame?.level}
+                        image={gameDetails?.image2}
+                        onDelete={handleDeleteGame}
+                        onEdit={handleEditGame}
+                        gameId={gameId}
                       />
                     );
                   })}
+                </div>
+
+                {/* Checkbox and Continue Button */}
+                <div className="mt-6 px-2 space-y-4">
+                  <label className="flex items-start space-x-3 text-sm text-white">
+                    <input
+                      type="checkbox"
+                      className="mt-1 h-4 w-4 text-blue-600 bg-gray-100 border-gray-300 rounded"
+                      required
+                    />
+                    <span>
+                      I have read and agree to the{" "}
+                      <span className="underline cursor-pointer text-blue-400">
+                        Privacy Policy
+                      </span>{" "}
+                      and{" "}
+                      <span className="underline cursor-pointer text-blue-400">
+                        Terms & Conditions
+                      </span>{" "}
+                      regarding the use of my personal, educational, and gaming
+                      data.
+                    </span>
+                  </label>
+
+                  <button
+                    className="w-full text-white py-3 rounded-xl border border-white transition-all duration-400 ease-in-out hover:bg-black hover:border-none   hover:shadow-md hover:scale-[1.01]"
+                    type="submit"
+                  >
+                    Continue
+                  </button>
                 </div>
               </div>
             )}
