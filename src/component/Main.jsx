@@ -12,7 +12,7 @@ import GameCard from "./cards/GameCard";
 function Main() {
   const svgNames = ["BLUE", "Reyna", "KATANA", "FROSEN", "FAMILY", "WHITE"];
   const [showPopup, setShowPopup] = useState(false);
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  // const [isDarkTheme, setIsDarkTheme] = useState(true);
   const handleClick = () => {
     setShowPopup(true);
   };
@@ -143,6 +143,7 @@ function Main() {
   const [gamingServer, setGamingServer] = useState("");
 
   // ************gamedetails *************:
+const [isDarkTheme, setIsDarkTheme] = useState(true);
 
   const [gameData, setGameData] = useState(
     {
@@ -227,9 +228,9 @@ function Main() {
           : personalInfo
           ? "bg-[url('/InfoBackground.svg')]"
           : educationalInfo
-          ? "bg-[url('/EducationalInfoBG.svg')]"
+          ? "bg-[url('/cyberman.png')]"
           : gamingInfo
-          ? "bg-[url('/GamingInfoBG.svg')]"
+          ? "bg-[url('/GamingInfo.png')]"
           : ""
       } bg-cover font-sa h-screen w-screen`}
     >
@@ -239,7 +240,7 @@ function Main() {
       <div className="flex  flex-row w-full">
         {/* Left Sidebar */}
         <div
-          className="w-14 bg-white/25 backdrop-blur-xl lg:h-120 lg:mt-28"
+          className="w-14 bg-white/30 backdrop-blur-sm lg:h-120 lg:mt-28"
           style={{
             clipPath: "polygon(0% 0%, 1000% 50%, 1000% 50%, 0% 100%)",
           }}
@@ -249,7 +250,7 @@ function Main() {
         <div
           className={`${
             gamingInfo ? "lg:h-[88vh]" : "lg:h-[88vh]"
-          } flex-1 bg-black/10 backdrop-blur-xl rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
+          } flex-1 bg-white/30 backdrop-blur-sm rounded-3xl mt-5 2xl:ml-20 2xl:mr-20 lg:ml-5  lg:mr-5 flex flex-col gap-4`}
         >
           {/* Tabs */}
           <div
