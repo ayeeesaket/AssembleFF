@@ -138,6 +138,7 @@ function Main() {
   const [gamingPlatform, setGamingPlatform] = useState("");
   const [gamingServer, setGamingServer] = useState("");
   // ************gamedetails *************:
+const [isDarkTheme, setIsDarkTheme] = useState(true);
 
   const [gameData, setGameData] = useState({
     bgmi: { id: "", username: "", rank: "", level: "" },
